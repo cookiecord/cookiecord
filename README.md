@@ -7,6 +7,8 @@ WARNING: Don't use this in production yet as the API isn't stable yet and neithe
 
 But, if you want to install it anyway, use yarn:
 `yarn add cookiecord`
+and make sure that your `tsconfig.json` has the `experimentalDecorators` and `emitDecoratorMetadata` options enabled.
+
 
 ## Example
 An example is available [here](https://github.com/ronthecookie/cookiecord/blob/master/src/example.ts)
