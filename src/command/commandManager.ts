@@ -1,4 +1,4 @@
-import { Command, command } from "./command";
+import { Command, command } from ".";
 import { inspect } from "util";
 
 export default class CommandManager {

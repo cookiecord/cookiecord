@@ -2,7 +2,7 @@ import Module from "./module";
 import CookiecordClient from "./client";
 import { listener } from "./listener";
 import { Message } from "discord.js";
-import { Command } from "./command/command";
+import { Command } from "./command";
 import util from "util";
 
 export default class CommandParserModule extends Module {
