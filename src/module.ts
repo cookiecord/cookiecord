@@ -4,9 +4,9 @@ import { Command, ICommandDecoratorMeta, command } from "./command";
 import { Listener, IListenerDecoratorMeta } from "./listener";
 
 export default class Module {
-	protected _client: CookiecordClient;
+	public client: CookiecordClient;
 	constructor(client: CookiecordClient) {
-		this._client = client;
+		this.client = client;
 		const cmds: Command[] = Reflect.getMetadata("cookiecord:commands", this) || [];
 		console.log(`Loaded module ${this.constructor.name} with ${this.processListeners()} listeners and ${this.processCommands()} commands`);
 	}
@@ -22,7 +22,7 @@ export default class Module {
 			};
 			return listener;
 		});
-		listeners.forEach(l => this._client.listenerManager.add(l));
+		listeners.forEach(l => this.client.listenerManager.add(l));
 		return listeners.length;
 	}
 	processCommands() {
@@ -39,7 +39,7 @@ export default class Module {
 			};
 			return newCommand;
 		});
-		commands.forEach(cmd => this._client.commandManager.add(cmd));
+		commands.forEach(cmd => this.client.commandManager.add(cmd));
 		
 		return commands.length;
 	}
