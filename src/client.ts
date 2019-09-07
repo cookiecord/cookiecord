@@ -1,7 +1,7 @@
 import { Client, ClientOptions } from "discord.js";
 import CommandManager from "./command/commandManager";
 import ListenerManager from "./listener/listenerManager";
-import CommandParserModule from "./commandParser";
+import CommandParserModule from "./command/commandParser";
 interface CookiecordOptions {
 
 }

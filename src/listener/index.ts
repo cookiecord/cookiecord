@@ -1,5 +1,5 @@
 import Module from "../module";
-import Event from "../event";
+import Event from "../util/event";
 export interface IListenerDecoratorOptions {
     event: Event;
 }

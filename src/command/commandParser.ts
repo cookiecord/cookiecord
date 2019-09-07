@@ -1,8 +1,8 @@
-import Module from "./module";
-import CookiecordClient from "./client";
-import { listener } from "./listener";
+import Module from "../module";
+import CookiecordClient from "../client";
+import { listener } from "../listener";
 import { Message } from "discord.js";
-import { Command } from "./command";
+import { Command } from ".";
 import util from "util";
 
 export default class CommandParserModule extends Module {
