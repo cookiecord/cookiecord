@@ -60,7 +60,7 @@ export function command(opts: ICommandDecoratorOptions) {
 			types,
 		}
         const targetMetas: ICommandDecoratorMeta[] =
-            Reflect.getMetadata("cookiecord:commandMetas", target) || [];
+		Reflect.getMetadata("cookiecord:commandMetas", target) || [];
         targetMetas.push(newMeta);
         Reflect.defineMetadata("cookiecord:commandMetas", targetMetas, target);
     };
