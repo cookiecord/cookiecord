@@ -8,7 +8,9 @@ export default class Module {
 	constructor(client: CookiecordClient) {
 		this.client = client;
 		const cmds: Command[] = Reflect.getMetadata("cookiecord:commands", this) || [];
-		console.log(`Loaded module ${this.constructor.name} with ${this.processListeners()} listeners and ${this.processCommands()} commands`);
+		this.processListeners();
+		this.processCommands();
+		// console.log(`Loaded module ${this.constructor.name} with ${this.processListeners()} listeners and ${this.processCommands()} commands`);
 	}
 	processListeners() {
 		const listenersMeta: IListenerDecoratorMeta[] =
