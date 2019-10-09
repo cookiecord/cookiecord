@@ -8,7 +8,7 @@ interface CookiecordOptions {
 export default class CookiecordClient extends Client {
 	public commandManager: CommandManager;
 	public listenerManager: ListenerManager;
-	constructor(opts: CookiecordOptions, discordOpts: ClientOptions) { // look at the example lol wait!!! 
+	constructor(opts: CookiecordOptions = {}, discordOpts: ClientOptions = {}) { // look at the example lol wait!!! 
 		super(discordOpts);
 		this.commandManager = new CommandManager();
 		this.listenerManager = new ListenerManager(this);
