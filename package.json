@@ -4,7 +4,7 @@
     "main": "src/index.ts",
     "repository": "git@github.com:ronthecookie/cookiecord.git",
     "author": "RONTheCookie <me@ronthecookie.me>",
-    "license": "MIT",
+    "license": "GPL-3.0",
     "dependencies": {
         "@types/node": "^12.7.2",
         "discord.js": "discordjs/discord.js",
