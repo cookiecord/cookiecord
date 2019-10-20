@@ -1,12 +1,13 @@
 {
     "name": "cookiecord",
     "version": "0.0.1",
-	"main": "dist/index.js",
-	"types": "dist/index.d.ts",
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
     "repository": "git@github.com:ronthecookie/cookiecord.git",
     "author": "RONTheCookie <me@ronthecookie.me>",
     "license": "GPL-3.0",
     "dependencies": {
+        "@hapi/joi": "^16.1.7",
         "@types/node": "^12.7.2",
         "@types/ws": "^6.0.3",
         "discord.js": "discordjs/discord.js",
@@ -14,7 +15,7 @@
         "typescript": "^3.6.3"
     },
     "scripts": {
-		"install": "tsc"
+        "install": "tsc"
     },
     "devDependencies": {
         "ts-node": "^8.4.1"
