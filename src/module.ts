@@ -37,7 +37,8 @@ export default class Module {
 				id: meta.id,
 				types: meta.types,
 				triggers: [meta.id].concat(meta.aliases || []),
-				module: this
+				module: this,
+				permission: meta.permission
 			};
 			return newCommand;
 		});
