@@ -36,7 +36,7 @@ export default class CommandParserModule extends Module {
     }
     @listener({ event: "message" })
     onMessage(msg: Message) {
-        const prefix = "cc!";
+        const prefix = this.client.commandPrefix;
         if (msg.author && msg.author.bot) return;
         if (!msg.content.startsWith(prefix)) return;
         const noPrefix = msg.content.replace(prefix, "");
