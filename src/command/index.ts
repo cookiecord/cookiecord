@@ -11,6 +11,7 @@ export interface ICommandDecoratorOptions {
     description: string;
     aliases?: string[];
     permission?: Permission;
+    single?: boolean;
 }
 export interface ICommandDecoratorMeta {
     description: string;
@@ -18,6 +19,7 @@ export interface ICommandDecoratorMeta {
     id: string;
     types: Function[];
     permission: Permission;
+    single: boolean;
 }
 export interface Command {
     func: Function;
@@ -27,6 +29,7 @@ export interface Command {
     description: string;
     module: Module;
     permission: Permission;
+    single: boolean;
 }
 export function command(opts: ICommandDecoratorOptions) {
     return function(
@@ -61,8 +64,9 @@ export function command(opts: ICommandDecoratorOptions) {
             aliases: opts.aliases,
             description: opts.description,
             id: propertyKey,
-			types,
-			permission: opts.permission || Permission.EVERYONE
+            types,
+            permission: opts.permission || Permission.EVERYONE,
+            single: opts.single || false
         };
         const targetMetas: ICommandDecoratorMeta[] =
             Reflect.getMetadata("cookiecord:commandMetas", target) || [];

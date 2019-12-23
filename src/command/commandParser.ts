@@ -64,27 +64,29 @@ export default class CommandParserModule extends Module {
                 ":warning: unauthorized: elevated permission required."
             );
         }
-
-        if (stringArgs.length !== cmd.types.length)
-            return msg.reply(
-                `:warning: expected ${cmd.types.length} arguments but got ${stringArgs.length} arguments instead`
-            );
         const typedArgs = [] as unknown[];
-        for (const i in stringArgs) {
-            const sa = stringArgs[i];
-            if (!this.types[cmd.types[i].name])
+        if (cmd.single) {
+            typedArgs.push(stringArgs.join(" "));
+        } else {
+            if (stringArgs.length !== cmd.types.length)
                 return msg.reply(
-                    `:warning: command tried to use an unsupported argument type ${cmd.types[i].name}`
+                    `:warning: expected ${cmd.types.length} arguments but got ${stringArgs.length} arguments instead`
                 );
-            const arg = this.types[cmd.types[i].name](sa, msg);
-            if (arg === null || arg === undefined) {
-                return msg.reply(
-                    `:warning: argument #${parseInt(i, 10) +
-                        1} is not of expected type ${cmd.types[i].name}`
-                );
-            } else typedArgs.push(arg);
+            for (const i in stringArgs) {
+                const sa = stringArgs[i];
+                if (!this.types[cmd.types[i].name])
+                    return msg.reply(
+                        `:warning: command tried to use an unsupported argument type ${cmd.types[i].name}`
+                    );
+                const arg = this.types[cmd.types[i].name](sa, msg);
+                if (arg === null || arg === undefined) {
+                    return msg.reply(
+                        `:warning: argument #${parseInt(i, 10) +
+                            1} is not of expected type ${cmd.types[i].name}`
+                    );
+                } else typedArgs.push(arg);
+            }
         }
-
         cmd.func.call(cmd.module, msg, ...typedArgs);
     }
 }

@@ -38,8 +38,11 @@ export default class Module {
 				types: meta.types,
 				triggers: [meta.id].concat(meta.aliases || []),
 				module: this,
-				permission: meta.permission
+				permission: meta.permission,
+				single: meta.single
 			};
+			if (newCommand.single && !(newCommand.types[0].name == "String" && newCommand.types.length == 1))
+				throw new Error(`error while parsing command ${newCommand.id}: single arg commands can only take in one string`);
 			return newCommand;
 		});
 		commands.forEach(cmd => this.client.commandManager.add(cmd));
