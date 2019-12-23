@@ -15,7 +15,7 @@ export default class CookiecordClient extends Client {
 	constructor(opts: CookiecordOptions = {}, discordOpts: ClientOptions = {}) { // look at the example lol wait!!! 
 		super(discordOpts);
 		this.botAdmins = opts.botAdmins || []; 
-		this.commandPrefix = opts.commandPrefix || 'cc!';
+		this.commandPrefix = opts.commandPrefix || "cc!";
 		this.commandManager = new CommandManager();
 		this.listenerManager = new ListenerManager(this);
 		new CommandParserModule(this, opts.commandArgumentTypes || {});
