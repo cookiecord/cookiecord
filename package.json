@@ -11,7 +11,8 @@
     },
     "scripts": {
         "prepublish": "tsc",
-        "example": "ts-node example"
+        "example": "ts-node example",
+        "prettify": "prettier --write **/**"
     },
     "devDependencies": {
         "@hapi/joi": "^16.1.7",
