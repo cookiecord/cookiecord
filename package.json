@@ -7,17 +7,20 @@
     "author": "RONTheCookie <me@ronthecookie.me>",
     "license": "GPL-3.0",
     "dependencies": {
-        "@hapi/joi": "^16.1.7",
-        "@types/node": "^12.7.2",
-        "@types/ws": "^6.0.3",
-        "discord.js": "discordjs/discord.js",
-        "reflect-metadata": "^0.1.13",
-        "typescript": "^3.6.3"
+        "discord.js": "discordjs/discord.js"
     },
     "scripts": {
-        "install": "tsc"
+        "prepublish": "tsc",
+        "example": "ts-node example"
     },
     "devDependencies": {
-        "ts-node": "^8.4.1"
+        "@hapi/joi": "^16.1.7",
+        "@types/dotenv": "^8.2.0",
+        "@types/node": "^13.5.0",
+        "@types/ws": "^6.0.3",
+        "dotenv": "^8.2.0",
+        "reflect-metadata": "^0.1.13",
+        "ts-node": "^8.4.1",
+        "typescript": "^3.6.3"
     }
 }
