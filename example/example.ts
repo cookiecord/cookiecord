@@ -8,6 +8,7 @@ import {
 } from "../src";
 import { Message, GuildMember, User } from "discord.js";
 import { Permission } from "../src";
+import { inspect } from "util";
 
 export default class ExampleModule extends Module {
     constructor(client: CookiecordClient) {
@@ -49,5 +50,29 @@ export default class ExampleModule extends Module {
     })
     single(msg: Message, str: string) {
         msg.reply("You said " + str);
+    }
+
+    // This command is very stupid and should not exist anywhere near production!!!!!!!!!!
+    @command({ description: "eval some js", single: true, permission: Permission.BOT_ADMIN })
+    async eval(msg: Message, js: string) {
+            try {
+                let result = eval(js);
+                if (result instanceof Promise) result = await result;
+                if (typeof result != `string`)
+                    result = inspect(result);
+                if (result.length > 1990)
+                    return await msg.channel.send(
+                        `Message is over the discord message  limit.`
+                    );
+                await msg.channel.send(
+                    "```js\n" +
+                        result.split(this.client.token).join("[TOKEN]") +
+                        "\n```"
+                );
+            } catch (error) {
+                msg.reply(
+                    "error! " + error.split(this.client.token).join("[TOKEN]")
+                );
+            }
     }
 }
