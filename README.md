@@ -1,6 +1,6 @@
 # Cookiecord
 
-Cookiecord is an experimental discord bot framework built in TypeScript using advanced features.
+Cookiecord is an experimental discord bot framework built-in TypeScript using advanced features.
 It has a discord.py-esque module system which allows for easy prototyping and clear concise code.
 
 ## Installation
@@ -11,7 +11,7 @@ Run `yarn add cookiecord` and then make sure you have the `emitDecoratorMetadata
 
 Go to the [Discord Developers Portal](https://discordapp.com/developers/applications/) and make a new bot application then get it's token.
 
-Afterwards, import cookiecord, initalize the client and login with the token.
+Afterwards, import cookiecord, initialize the client and login with the token.
 
 ```ts
 import CookiecordClient from "cookiecord";
@@ -27,31 +27,35 @@ Here's a simple module:
 
 ```ts
 import {
-    command,
-    Module,
-    listener,
-    default as CookiecordClient
+ command,
+ Module,
+ listener,
+ default as CookiecordClient
 } from "cookiecord";
 import { Message, GuildMember, User } from "discord.js";
 
 export default class ExampleModule extends Module {
-    constructor(client: CookiecordClient) {
-        super(client);
-    }
+ constructor(client: CookiecordClient) {
+ super(client);
+ }
 
-    @command({ description: "asd" })
-    test(msg: Message, a: string, b: number, u: User, m: GuildMember) {
-        msg.reply(a + b + u.tag + m.nickname);
-    }
+ @command({ description: "asd" })
+ test(msg: Message, a: string, b: number, u: User, m: GuildMember) {
+ msg.reply(a + b + u.tag + m.nickname);
+ }
 
-    @command({ description: "abc", aliases: ["gc"] })
-    guildcount(msg: Message, offset: number) {
-        msg.reply(this.client.guilds.size + offset);
-    }
+ @command({ description: "abc", aliases: ["gc"] })
+ guildcount(msg: Message, offset: number) {
+ msg.reply(this.client.guilds.size + offset);
+ }
 
-    @listener({ event: "message" })
-    onTest(msg: Message) {
-        console.log("onTest", msg.content);
-    }
+ @listener({ event: "message" })
+ onTest(msg: Message) {
+ console.log("onTest", msg.content);
+ }
 }
 ```
+
+## Philosophy
+- Cookiecord should be simple and not turn into an "ecosystem" like React or get scope creep. (e.g. adding i18n or built-in data store support)
+- Cookiecord shouldn't develop many layers of abstraction between the user and Discord.js. Magic is cool and all but I don't want it turning into a black box.
