@@ -2,23 +2,43 @@ import { Client, ClientOptions } from "discord.js";
 import CommandManager from "./command/commandManager";
 import ListenerManager from "./listener/listenerManager";
 import CommandParserModule, { ArgTypes } from "./command/commandParser";
+import { Module, Command } from ".";
 interface CookiecordOptions {
     botAdmins?: string[];
     commandArgumentTypes?: ArgTypes;
     commandPrefix?: string;
 }
 export default class CookiecordClient extends Client {
-    public commandManager: CommandManager;
-    public listenerManager: ListenerManager;
-    public botAdmins: string[];
-    public commandPrefix: string;
+    private commandManager: CommandManager;
+    private listenerManager: ListenerManager;
+    readonly botAdmins: string[];
+    readonly commandPrefix: string;
+    readonly commandArgumentTypes: ArgTypes;
     constructor(opts: CookiecordOptions = {}, discordOpts: ClientOptions = {}) {
-        // look at the example lol wait!!!
         super(discordOpts);
         this.botAdmins = opts.botAdmins || [];
         this.commandPrefix = opts.commandPrefix || "cc!";
         this.commandManager = new CommandManager();
         this.listenerManager = new ListenerManager(this);
-        new CommandParserModule(this, opts.commandArgumentTypes || {});
+        this.commandArgumentTypes = opts.commandArgumentTypes || {};
+        this.registerModule(CommandParserModule);
+    }
+    getByTrigger(cmdTrigger: string): Command | undefined {
+        return this.commandManager.cmds.find(c =>
+            c.triggers.includes(cmdTrigger)
+        );
+    }
+    registerModule(module: typeof Module) {
+        if (module.name == "Module")
+            throw new Error(
+                "Please pass in your module and not the parent Module class."
+            );
+        const mod = new module(this);
+        mod.processListeners
+            .bind(mod)()
+            .forEach(l => this.listenerManager.add(l));
+        mod.processCommands
+            .bind(mod)()
+            .forEach(c => this.commandManager.add(c));
     }
 }

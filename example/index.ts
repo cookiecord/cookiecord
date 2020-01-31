@@ -4,5 +4,6 @@ import ExampleModule from "./example";
 de.config();
 
 const client = new CookiecordClient();
-new ExampleModule(client);
+// new ExampleModule(client);
+client.registerModule(ExampleModule);
 client.login(process.env.TOKEN);

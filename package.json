@@ -10,7 +10,7 @@
         "discord.js": "discordjs/discord.js"
     },
     "scripts": {
-        "prepublish": "tsc",
+        "prepublish": "rm -rf dist && tsc",
         "example": "ts-node example",
         "prettify": "prettier --write **/**"
     },

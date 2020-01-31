@@ -12,9 +12,8 @@ export type ArgTypes = {
 const USER_PATTERN = /<@!?(\d+)>/;
 
 export default class CommandParserModule extends Module {
-    public client: CookiecordClient;
     private types: ArgTypes;
-    constructor(client: CookiecordClient, types: ArgTypes) {
+    constructor(client: CookiecordClient) {
         super(client);
         // console.log(client);
         this.types = {
@@ -31,7 +30,7 @@ export default class CommandParserModule extends Module {
                 return msg.guild.members.get(res[1]);
             }
         };
-        this.types = Object.assign(this.types, types);
+        this.types = Object.assign(this.types, this.client.commandArgumentTypes);
         this.client = client;
     }
     @listener({ event: "message" })
@@ -42,9 +41,7 @@ export default class CommandParserModule extends Module {
         const noPrefix = msg.content.replace(prefix, "");
         const stringArgs: string[] = noPrefix.split(" ").slice(1) || [];
         const cmdTrigger = noPrefix.split(" ")[0];
-        const cmd = this.client.commandManager.cmds.find((c) =>
-            c.triggers.includes(cmdTrigger)
-        );
+        const cmd = this.client.getByTrigger(cmdTrigger);
         if (!cmd || !msg.author) return;
         let perm: Permission;
         if (msg.member) {
