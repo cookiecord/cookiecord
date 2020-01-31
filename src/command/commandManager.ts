@@ -17,7 +17,6 @@ export default class CommandManager {
             );
         }
         this.cmds.push(cmd);
-        // console.log(inspect(cmd, false, 1, true))
     }
     remove(cmd: Command) {
         delete this.cmds[this.cmds.findIndex(c => c == cmd)];

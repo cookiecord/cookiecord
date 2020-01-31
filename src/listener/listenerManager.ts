@@ -17,11 +17,8 @@ export default class ListenerManager {
 				`Cannot add ${listener.id} because it would conflict with ${conflictingListener.id}.`
             );
 		}
-		// console.log(listener)
 		this.listeners.push(listener);
-		// console.log(inspect(listener,false,1,true))
 		this.client.on(listener.event, (...args: any[]) => listener.func.apply(listener.module, args));
-		// this.client.on(listener.event, (...args: any[]) => console.log("Hai"));
 	}
     remove(listener: Listener) {
         delete this.listeners[this.listeners.findIndex((l) => l == listener)];

@@ -15,7 +15,6 @@ export default class CommandParserModule extends Module {
     private types: ArgTypes;
     constructor(client: CookiecordClient) {
         super(client);
-        // console.log(client);
         this.types = {
             Number: (s) => (isNaN(parseFloat(s)) ? null : parseFloat(s)),
             String: (s) => s,
