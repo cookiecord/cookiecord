@@ -15,7 +15,6 @@ features:
     - argument prompting (wizards)
     - providers (allow functions to be passed for the prefix property etc)
     - cooldowns
-    - custom argument types
     - auto reload dev mode: complex but command editing (so when u send a command, the bot sends a response and you edit the command the bot re-runs the command and edits its previous message)
     - be able to compose types (arg can be a string or a number)
     - support all arguments listed on https://discord-akairo.github.io/#/docs/main/master/arguments/types
