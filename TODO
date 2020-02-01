@@ -20,16 +20,7 @@ features:
     - be able to compose types (arg can be a string or a number)
     - support all arguments listed on https://discord-akairo.github.io/#/docs/main/master/arguments/types
 
-    - discord permission based restrictions (must have BAN_MEMBERS to exec command)
-    - channel restrictions (must be used in guilds) and dm commands
-    - conditional commands (must pass a certain function for the command to be ran)
-    - easy ownerOnly commands
-    - inhibitors
-
-haxified suggestions (i've moved some to other sections):
-    ✘ dynamic arguments (number/types of arguments change based on previous arguments) this is in akairo using generator functions @cancelled(20-01-28 16:22)
-    ✘ finalizers (after commands get run) @cancelled(20-01-28 16:22)
-    ✘ regex commands @cancelled(20-01-28 16:22)
-    ✘ providers? (like database providers) @cancelled(20-01-28 16:22)
-    ✔ command aliases @done
-    ✘ optional argument prompting @cancelled(20-01-28 16:22)
+    - inhibitors system with builtin funcs for common things (global ownerOnly etc) kinda like middleware:
+        - channel type restrictions (guild only, dm only etc)
+        - discord perm restrictions
+        - bot admin
