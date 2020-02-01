@@ -58,4 +58,3 @@ export default class ExampleModule extends Module {
 
 ## Philosophy
 - Cookiecord should be simple and not turn into an "ecosystem" like React or get scope creep. (e.g. adding i18n or built-in data store support)
-- Cookiecord shouldn't develop many layers of abstraction between the user and Discord.js. Magic is cool and all but I don't want it turning into a black box.
