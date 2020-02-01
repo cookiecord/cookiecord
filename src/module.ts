@@ -33,7 +33,6 @@ export default class Module {
                 types: meta.types,
                 triggers: [meta.id].concat(meta.aliases || []),
                 module: this,
-                permission: meta.permission,
                 single: meta.single
             };
             if (

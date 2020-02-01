@@ -23,7 +23,7 @@ export default class CookiecordClient extends Client {
         this.commandArgumentTypes = opts.commandArgumentTypes || {};
         this.registerModule(CommandParserModule);
     }
-    getByTrigger(cmdTrigger: string): Command | undefined {
+    getCommandByTrigger(cmdTrigger: string): Command | undefined {
         return this.commandManager.cmds.find(c =>
             c.triggers.includes(cmdTrigger)
         );

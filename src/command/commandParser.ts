@@ -2,10 +2,6 @@ import Module from "../module";
 import CookiecordClient from "../client";
 import { listener } from "../listener";
 import { Message, MessageMentions } from "discord.js";
-import Permission, {
-    getUserPermission,
-    getMemberPermission
-} from "./permissions";
 export type ArgTypes = {
     [key: string]: (s: string, msg: Message) => unknown;
 };
@@ -40,26 +36,8 @@ export default class CommandParserModule extends Module {
         const noPrefix = msg.content.replace(prefix, "");
         const stringArgs: string[] = noPrefix.split(" ").slice(1) || [];
         const cmdTrigger = noPrefix.split(" ")[0];
-        const cmd = this.client.getByTrigger(cmdTrigger);
+        const cmd = this.client.getCommandByTrigger(cmdTrigger);
         if (!cmd || !msg.author) return;
-        let perm: Permission;
-        if (msg.member) {
-            perm = getMemberPermission(this.client, msg.member);
-        } else if (msg.author) {
-            perm = getUserPermission(this.client, msg.author);
-        } else {
-            console.error(
-                `message ${msg.id} trigging error in channel ${msg.channel.id}: permission check: both member and author values are falsey`
-            );
-            return msg.reply(
-                ":warning: unexpected condition occured: both member and author values are falsey"
-            );
-        }
-        if (cmd.permission > perm) {
-            return msg.reply(
-                ":warning: unauthorized: elevated permission required."
-            );
-        }
         const typedArgs = [] as unknown[];
         if (cmd.single) {
             typedArgs.push(stringArgs.join(" "));

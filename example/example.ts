@@ -3,11 +3,8 @@ import {
     Module,
     listener,
     default as CookiecordClient,
-    getUserPermission,
-    getMemberPermission
 } from "../src";
 import { Message, GuildMember, User } from "discord.js";
-import { Permission } from "../src";
 import { inspect } from "util";
 
 export default class ExampleModule extends Module {
@@ -35,16 +32,6 @@ export default class ExampleModule extends Module {
         msg.reply("Pong. :ping_pong:");
     }
     @command({
-        permission: Permission.GUILD_MOD,
-        description: "Checking if user is mod or higher"
-    })
-    modcheck(msg: Message) {
-        if (!msg.member) return;
-        msg.reply(
-            `permission = ${getMemberPermission(this.client, msg.member)}`
-        );
-    }
-    @command({
         description: "one big string for all of the args",
         single: true
     })
@@ -53,7 +40,7 @@ export default class ExampleModule extends Module {
     }
 
     // This command is very stupid and should not exist anywhere near production!!!!!!!!!!
-    @command({ description: "eval some js", single: true, permission: Permission.BOT_ADMIN })
+    @command({ description: "eval some js", single: true })
     async eval(msg: Message, js: string) {
             try {
                 let result = eval(js);
