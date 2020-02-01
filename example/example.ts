@@ -41,7 +41,7 @@ export default class ExampleModule extends Module {
         msg.reply("You said " + str);
     }
     @command({
-        inhibitors: [CommonInhibitors.botAdminOnly]
+        inhibitors: [CommonInhibitors.botAdminsOnly]
     })
     badboy(msg: Message, m: GuildMember) {
         msg.channel.send(`${m} is a bad boy!`);
