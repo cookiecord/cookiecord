@@ -1,8 +1,5 @@
 Use https://marketplace.visualstudio.com/items?itemName=fabiospampinato.vscode-todo-plus to view this correctly.
 
-done:
-    ✔ permissions system @started(19-10-20 20:03) @done(19-10-25 14:27) @lasted(4d18h24m20s)
-    ✔ custom arg types for cmds @started(19-10-29 13:34) @done(19-10-29 14:42) @lasted(1h8m30s)
 longterm:
     - tests with jest
     - more detailed docs
@@ -19,8 +16,8 @@ features:
     - be able to compose types (arg can be a string or a number)
     - support all arguments listed on https://discord-akairo.github.io/#/docs/main/master/arguments/types
     
-    - inhibitors system with builtin funcs for common things (global ownerOnly etc) kinda like middleware:
+    inhibitors system with builtin funcs for common things (global ownerOnly etc) kinda like middleware:
+        ✔ bot admin @done(20-02-01 14:59)
         - channel type restrictions (guild only, dm only etc)
         - discord perm restrictions
-        - bot admin
         - cooldowns

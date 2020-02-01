@@ -3,7 +3,7 @@ import "reflect-metadata";
 import { Message } from "discord.js";
 import CookiecordClient from "../client";
 type Inhibitor = ((msg: Message, client: CookiecordClient) => Promise<string | undefined>);
-
+export { Inhibitor }
 export interface ICommandDecoratorOptions {
     description: string;
     aliases: string[];

@@ -1,6 +1,13 @@
-import { command, Module, listener, default as CookiecordClient } from "../src";
+import {
+    command,
+    Module,
+    listener,
+    default as CookiecordClient,
+    CommonInhibitors
+} from "../src";
 import { Message, GuildMember, User } from "discord.js";
 import { inspect } from "util";
+import { readFileSync } from "fs";
 
 export default class ExampleModule extends Module {
     constructor(client: CookiecordClient) {
@@ -34,15 +41,14 @@ export default class ExampleModule extends Module {
         msg.reply("You said " + str);
     }
     @command({
-        inhibitors: [
-            async (msg: Message, client: CookiecordClient) =>
-                client.botAdmins.includes(msg.author.id)
-                    ? undefined
-                    : "not a bot admin"
-        ]
+        inhibitors: [CommonInhibitors.botAdminOnly]
     })
     badboy(msg: Message, m: GuildMember) {
         msg.channel.send(`${m} is a bad boy!`);
+    }
+    @command({})
+    todo(msg: Message) {
+        msg.reply("```" + readFileSync("../TODO").toString() + "```");
     }
     // This command is very stupid and should not exist anywhere near production!!!!!!!!!!
     // @command({ description: "eval some js", single: true })
