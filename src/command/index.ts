@@ -1,23 +1,16 @@
 import Module from "../module";
 import "reflect-metadata";
-/*
-function enumerable(value: boolean) {
-    return function (target: any, propertyKey: string, descriptor: PropertyDescriptor) {
-        descriptor.enumerable = value;
-    };
-}*/
 export interface ICommandDecoratorOptions {
-    description: string;
+    description?: string;
     aliases?: string[];
     single?: boolean;
 }
-export interface ICommandDecoratorMeta {
-    description: string;
-    aliases?: string[];
+interface ICommandDecoratorMeta {
     id: string;
     types: Function[];
-    single: boolean;
 }
+type ICommandDecorator = ICommandDecoratorMeta & ICommandDecoratorOptions;
+export { ICommandDecorator };
 export interface Command {
     func: Function;
     types: Function[];
@@ -48,22 +41,14 @@ export function command(opts: ICommandDecoratorOptions) {
             target,
             propertyKey
         ).slice(1);
-        // const newCommand: Command = {
-        //     description: opts.description,
-        //     func: Reflect.get(target, propertyKey),
-        //     id: propertyKey,
-        //     types: types,
-        //     triggers: [propertyKey].concat(opts.aliases || []),
-        //     module: target
-        // };
-        const newMeta: ICommandDecoratorMeta = {
-            aliases: opts.aliases,
+        const newMeta: ICommandDecorator = {
+            aliases: opts.aliases || [],
             description: opts.description,
             id: propertyKey,
             types,
             single: opts.single || false
         };
-        const targetMetas: ICommandDecoratorMeta[] =
+        const targetMetas: ICommandDecorator[] =
             Reflect.getMetadata("cookiecord:commandMetas", target) || [];
         targetMetas.push(newMeta);
         Reflect.defineMetadata("cookiecord:commandMetas", targetMetas, target);

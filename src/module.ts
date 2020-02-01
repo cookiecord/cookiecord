@@ -1,6 +1,6 @@
 import CookiecordClient from "./client";
 import "reflect-metadata";
-import { Command, ICommandDecoratorMeta, command } from "./command";
+import { Command, ICommandDecorator } from "./command";
 import { Listener, IListenerDecoratorMeta } from "./listener";
 
 export default class Module {
@@ -23,22 +23,22 @@ export default class Module {
         return listeners;
     }
     processCommands() {
-        const targetMetas: ICommandDecoratorMeta[] =
+        const targetMetas: ICommandDecorator[] =
             Reflect.getMetadata("cookiecord:commandMetas", this) || [];
         const commands = targetMetas.map(meta => {
             const newCommand: Command = {
-                description: meta.description,
+                description: meta.description || "No description set.",
                 func: Reflect.get(this, meta.id),
                 id: meta.id,
                 types: meta.types,
                 triggers: [meta.id].concat(meta.aliases || []),
                 module: this,
-                single: meta.single
+				single: meta.single || false
             };
             if (
                 newCommand.single &&
                 !(
-                    newCommand.types[0].name == "String" &&
+                    newCommand.types[0] == String &&
                     newCommand.types.length == 1
                 )
             )
