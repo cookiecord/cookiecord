@@ -29,7 +29,7 @@ export default class CommandParserModule extends Module {
         this.client = client;
     }
     @listener({ event: "message" })
-    onMessage(msg: Message) {
+    async onMessage(msg: Message) {
         const prefix = this.client.commandPrefix;
         if (msg.author && msg.author.bot) return;
         if (!msg.content.startsWith(prefix)) return;
@@ -38,6 +38,16 @@ export default class CommandParserModule extends Module {
         const cmdTrigger = noPrefix.split(" ")[0];
         const cmd = this.client.getCommandByTrigger(cmdTrigger);
         if (!cmd || !msg.author) return;
+        
+        for (const inhibitor of cmd.inhibitors) {
+            const reason = await inhibitor(msg, this.client);
+            if (reason) {
+                // It inhibited
+                msg.reply(`:warning: command was inhibited: ${reason}`);
+                return;
+            }
+        }
+
         const typedArgs = [] as unknown[];
         if (cmd.single) {
             typedArgs.push(stringArgs.join(" "));

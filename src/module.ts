@@ -14,7 +14,7 @@ export default class Module {
         const listeners = listenersMeta.map(opts => {
             const listener: Listener = {
                 event: opts.event,
-                id: opts.id,
+                id: this.constructor.name + "/" + opts.id,
                 module: this,
                 func: opts.func
             };
@@ -27,13 +27,14 @@ export default class Module {
             Reflect.getMetadata("cookiecord:commandMetas", this) || [];
         const commands = targetMetas.map(meta => {
             const newCommand: Command = {
-                description: meta.description || "No description set.",
+                description: meta.description,
                 func: Reflect.get(this, meta.id),
-                id: meta.id,
+                id: this.constructor.name + "/" + meta.id,
                 types: meta.types,
-                triggers: [meta.id].concat(meta.aliases || []),
+                triggers: [meta.id].concat(meta.aliases),
                 module: this,
-				single: meta.single || false
+                single: meta.single,
+                inhibitors: meta.inhibitors
             };
             if (
                 newCommand.single &&

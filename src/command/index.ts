@@ -1,9 +1,14 @@
 import Module from "../module";
 import "reflect-metadata";
+import { Message } from "discord.js";
+import CookiecordClient from "../client";
+type Inhibitor = ((msg: Message, client: CookiecordClient) => Promise<string | undefined>);
+
 export interface ICommandDecoratorOptions {
-    description?: string;
-    aliases?: string[];
-    single?: boolean;
+    description: string;
+    aliases: string[];
+    single: boolean;
+    inhibitors: Inhibitor[];
 }
 interface ICommandDecoratorMeta {
     id: string;
@@ -19,8 +24,9 @@ export interface Command {
     description: string;
     module: Module;
     single: boolean;
+    inhibitors: Inhibitor[];
 }
-export function command(opts: ICommandDecoratorOptions) {
+export function command(opts: Partial<ICommandDecoratorOptions>) {
     return function(
         target: Module,
         propertyKey: string,
@@ -43,10 +49,11 @@ export function command(opts: ICommandDecoratorOptions) {
         ).slice(1);
         const newMeta: ICommandDecorator = {
             aliases: opts.aliases || [],
-            description: opts.description,
+            description: opts.description || "No description set.",
             id: propertyKey,
             types,
-            single: opts.single || false
+            single: opts.single || false,
+            inhibitors: opts.inhibitors || []
         };
         const targetMetas: ICommandDecorator[] =
             Reflect.getMetadata("cookiecord:commandMetas", target) || [];

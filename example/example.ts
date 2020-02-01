@@ -1,9 +1,4 @@
-import {
-    command,
-    Module,
-    listener,
-    default as CookiecordClient,
-} from "../src";
+import { command, Module, listener, default as CookiecordClient } from "../src";
 import { Message, GuildMember, User } from "discord.js";
 import { inspect } from "util";
 
@@ -23,8 +18,8 @@ export default class ExampleModule extends Module {
     }
 
     @listener({ event: "message" })
-    onTest(msg: Message) {
-        console.log("onTest", msg.content);
+    onMessage(msg: Message) {
+        console.log("onMessage", msg.content);
     }
 
     @command({ description: "pong" })
@@ -38,7 +33,17 @@ export default class ExampleModule extends Module {
     single(msg: Message, str: string) {
         msg.reply("You said " + str);
     }
-
+    @command({
+        inhibitors: [
+            async (msg: Message, client: CookiecordClient) =>
+                client.botAdmins.includes(msg.author.id)
+                    ? undefined
+                    : "not a bot admin"
+        ]
+    })
+    badboy(msg: Message, m: GuildMember) {
+        msg.channel.send(`${m} is a bad boy!`);
+    }
     // This command is very stupid and should not exist anywhere near production!!!!!!!!!!
     // @command({ description: "eval some js", single: true })
     // async eval(msg: Message, js: string) {
@@ -49,7 +54,7 @@ export default class ExampleModule extends Module {
     //                 result = inspect(result);
     //             if (result.length > 1990)
     //                 return await msg.channel.send(
-    //                     `Message is over the discord message  limit.`
+    //                     `Message is over the discord message limit.`
     //                 );
     //             await msg.channel.send(
     //                 "```js\n" +

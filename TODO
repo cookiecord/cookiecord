@@ -12,14 +12,15 @@ bugs:
     - move argument type check to module from commandParser
     
 features:
+    - error handling for cmds and listeners
     - argument prompting (wizards)
     - providers (allow functions to be passed for the prefix property etc)
-    - cooldowns
     - auto reload dev mode: complex but command editing (so when u send a command, the bot sends a response and you edit the command the bot re-runs the command and edits its previous message)
     - be able to compose types (arg can be a string or a number)
     - support all arguments listed on https://discord-akairo.github.io/#/docs/main/master/arguments/types
-
+    
     - inhibitors system with builtin funcs for common things (global ownerOnly etc) kinda like middleware:
         - channel type restrictions (guild only, dm only etc)
         - discord perm restrictions
         - bot admin
+        - cooldowns
