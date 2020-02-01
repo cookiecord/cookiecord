@@ -5,7 +5,7 @@ import {
     default as CookiecordClient,
     CommonInhibitors
 } from "../src";
-import { Message, GuildMember, User } from "discord.js";
+import { Message, GuildMember, User, Guild } from "discord.js";
 import { inspect } from "util";
 import { readFileSync } from "fs";
 
@@ -49,6 +49,10 @@ export default class ExampleModule extends Module {
     @command({})
     todo(msg: Message) {
         msg.reply("```" + readFileSync("../TODO").toString() + "```");
+    }
+    @command({ inhibitors: [CommonInhibitors.hasGuildPermission("BAN_MEMBERS")] })
+    fakeban(msg: Message, m: GuildMember) {
+        msg.channel.send(`${m}:hammer:`);
     }
     // This command is very stupid and should not exist anywhere near production!!!!!!!!!!
     // @command({ description: "eval some js", single: true })
