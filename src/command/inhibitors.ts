@@ -7,4 +7,10 @@ const botAdminsOnly: Inhibitor = async (
     client: CookiecordClient
 ) => (client.botAdmins.includes(msg.author.id) ? undefined : "not a bot admin");
 
-export default { botAdminsOnly }
+const guildsOnly: Inhibitor = async (msg: Message, client: CookiecordClient) =>
+    msg.member ? undefined : "not in a guild";
+
+const dmsOnly: Inhibitor = async (msg: Message, client: CookiecordClient) =>
+    msg.channel.type == "dm" ? undefined : "not in dms";
+
+export default { botAdminsOnly, guildsOnly, dmsOnly };
