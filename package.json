@@ -8,8 +8,10 @@
     "license": "GPL-3.0",
     "dependencies": {
         "@types/dotenv-safe": "^8.1.0",
+        "@types/humanize-duration": "^3.18.0",
         "discord.js": "discordjs/discord.js",
-        "dotenv-safe": "^8.2.0"
+        "dotenv-safe": "^8.2.0",
+        "humanize-duration": "^3.21.0"
     },
     "scripts": {
         "prepublish": "rm -rf dist && tsc",

@@ -1,6 +1,7 @@
 import { Inhibitor } from "..";
-import { Message, PermissionResolvable } from "discord.js";
+import { Message, PermissionResolvable, User } from "discord.js";
 import CookiecordClient from "..";
+import humanizeDuration from "humanize-duration";
 
 export function mergeInhibitors(a: Inhibitor, b: Inhibitor): Inhibitor {
     return async (msg, client) => {
@@ -27,4 +28,29 @@ const hasGuildPermission = (perm: PermissionResolvable) =>
             ? undefined
             : "missing discord permission " + perm
     );
-export default { botAdminsOnly, guildsOnly, dmsOnly, hasGuildPermission };
+
+const userCooldown = (ms: number): Inhibitor => {
+    const map: Map<string, number> = new Map();
+    return async (msg, client) => {
+        if (map.has(msg.author.id)) {
+            if ((map.get(msg.author.id) || 0) < Date.now()) {
+                map.delete(msg.author.id);
+                return undefined;
+            } else {
+                return `you must wait ${humanizeDuration(
+                    Date.now() - (map.get(msg.author.id) || 0)
+                )} to run this command!`;
+            }
+        } else {
+            map.set(msg.author.id, Date.now() + ms);
+            return undefined;
+        }
+    };
+};
+export default {
+    botAdminsOnly,
+    guildsOnly,
+    dmsOnly,
+    hasGuildPermission,
+    userCooldown
+};

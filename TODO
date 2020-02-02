@@ -20,4 +20,5 @@ features:
         ✔ bot admin @done(20-02-01 14:59)
         ✔ channel type restrictions (guild only, dm only etc) @done(20-02-01 15:17)
         ✔ discord perm restrictions @done(20-02-01 15:34)
-        - cooldowns
+        ✔ cooldowns @done(20-02-02 11:11)
+-

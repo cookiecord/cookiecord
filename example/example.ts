@@ -50,7 +50,12 @@ export default class ExampleModule extends Module {
     todo(msg: Message) {
         msg.reply("```" + readFileSync("../TODO").toString() + "```");
     }
-    @command({ inhibitors: [CommonInhibitors.hasGuildPermission("BAN_MEMBERS")] })
+    @command({
+        inhibitors: [
+            CommonInhibitors.hasGuildPermission("BAN_MEMBERS"),
+            CommonInhibitors.userCooldown(1000 * 10)
+        ]
+    })
     fakeban(msg: Message, m: GuildMember) {
         msg.channel.send(`${m}:hammer:`);
     }
