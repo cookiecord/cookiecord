@@ -1,8 +1,8 @@
 import { Client, ClientOptions } from "discord.js";
+import { Command, Module } from ".";
 import CommandManager from "./command/commandManager";
-import ListenerManager from "./listener/listenerManager";
 import CommandParserModule, { ArgTypes } from "./command/commandParser";
-import { Module, Command } from ".";
+import ListenerManager from "./listener/listenerManager";
 interface CookiecordOptions {
     botAdmins?: string[];
     commandArgumentTypes?: ArgTypes;

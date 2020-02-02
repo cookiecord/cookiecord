@@ -1,7 +1,7 @@
-import CookiecordClient from "./client";
 import "reflect-metadata";
+import CookiecordClient from "./client";
 import { Command, ICommandDecorator } from "./command";
-import { Listener, IListenerDecoratorMeta } from "./listener";
+import { IListenerDecoratorMeta, Listener } from "./listener";
 
 export default class Module {
     public client: CookiecordClient;

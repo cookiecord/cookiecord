@@ -1,7 +1,7 @@
-import Module from "../module";
+import { Message } from "discord.js";
 import CookiecordClient from "../client";
 import { listener } from "../listener";
-import { Message, MessageMentions } from "discord.js";
+import Module from "../module";
 export type ArgTypes = {
     [key: string]: (s: string, msg: Message) => unknown;
 };
@@ -12,8 +12,8 @@ export default class CommandParserModule extends Module {
     constructor(client: CookiecordClient) {
         super(client);
         this.types = {
-            Number: (s) => (isNaN(parseFloat(s)) ? null : parseFloat(s)),
-            String: (s) => s,
+            Number: s => (isNaN(parseFloat(s)) ? null : parseFloat(s)),
+            String: s => s,
             User: (s, msg) => {
                 const res = USER_PATTERN.exec(s);
                 if (!res) return;
@@ -25,7 +25,10 @@ export default class CommandParserModule extends Module {
                 return msg.guild.members.get(res[1]);
             }
         };
-        this.types = Object.assign(this.types, this.client.commandArgumentTypes);
+        this.types = Object.assign(
+            this.types,
+            this.client.commandArgumentTypes
+        );
         this.client = client;
     }
     @listener({ event: "message" })
@@ -38,7 +41,7 @@ export default class CommandParserModule extends Module {
         const cmdTrigger = noPrefix.split(" ")[0];
         const cmd = this.client.getCommandByTrigger(cmdTrigger);
         if (!cmd || !msg.author) return;
-        
+
         for (const inhibitor of cmd.inhibitors) {
             const reason = await inhibitor(msg, this.client);
             if (reason) {

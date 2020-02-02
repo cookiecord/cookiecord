@@ -1,5 +1,4 @@
-import { Command, command } from ".";
-import { inspect } from "util";
+import { Command } from ".";
 
 export default class CommandManager {
     cmds: Command[];

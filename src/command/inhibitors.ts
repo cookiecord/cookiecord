@@ -1,7 +1,6 @@
-import { Inhibitor } from "..";
-import { Message, PermissionResolvable, User } from "discord.js";
-import CookiecordClient from "..";
+import { Message, PermissionResolvable } from "discord.js";
 import humanizeDuration from "humanize-duration";
+import CookiecordClient, { Inhibitor } from "..";
 
 export function mergeInhibitors(a: Inhibitor, b: Inhibitor): Inhibitor {
     return async (msg, client) => {

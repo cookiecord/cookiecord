@@ -2,13 +2,13 @@
 export { default } from "./client";
 export {
     Command,
-    ICommandDecoratorOptions,
     command,
+    ICommandDecoratorOptions,
     Inhibitor
 } from "./command";
 export {
     default as CommonInhibitors,
     mergeInhibitors
 } from "./command/inhibitors";
-export { default as Module } from "./module";
 export { IListenerDecoratorOptions, listener, Listener } from "./listener";
+export { default as Module } from "./module";

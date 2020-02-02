@@ -1,9 +1,13 @@
-import Module from "../module";
-import "reflect-metadata";
 import { Message } from "discord.js";
+import "reflect-metadata";
 import CookiecordClient from "../client";
-type Inhibitor = ((msg: Message, client: CookiecordClient) => Promise<string | undefined>);
-export { Inhibitor }
+import Module from "../module";
+type Inhibitor = (
+    msg: Message,
+    client: CookiecordClient
+) => Promise<string | undefined>;
+export { Inhibitor };
+export { ICommandDecorator };
 export interface ICommandDecoratorOptions {
     description: string;
     aliases: string[];
@@ -15,7 +19,6 @@ interface ICommandDecoratorMeta {
     types: Function[];
 }
 type ICommandDecorator = ICommandDecoratorMeta & ICommandDecoratorOptions;
-export { ICommandDecorator };
 export interface Command {
     func: Function;
     types: Function[];

@@ -30,12 +30,16 @@ export function listener(opts: IListenerDecoratorOptions) {
             throw new TypeError(
                 "Something weird happend.. The decorator wasn't applied to a function."
             );
-		const listenersMeta: IListenerDecoratorMeta[] =
-			Reflect.getMetadata("cookiecord:listenerMetas", target) || [];
-		listenersMeta.push({event: opts.event, id: propertyKey, func: Reflect.get(target, propertyKey)});
+        const listenersMeta: IListenerDecoratorMeta[] =
+            Reflect.getMetadata("cookiecord:listenerMetas", target) || [];
+        listenersMeta.push({
+            event: opts.event,
+            id: propertyKey,
+            func: Reflect.get(target, propertyKey)
+        });
         Reflect.defineMetadata(
             "cookiecord:listenerMetas",
-			listenersMeta,
+            listenersMeta,
             target
         );
     };
