@@ -10,6 +10,7 @@ interface CookiecordOptions {
 }
 export default class CookiecordClient extends Client {
     private commandManager: CommandManager;
+    private modules: Set<Module> = new Set();
     private listenerManager: ListenerManager;
     readonly botAdmins: string[];
     readonly commandPrefix: string;
@@ -40,5 +41,17 @@ export default class CookiecordClient extends Client {
         mod.processCommands
             .bind(mod)()
             .forEach(c => this.commandManager.add(c));
+        this.modules.add(mod);
+    }
+    unregisterModule(mod: Module) {
+        if (!this.modules.has(mod))
+            throw new Error("Cannot register unregistered module");
+        this.listenerManager.listeners
+            .filter(l => l.module == mod)
+            .forEach(l => this.listenerManager.remove(l));
+        this.commandManager.cmds
+            .filter(c => c.module == mod)
+            .forEach(c => this.commandManager.remove(c));
+        this.modules.delete(mod);
     }
 }
