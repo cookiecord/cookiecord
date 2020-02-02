@@ -38,10 +38,7 @@ export default class Module {
             };
             if (
                 newCommand.single &&
-                !(
-                    newCommand.types[0] == String &&
-                    newCommand.types.length == 1
-                )
+                !(newCommand.types[0] == String && newCommand.types.length == 1)
             )
                 throw new Error(
                     `error while parsing command ${newCommand.id}: single arg commands can only take in one string`
