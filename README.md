@@ -46,7 +46,7 @@ Pull requests are always welcome but I would like Cookiecord to remain simple so
 ## Support
 
 If you are having issues, please let us know.
-We have a Support chat server on [Discord](https://discord.gg/ubPbX98).
+We have a support chat on [Discord](https://discord.gg/ubPbX98).
 
 ## License
 
