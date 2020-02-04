@@ -42,6 +42,7 @@ export default class CookiecordClient extends Client {
             .bind(mod)()
             .forEach(c => this.commandManager.add(c));
         this.modules.add(mod);
+        return this;
     }
     unregisterModule(mod: Module) {
         if (!this.modules.has(mod))
@@ -53,5 +54,6 @@ export default class CookiecordClient extends Client {
             .filter(c => c.module == mod)
             .forEach(c => this.commandManager.remove(c));
         this.modules.delete(mod);
+        return this;
     }
 }

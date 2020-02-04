@@ -29,7 +29,9 @@ export interface Command {
     single: boolean;
     inhibitors: Inhibitor[];
 }
-export function command(opts: Partial<ICommandDecoratorOptions>) {
+export function command(
+    opts: Partial<ICommandDecoratorOptions> | undefined = {}
+) {
     return function(
         target: Module,
         propertyKey: string,

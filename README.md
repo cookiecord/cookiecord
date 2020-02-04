@@ -1,60 +1,53 @@
 # Cookiecord
 
-Cookiecord is an experimental discord bot framework built-in TypeScript using advanced features.
-It has a discord.py-esque module system which allows for easy prototyping and clear concise code.
+Cookiecord simplifies discord bot development by providing a modern and easy to use interface.
+
+Just import Cookiecord and Discord.js and make your commands (and listeners):
+
+```ts
+import { Message } from "discord.js";
+import { command, default as CookiecordClient, Module } from "cookiecord";
+
+class PingModule extends Module {
+    constructor(client: CookiecordClient) {
+        super(client);
+    }
+
+    @command({})
+    ping(msg: Message) {
+        msg.reply("Pong. :ping_pong:");
+    }
+}
+
+new CookiecordClient().registerModule(PingModule).login(process.env.TOKEN);
+```
+
+## Features
+
+-   Simple: Cookiecord aims to keep the API very simple and easy to use.
+-   Inhibitors: Cookiecord includes a powerful inhibitor system with builtin inhibitors to make restricting commands super easy.
+-   Powerful Argument System: Cookiecord automatically validates the user's input based on the variables your function takes in.
 
 ## Installation
 
-Run `yarn add cookiecord` and then make sure you have the `emitDecoratorMetadata` and `experimentalDecorators` options on in your tsconfig.
+If you would like to help test Cookiecord while it's still young you can install Cookiecord by running:
 
-## Usage
-
-Go to the [Discord Developers Portal](https://discordapp.com/developers/applications/) and make a new bot application then get it's token.
-
-Afterwards, import cookiecord, initialize the client and login with the token.
-
-```ts
-import CookiecordClient from "cookiecord";
-const client = new CookiecordClient();
-client.login("YourTokenHere");
+```sh
+# With Yarn
+$ yarn add cookiecord
+# With NPM
+$ npm install cookiecord
 ```
 
-### Modules
+## Contribute
 
-Cookiecord is based on "modules" which contain commands and Discord.js event listeners.
+Pull requests are always welcome but I would like Cookiecord to remain simple so you should probably ask me about it first.
 
-Here's a simple module:
+## Support
 
-```ts
-import {
- command,
- Module,
- listener,
- default as CookiecordClient
-} from "cookiecord";
-import { Message, GuildMember, User } from "discord.js";
+If you are having issues, please let us know.
+We have a Support chat server on [Discord](https://discord.gg/ubPbX98).
 
-export default class ExampleModule extends Module {
- constructor(client: CookiecordClient) {
- super(client);
- }
+## License
 
- @command({ description: "asd" })
- test(msg: Message, a: string, b: number, u: User, m: GuildMember) {
- msg.reply(a + b + u.tag + m.nickname);
- }
-
- @command({ description: "abc", aliases: ["gc"] })
- guildcount(msg: Message, offset: number) {
- msg.reply(this.client.guilds.size + offset);
- }
-
- @listener({ event: "message" })
- onTest(msg: Message) {
- console.log("onTest", msg.content);
- }
-}
-```
-
-## Philosophy
-- Cookiecord should be simple and not turn into an "ecosystem" like React or get scope creep. (e.g. adding i18n or built-in data store support)
+The project is licensed under the GPL-3 license.
