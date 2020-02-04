@@ -13,6 +13,7 @@ export interface ICommandDecoratorOptions {
     aliases: string[];
     single: boolean;
     inhibitors: Inhibitor[];
+    onError: (msg: Message, error: Error) => void;
 }
 interface ICommandDecoratorMeta {
     id: string;
@@ -28,6 +29,7 @@ export interface Command {
     module: Module;
     single: boolean;
     inhibitors: Inhibitor[];
+    onError: (msg: Message, error: Error) => void;
 }
 export function command(
     opts: Partial<ICommandDecoratorOptions> | undefined = {}
@@ -58,7 +60,12 @@ export function command(
             id: propertyKey,
             types,
             single: opts.single || false,
-            inhibitors: opts.inhibitors || []
+            inhibitors: opts.inhibitors || [],
+            onError:
+                opts.onError ||
+                (msg => {
+                    msg.reply(":warning: error while executing command!");
+                })
         };
         const targetMetas: ICommandDecorator[] =
             Reflect.getMetadata("cookiecord:commandMetas", target) || [];

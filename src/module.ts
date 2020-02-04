@@ -31,10 +31,11 @@ export default class Module {
                 func: Reflect.get(this, meta.id),
                 id: this.constructor.name + "/" + meta.id,
                 types: meta.types,
-                triggers: [meta.id].concat(meta.aliases),
+                triggers: [meta.id].concat(meta.aliases).map(id => id.toLowerCase()),
                 module: this,
                 single: meta.single,
-                inhibitors: meta.inhibitors
+                inhibitors: meta.inhibitors,
+                onError: meta.onError
             };
             if (
                 newCommand.single &&

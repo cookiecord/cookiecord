@@ -38,7 +38,7 @@ export default class CommandParserModule extends Module {
         if (!msg.content.startsWith(prefix)) return;
         const noPrefix = msg.content.replace(prefix, "");
         const stringArgs: string[] = noPrefix.split(" ").slice(1) || [];
-        const cmdTrigger = noPrefix.split(" ")[0];
+        const cmdTrigger = noPrefix.split(" ")[0].toLowerCase();
         const cmd = this.client.getCommandByTrigger(cmdTrigger);
         if (!cmd || !msg.author) return;
 
@@ -74,6 +74,17 @@ export default class CommandParserModule extends Module {
                 } else typedArgs.push(arg);
             }
         }
-        cmd.func.call(cmd.module, msg, ...typedArgs);
+        try {
+            const result = cmd.func.call(cmd.module, msg, ...typedArgs);
+            if (result instanceof Promise) {
+                await result;
+            }
+        } catch (err) {
+            console.error(
+                `error while executing command ${cmd.id}! executed by ${msg.author.tag}/${msg.author.id} in guild ${msg.guild?.name}/${msg.guild?.id}\n`,
+                err
+            );
+            cmd.onError(msg, err);
+        }
     }
 }

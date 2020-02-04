@@ -59,6 +59,14 @@ export default class ExampleModule extends Module {
     fakeban(msg: Message, m: GuildMember) {
         msg.channel.send(`${m}:hammer:`);
     }
+    @command({
+        onError: msg => {
+            msg.reply("custom error reply!");
+        }
+    })
+    triggerError(msg: Message) {
+        throw new Error("triggered dat error!");
+    }
     // This command is very stupid and should not exist anywhere near production!!!!!!!!!!
     // @command({ description: "eval some js", single: true })
     // async eval(msg: Message, js: string) {
