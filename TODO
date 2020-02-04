@@ -16,9 +16,3 @@ features:
     - auto reload dev mode: complex but command editing (so when u send a command, the bot sends a response and you edit the command the bot re-runs the command and edits its previous message)
     - support all arguments listed on https://discord-akairo.github.io/#/docs/main/master/arguments/types
     
-    inhibitors system with builtin funcs for common things (global ownerOnly etc) kinda like middleware:
-        ✔ bot admin @done(20-02-01 14:59)
-        ✔ channel type restrictions (guild only, dm only etc) @done(20-02-01 15:17)
-        ✔ discord perm restrictions @done(20-02-01 15:34)
-        ✔ cooldowns @done(20-02-02 11:11)
--
