@@ -11,7 +11,7 @@ bugs:
     - move argument type check to module from commandParser
     
 features:
-    - error handling for cmds and listeners
+    - (custom) error handling for cmds and listeners
     - argument prompting (wizards)
     - auto reload dev mode: complex but command editing (so when u send a command, the bot sends a response and you edit the command the bot re-runs the command and edits its previous message)
     - support all arguments listed on https://discord-akairo.github.io/#/docs/main/master/arguments/types
