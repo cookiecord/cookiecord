@@ -10,6 +10,7 @@ done:
     ✔ CookiecordClient#loadModulesFromFolder @done(20-02-07 09:41)
     ✔ auto reload dev mode: complex but command editing (so when u send a command, the bot sends a response and you edit the command the bot re-runs the command and edits its previous message) @done(20-02-07 10:41)
     ✘ argument prompting (wizards) @cancelled(20-02-07 11:08) not needed, D.js already includes awaitMessages and that's good enough IMO
+    ✔ cookiecord generator cli @started(20-02-07 14:13) @done(20-02-07 16:12) @lasted(1h59m4s)
 
 longterm:
     - tests with jest?
@@ -23,4 +24,3 @@ bugs:
 features:
     - providers (allow functions to be passed for the prefix property etc)
     - be able to compose types (arg can be a string or a number)
-    - cookiecord generator cli @started(20-02-07 14:13)
