@@ -1,6 +1,6 @@
 {
     "name": "cookiecord",
-    "version": "0.0.6",
+    "version": "0.0.7",
     "main": "dist/src/index.js",
     "types": "dist/src/index.d.ts",
     "homepage": "https://github.com/cookiecord/cookiecord",
@@ -11,13 +11,10 @@
     },
     "license": "GPL-3.0",
     "repository": "cookiecord/cookiecord",
-    "bin": "bin.js",
     "dependencies": {
         "chokidar": "^3.3.1",
-        "commander": "^4.1.1",
         "discord.js": "discordjs/discord.js",
         "dotenv-safe": "^8.2.0",
-        "fs-extra": "^8.1.0",
         "humanize-duration": "^3.21.0",
         "reflect-metadata": "^0.1.13"
     },
@@ -27,9 +24,7 @@
         "prettify": "prettier --write **/**"
     },
     "devDependencies": {
-        "@hapi/joi": "^16.1.7",
         "@types/dotenv-safe": "^8.1.0",
-        "@types/fs-extra": "^8.0.1",
         "@types/humanize-duration": "^3.18.0",
         "@types/node": "^13.5.0",
         "@types/ws": "^6.0.3",
