@@ -9,18 +9,18 @@ done:
     ✔ (custom) error handling for cmds @done(20-02-04 19:49)
     ✔ CookiecordClient#loadModulesFromFolder @done(20-02-07 09:41)
     ✔ auto reload dev mode: complex but command editing (so when u send a command, the bot sends a response and you edit the command the bot re-runs the command and edits its previous message) @done(20-02-07 10:41)
+    ✘ argument prompting (wizards) @cancelled(20-02-07 11:08) not needed, D.js already includes awaitMessages and that's good enough IMO
 
 longterm:
-    - tests with jest
+    - tests with jest?
     - more detailed docs
     - unordered arguments
-    - providers (allow functions to be passed for the prefix property etc)
-    - be able to compose types (arg can be a string or a number)
-
+    - support all arguments listed on https://discord-akairo.github.io/#/docs/main/master/arguments/types
+    
 bugs:
     - move argument type check to module from commandParser
     
 features:
-    - argument prompting (wizards)
-    - support all arguments listed on https://discord-akairo.github.io/#/docs/main/master/arguments/types
+    - providers (allow functions to be passed for the prefix property etc)
+    - be able to compose types (arg can be a string or a number)
     
