@@ -27,6 +27,7 @@ new CookiecordClient().registerModule(PingModule).login(process.env.TOKEN);
 -   Simple: Cookiecord aims to keep the API very simple and easy to use.
 -   Inhibitors: Cookiecord includes a powerful inhibitor system with builtin inhibitors to make restricting commands super easy.
 -   Powerful Argument System: Cookiecord automatically validates the user's input based on the variables your function takes in.
+-   Super Fast Development: Cookiecord can automatically reload all of your commands and listeners (using `CookiecordClient#reloadModulesFromFolder`).
 
 ## Installation
 
