@@ -1,13 +1,10 @@
 import { Command } from ".";
 
 export default class CommandManager {
-    cmds: Command[];
-    constructor() {
-        this.cmds = [];
-    }
+    cmds: Set<Command> = new Set();
     add(cmd: Command) {
-        if (this.cmds.includes(cmd)) return;
-        const conflictingCommand = this.cmds.find(cm =>
+        if (Array.from(this.cmds).includes(cmd)) return;
+        const conflictingCommand = Array.from(this.cmds).find(cm =>
             cmd.triggers.some(trigger => cm.triggers.includes(trigger))
         );
         if (conflictingCommand) {
@@ -15,9 +12,9 @@ export default class CommandManager {
                 `Cannot add ${cmd.id} because it would conflict with ${conflictingCommand.id}.`
             );
         }
-        this.cmds.push(cmd);
+        this.cmds.add(cmd);
     }
     remove(cmd: Command) {
-        delete this.cmds[this.cmds.findIndex(c => c == cmd)];
+        this.cmds.delete(cmd);
     }
 }

@@ -4,7 +4,7 @@ import {
     listener,
     default as CookiecordClient,
     CommonInhibitors
-} from "../src";
+} from "../../src";
 import { Message, GuildMember, User, Guild } from "discord.js";
 import { inspect } from "util";
 import { readFileSync } from "fs";

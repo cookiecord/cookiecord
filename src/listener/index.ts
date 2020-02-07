@@ -13,6 +13,7 @@ export interface Listener {
     id: string;
     module: Module;
     func: Function;
+    wrapperFunc?: (...args: any[]) => void;
 }
 export function listener(opts: IListenerDecoratorOptions) {
     return function(

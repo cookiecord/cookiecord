@@ -7,6 +7,8 @@ done:
         ✔ discord perm restrictions @done(20-02-01 15:34)
         ✔ cooldowns @done(20-02-02 11:11)
     ✔ (custom) error handling for cmds @done(20-02-04 19:49)
+    ✔ CookiecordClient#loadModulesFromFolder @done(20-02-07 09:41)
+    ✔ auto reload dev mode: complex but command editing (so when u send a command, the bot sends a response and you edit the command the bot re-runs the command and edits its previous message) @done(20-02-07 10:41)
 
 longterm:
     - tests with jest
@@ -20,6 +22,5 @@ bugs:
     
 features:
     - argument prompting (wizards)
-    - auto reload dev mode: complex but command editing (so when u send a command, the bot sends a response and you edit the command the bot re-runs the command and edits its previous message)
     - support all arguments listed on https://discord-akairo.github.io/#/docs/main/master/arguments/types
     
