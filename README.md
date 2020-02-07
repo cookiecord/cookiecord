@@ -4,7 +4,7 @@ Cookiecord simplifies discord bot development by providing a modern and easy to 
 
 Just import Cookiecord and Discord.js and make your commands (and listeners):
 
-`example/ping.ts`
+[`example/ping.ts`](https://github.com/cookiecord/cookiecord/blob/master/example/ping.ts)
 
 ```ts
 import { Message } from "discord.js";
