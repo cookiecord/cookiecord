@@ -18,7 +18,8 @@
         "discord.js": "discordjs/discord.js",
         "dotenv-safe": "^8.2.0",
         "fs-extra": "^8.1.0",
-        "humanize-duration": "^3.21.0"
+        "humanize-duration": "^3.21.0",
+        "reflect-metadata": "^0.1.13"
     },
     "scripts": {
         "prepublish": "rm -rf dist && tsc",
@@ -33,7 +34,6 @@
         "@types/node": "^13.5.0",
         "@types/ws": "^6.0.3",
         "prettier": "^1.19.1",
-        "reflect-metadata": "^0.1.13",
         "ts-node": "^8.4.1",
         "typescript": "^3.6.3"
     }
