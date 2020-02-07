@@ -3,7 +3,6 @@
     "version": "0.0.7",
     "main": "dist/src/index.js",
     "types": "dist/src/index.d.ts",
-    "homepage": "https://github.com/cookiecord/cookiecord",
     "author": {
         "name": "Ron B",
         "email": "me@ronthecookie.me",
