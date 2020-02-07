@@ -4,6 +4,8 @@ Cookiecord simplifies discord bot development by providing a modern and easy to 
 
 Just import Cookiecord and Discord.js and make your commands (and listeners):
 
+`example/ping.ts`
+
 ```ts
 import { Message } from "discord.js";
 import { command, default as CookiecordClient, Module } from "cookiecord";
@@ -13,7 +15,7 @@ class PingModule extends Module {
         super(client);
     }
 
-    @command({})
+    @command()
     ping(msg: Message) {
         msg.reply("Pong. :ping_pong:");
     }

@@ -6,7 +6,7 @@ class PingModule extends Module {
         super(client);
     }
 
-    @command({})
+    @command()
     ping(msg: Message) {
         msg.reply("Pong. :ping_pong:");
     }
