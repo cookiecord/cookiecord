@@ -11,8 +11,10 @@
     },
     "license": "GPL-3.0",
     "repository": "cookiecord/cookiecord",
+    "bin": "bin.js",
     "dependencies": {
         "chokidar": "^3.3.1",
+        "commander": "^4.1.1",
         "discord.js": "discordjs/discord.js",
         "dotenv-safe": "^8.2.0",
         "humanize-duration": "^3.21.0"

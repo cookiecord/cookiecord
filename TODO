@@ -23,4 +23,4 @@ bugs:
 features:
     - providers (allow functions to be passed for the prefix property etc)
     - be able to compose types (arg can be a string or a number)
-    
+    - cookiecord generator cli @started(20-02-07 14:13)
