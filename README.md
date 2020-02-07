@@ -33,13 +33,15 @@ new CookiecordClient().registerModule(PingModule).login(process.env.TOKEN);
 
 ## Installation
 
-If you would like to help test Cookiecord while it's still young you can install Cookiecord by running:
+If you would like to help test Cookiecord while it's still young you can make a new cookiecord project with the generator:
 
 ```sh
 # With Yarn
-$ yarn add cookiecord
-# With NPM
-$ npm install cookiecord
+$ yarn global add cookiecord-generator
+# or with NPM
+$ npm install -g cookiecord-generator
+# And now to make the project:
+$ cookiecord-generator generate my-first-bot
 ```
 
 ## Contribute
