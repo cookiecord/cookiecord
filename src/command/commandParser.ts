@@ -14,6 +14,8 @@ export default class CommandParserModule extends Module {
         this.types = {
             Number: s => (isNaN(parseFloat(s)) ? null : parseFloat(s)),
             String: s => s,
+            Command: s => this.client.getCommandByTrigger(s),
+            Listener: s => this.client.getListenerById(s),
             User: (s, msg) => {
                 const res = USER_PATTERN.exec(s);
                 if (!res) return;

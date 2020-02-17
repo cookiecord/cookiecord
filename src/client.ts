@@ -6,6 +6,7 @@ import ListenerManager from "./listener/listenerManager";
 import chokidar from "chokidar";
 import { readdirSync } from "fs";
 import { join } from "path";
+import { Listener } from "./listener";
 interface CookiecordOptions {
     botAdmins?: string[];
     commandArgumentTypes?: ArgTypes;
@@ -32,6 +33,12 @@ export default class CookiecordClient extends Client {
             c.triggers.includes(cmdTrigger)
         );
     }
+    getListenerById(lis: string): Listener | undefined {
+        return Array.from(this.listenerManager.listeners).find(
+            c => c.id == lis
+        );
+    }
+
     registerModule(module: typeof Module) {
         if (module.name == "Module")
             throw new Error(
