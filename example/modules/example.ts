@@ -68,26 +68,34 @@ export default class ExampleModule extends Module {
         throw new Error("triggered dat error!");
     }
     // This command is very stupid and should not exist anywhere near production!!!!!!!!!!
-    // @command({ description: "eval some js", single: true })
-    // async eval(msg: Message, js: string) {
-    //         try {
-    //             let result = eval(js);
-    //             if (result instanceof Promise) result = await result;
-    //             if (typeof result != `string`)
-    //                 result = inspect(result);
-    //             if (result.length > 1990)
-    //                 return await msg.channel.send(
-    //                     `Message is over the discord message limit.`
-    //                 );
-    //             await msg.channel.send(
-    //                 "```js\n" +
-    //                     result.split(this.client.token).join("[TOKEN]") +
-    //                     "\n```"
-    //             );
-    //         } catch (error) {
-    //             msg.reply(
-    //                 "error! " + error.split(this.client.token).join("[TOKEN]")
-    //             );
-    //         }
-    // }
+    @command({
+        description: "eval some js",
+        single: true,
+        inhibitors: [CommonInhibitors.botAdminsOnly]
+    })
+    async eval(msg: Message, js: string) {
+        console.log("EVAL", js);
+        try {
+            let result = eval(js);
+            if (result instanceof Promise) result = await result;
+            if (typeof result != `string`) result = inspect(result);
+            if (result.length > 1990)
+                return await msg.channel.send(
+                    `Message is over the discord message limit.`
+                );
+            await msg.channel.send(
+                "```js\n" +
+                    result.split(this.client.token).join("[TOKEN]") +
+                    "\n```"
+            );
+        } catch (error) {
+            msg.reply(
+                "error! " +
+                    (error || "")
+                        .toString()
+                        .split(this.client.token)
+                        .join("[TOKEN]")
+            );
+        }
+    }
 }
