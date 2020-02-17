@@ -5,7 +5,14 @@ import {
     default as CookiecordClient,
     CommonInhibitors
 } from "../../src";
-import { Message, GuildMember, User, Guild, TextChannel } from "discord.js";
+import {
+    Message,
+    GuildMember,
+    User,
+    Guild,
+    TextChannel,
+    Role
+} from "discord.js";
 import { inspect } from "util";
 import { readFileSync } from "fs";
 
@@ -70,6 +77,10 @@ export default class ExampleModule extends Module {
     @command()
     chandesc(msg: Message, c: TextChannel) {
         msg.reply(c.topic);
+    }
+    @command()
+    rolecolor(msg: Message, r: Role) {
+        msg.reply("role color: " + r.hexColor);
     }
     // This command is very stupid and should not exist anywhere near production!!!!!!!!!!
     @command({

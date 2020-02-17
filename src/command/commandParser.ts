@@ -7,6 +7,7 @@ export type ArgTypes = {
 };
 const USER_PATTERN = /<@!?(\d+)>/;
 const CHANNEL_PATTERN = /<#(\d+)>/;
+const ROLE_PATTERN = /<@&(\d+)>/;
 
 export default class CommandParserModule extends Module {
     private types: ArgTypes;
@@ -31,6 +32,11 @@ export default class CommandParserModule extends Module {
                 const res = CHANNEL_PATTERN.exec(s);
                 if (!res || !msg.guild) return;
                 return msg.guild.channels.get(res[1]);
+            },
+            Role: (s, msg) => {
+                const res = ROLE_PATTERN.exec(s);
+                if (!res || !msg.guild) return;
+                return msg.guild.roles.get(res[1]);
             }
         };
         this.types = Object.assign(

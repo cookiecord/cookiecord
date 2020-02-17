@@ -16,6 +16,7 @@ done:
         ✔ listeners @done(20-02-17 13:27)
         ✔ commands @done(20-02-17 13:27)
         ✔ text channel @done(20-02-17 20:05)
+        ✔ role @done(20-02-17 20:10)
 longterm:
     - more detailed docs
     - unordered arguments
@@ -26,6 +27,5 @@ features:
     - providers (allow functions to be passed for the prefix property etc)
     - be able to compose types (arg can be a string or a number)
     argtypes:
-        - role
         - guild
         - emoji
