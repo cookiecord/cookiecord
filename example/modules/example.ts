@@ -5,7 +5,7 @@ import {
     default as CookiecordClient,
     CommonInhibitors
 } from "../../src";
-import { Message, GuildMember, User, Guild } from "discord.js";
+import { Message, GuildMember, User, Guild, TextChannel } from "discord.js";
 import { inspect } from "util";
 import { readFileSync } from "fs";
 
@@ -66,6 +66,10 @@ export default class ExampleModule extends Module {
     })
     triggerError(msg: Message) {
         throw new Error("triggered dat error!");
+    }
+    @command()
+    chandesc(msg: Message, c: TextChannel) {
+        msg.reply(c.topic);
     }
     // This command is very stupid and should not exist anywhere near production!!!!!!!!!!
     @command({
