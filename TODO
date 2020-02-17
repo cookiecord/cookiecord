@@ -13,6 +13,7 @@ done:
     ✔ cookiecord generator cli @started(20-02-07 14:13) @done(20-02-07 16:12) @lasted(1h59m4s)
     ✘ tests with jest? @cancelled(20-02-17 12:43)
     ✔ move argument type check to module from commandParser @done(20-02-17 21:01)
+    ✘ be able to compose types (arg can be a string or a number) @cancelled(20-02-17 21:21) impossible with current tech
     argtypes:
         ✔ listeners @done(20-02-17 13:27)
         ✔ commands @done(20-02-17 13:27)
@@ -25,5 +26,4 @@ longterm:
     - unordered arguments
     
 features:
-    - be able to compose types (arg can be a string or a number)
     - providers (allow functions to be passed for the prefix property etc)

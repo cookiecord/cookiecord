@@ -9,9 +9,9 @@ import { join } from "path";
 import { Listener } from "./listener";
 import { ArgTypes } from "./util/argTypeProvider";
 interface CookiecordOptions {
-    botAdmins?: string[];
-    commandArgumentTypes?: ArgTypes;
-    commandPrefix?: string;
+    botAdmins: string[];
+    commandArgumentTypes: ArgTypes;
+    commandPrefix: string;
 }
 export default class CookiecordClient extends Client {
     private commandManager: CommandManager;
@@ -20,7 +20,10 @@ export default class CookiecordClient extends Client {
     readonly botAdmins: string[];
     readonly commandPrefix: string;
     readonly commandArgumentTypes: ArgTypes;
-    constructor(opts: CookiecordOptions = {}, discordOpts: ClientOptions = {}) {
+    constructor(
+        opts: Partial<CookiecordOptions> = {},
+        discordOpts: ClientOptions = {}
+    ) {
         super(discordOpts);
         this.botAdmins = opts.botAdmins || [];
         this.commandPrefix = opts.commandPrefix || "cc!";
