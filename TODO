@@ -17,15 +17,13 @@ done:
         ✔ commands @done(20-02-17 13:27)
         ✔ text channel @done(20-02-17 20:05)
         ✔ role @done(20-02-17 20:10)
+        ✘ emoji @cancelled(20-02-17 20:13) dont see the point because bot might not be in guild with the emoji 
+        ✔ support all arguments listed on https://discord-akairo.github.io/#/docs/main/master/arguments/types @done(20-02-17 20:15) (all the ones that make sense)
 longterm:
     - more detailed docs
     - unordered arguments
-    - support all arguments listed on https://discord-akairo.github.io/#/docs/main/master/arguments/types @started(20-02-17 19:36)
     - move argument type check to module from commandParser
     
 features:
     - providers (allow functions to be passed for the prefix property etc)
     - be able to compose types (arg can be a string or a number)
-    argtypes:
-        - guild
-        - emoji
