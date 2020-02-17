@@ -20,7 +20,7 @@
     "scripts": {
         "prepublish": "rm -rf dist && tsc",
         "example": "cd example && ts-node .",
-        "prettify": "prettier --write **/**"
+        "prettify": "prettier --write \"{src,example}/**/*.ts\""
     },
     "devDependencies": {
         "@types/dotenv-safe": "^8.1.0",
