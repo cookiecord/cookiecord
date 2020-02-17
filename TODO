@@ -12,6 +12,7 @@ done:
     ✘ argument prompting (wizards) @cancelled(20-02-07 11:08) not needed, D.js already includes awaitMessages and that's good enough IMO
     ✔ cookiecord generator cli @started(20-02-07 14:13) @done(20-02-07 16:12) @lasted(1h59m4s)
     ✘ tests with jest? @cancelled(20-02-17 12:43)
+    ✔ move argument type check to module from commandParser @done(20-02-17 21:01)
     argtypes:
         ✔ listeners @done(20-02-17 13:27)
         ✔ commands @done(20-02-17 13:27)
@@ -22,8 +23,7 @@ done:
 longterm:
     - more detailed docs
     - unordered arguments
-    - move argument type check to module from commandParser
     
 features:
-    - providers (allow functions to be passed for the prefix property etc)
     - be able to compose types (arg can be a string or a number)
+    - providers (allow functions to be passed for the prefix property etc)

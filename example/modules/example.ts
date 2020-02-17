@@ -82,6 +82,11 @@ export default class ExampleModule extends Module {
     rolecolor(msg: Message, r: Role) {
         msg.reply("role color: " + r.hexColor);
     }
+    // // CookiecordClient isn't a ArgType
+    // badcmd(msg: Message, nonexistant: CookiecordClient) {
+    //     msg.reply("hi!");
+    // }
+
     // This command is very stupid and should not exist anywhere near production!!!!!!!!!!
     @command({
         description: "eval some js",

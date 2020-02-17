@@ -1,12 +1,13 @@
 import { Client, ClientOptions } from "discord.js";
 import { Command, Module } from ".";
 import CommandManager from "./command/commandManager";
-import CommandParserModule, { ArgTypes } from "./command/commandParser";
+import CommandParserModule from "./command/commandParser";
 import ListenerManager from "./listener/listenerManager";
 import chokidar from "chokidar";
 import { readdirSync } from "fs";
 import { join } from "path";
 import { Listener } from "./listener";
+import { ArgTypes } from "./util/argTypeProvider";
 interface CookiecordOptions {
     botAdmins?: string[];
     commandArgumentTypes?: ArgTypes;

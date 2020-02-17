@@ -2,6 +2,7 @@ import "reflect-metadata";
 import CookiecordClient from "./client";
 import { Command, ICommandDecorator } from "./command";
 import { IListenerDecoratorMeta, Listener } from "./listener";
+import { getArgTypes } from "./util/argTypeProvider";
 
 export default class Module {
     public client: CookiecordClient;
@@ -46,6 +47,13 @@ export default class Module {
                 throw new Error(
                     `error while parsing command ${newCommand.id}: single arg commands can only take in one string`
                 );
+            newCommand.types.forEach(type => {
+                if (!getArgTypes(this.client)[type.name])
+                    throw new Error(
+                        `command tried to use an unsupported argument type ${type.name}`
+                    );
+            });
+
             return newCommand;
         });
         return commands;

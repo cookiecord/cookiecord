@@ -2,47 +2,11 @@ import { Message } from "discord.js";
 import CookiecordClient from "../client";
 import { listener } from "../listener";
 import Module from "../module";
-export type ArgTypes = {
-    [key: string]: (s: string, msg: Message) => unknown;
-};
-const USER_PATTERN = /<@!?(\d+)>/;
-const CHANNEL_PATTERN = /<#(\d+)>/;
-const ROLE_PATTERN = /<@&(\d+)>/;
+import { getArgTypes } from "../util/argTypeProvider";
 
 export default class CommandParserModule extends Module {
-    private types: ArgTypes;
     constructor(client: CookiecordClient) {
         super(client);
-        this.types = {
-            Number: s => (isNaN(parseFloat(s)) ? null : parseFloat(s)),
-            String: s => s,
-            Command: s => this.client.getCommandByTrigger(s),
-            Listener: s => this.client.getListenerById(s),
-            User: (s, msg) => {
-                const res = USER_PATTERN.exec(s);
-                if (!res) return;
-                return msg.client.users.get(res[1]);
-            },
-            GuildMember: (s, msg) => {
-                const res = USER_PATTERN.exec(s);
-                if (!res || !msg.guild) return;
-                return msg.guild.members.get(res[1]);
-            },
-            TextChannel: (s, msg) => {
-                const res = CHANNEL_PATTERN.exec(s);
-                if (!res || !msg.guild) return;
-                return msg.guild.channels.get(res[1]);
-            },
-            Role: (s, msg) => {
-                const res = ROLE_PATTERN.exec(s);
-                if (!res || !msg.guild) return;
-                return msg.guild.roles.get(res[1]);
-            }
-        };
-        this.types = Object.assign(
-            this.types,
-            this.client.commandArgumentTypes
-        );
         this.client = client;
     }
     @listener({ event: "message" })
@@ -75,11 +39,11 @@ export default class CommandParserModule extends Module {
                 );
             for (const i in stringArgs) {
                 const sa = stringArgs[i];
-                if (!this.types[cmd.types[i].name])
-                    return msg.reply(
-                        `:warning: command tried to use an unsupported argument type ${cmd.types[i].name}`
-                    );
-                const arg = this.types[cmd.types[i].name](sa, msg);
+
+                const arg = getArgTypes(this.client)[cmd.types[i].name](
+                    sa,
+                    msg
+                );
                 if (arg === null || arg === undefined) {
                     return msg.reply(
                         `:warning: argument #${parseInt(i, 10) +
