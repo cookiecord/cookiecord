@@ -11,7 +11,10 @@ export default class CommandParserModule extends Module {
     }
     @listener({ event: "message" })
     async onMessage(msg: Message) {
-        const prefix = this.client.commandPrefix;
+        let prefix = this.client.prefixProvider(msg);
+        if (prefix instanceof Promise) {
+            prefix = await prefix;
+        }
         if (msg.author && msg.author.bot) return;
         if (!msg.content.startsWith(prefix)) return;
         const noPrefix = msg.content.replace(prefix, "");

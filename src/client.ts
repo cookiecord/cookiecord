@@ -1,4 +1,4 @@
-import { Client, ClientOptions } from "discord.js";
+import { Client, ClientOptions, Message } from "discord.js";
 import { Command, Module } from ".";
 import CommandManager from "./command/commandManager";
 import CommandParserModule from "./command/commandParser";
@@ -8,28 +8,33 @@ import { readdirSync } from "fs";
 import { join } from "path";
 import { Listener } from "./listener";
 import { ArgTypes } from "./util/argTypeProvider";
+type PrefixProvider = (msg: Message) => string | Promise<string>;
 interface CookiecordOptions {
     botAdmins: string[];
     commandArgumentTypes: ArgTypes;
-    commandPrefix: string;
+    defaultCommandPrefix: string;
+    prefixProvider: PrefixProvider;
 }
 export default class CookiecordClient extends Client {
     private commandManager: CommandManager;
     private modules: Set<Module> = new Set();
     private listenerManager: ListenerManager;
     readonly botAdmins: string[];
-    readonly commandPrefix: string;
+    readonly defaultCommandPrefix: string;
     readonly commandArgumentTypes: ArgTypes;
+    readonly prefixProvider: PrefixProvider;
     constructor(
         opts: Partial<CookiecordOptions> = {},
         discordOpts: ClientOptions = {}
     ) {
         super(discordOpts);
         this.botAdmins = opts.botAdmins || [];
-        this.commandPrefix = opts.commandPrefix || "cc!";
+        this.defaultCommandPrefix = opts.defaultCommandPrefix || "cc!";
         this.commandManager = new CommandManager();
         this.listenerManager = new ListenerManager(this);
         this.commandArgumentTypes = opts.commandArgumentTypes || {};
+        this.prefixProvider =
+            opts.prefixProvider || (() => this.defaultCommandPrefix);
         this.registerModule(CommandParserModule);
     }
     getCommandByTrigger(cmdTrigger: string): Command | undefined {
@@ -78,7 +83,9 @@ export default class CookiecordClient extends Client {
             // WARNING: Unsafe not very TS protected code up ahead!
             // Might need more validation here...
             delete require.cache[file];
-            const module = require(file) as { default: typeof Module };
+            const module = require(file) as {
+                default: typeof Module;
+            };
             if (module.default) {
                 if (Object.getPrototypeOf(module.default) == Module) {
                     const old = Array.from(this.modules).find(
