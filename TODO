@@ -28,3 +28,4 @@ longterm:
     - sharding
     
 features:
+    - custom listener emitters
