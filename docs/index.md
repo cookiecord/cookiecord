@@ -1,9 +1,4 @@
-<meta charset="utf-8" emacsmode="-*- markdown -*-" /><link
-    rel="stylesheet"
-    href="slate.css"
-/>
-
-**Cookiecord (WIP)**
+**The Cookiecord Guide**
 Welcome to the Cookiecord Guide.
 [GitHub](https://github.com/cookiecord/cookiecord) | [NPM](https://www.npmjs.com/package/cookiecord)
 
@@ -28,15 +23,3 @@ $ cookiecord-generator generate my-first-bot
 ## Aliases
 ## Single-Arg Mode
 ## Error Handling
-
-
-<style class="fallback">
-    body {
-        visibility: hidden;
-    }
-</style>
-<script>
-    markdeepOptions = { tocStyle: "long" };
-</script>
-<!-- Markdeep: -->
-<script src="markdeep.min.js?" charset="utf-8"></script>
