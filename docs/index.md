@@ -11,7 +11,7 @@ With the enviroment setup we can now proceed to write some code for your bot, le
 ```ts
 // Just importing things
 import { Message } from "discord.js";
-import { command, default as CookiecordClient, Module } from "../src";
+import { command, default as CookiecordClient, Module } from "cookiecord";
 // Creating a new class which is also a module.
 class PingModule extends Module {
     constructor(client: CookiecordClient) {
