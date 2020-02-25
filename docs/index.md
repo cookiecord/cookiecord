@@ -157,6 +157,8 @@ In Single-Arg Mode the command can accept the full message but without the prefi
 ...
 ```
 
+So if you sent `cc!single hello world foo bar` then `str` would be `hello world foo bar`.
+
 # cookiecord-generator
 
 `cookiecord-generator` is a CLI that can generate new cookiecord bots automagically:
