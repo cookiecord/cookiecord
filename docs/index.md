@@ -7,6 +7,9 @@ This guide does assume you have atleast some experience with Node.js projects.
     -   [Your First Bot](#your-first-bot)
 -   [Commands](#commands)
     -   [Arguments](#arguments)
+    -   [Inhibitors](#inhibitors)
+    -   [Aliases](#aliases)
+    -   [Single-Arg Mode](#single-arg-mode)
 -   [cookiecord-generator](#cookiecord-generator)
 
 # Basics
@@ -45,7 +48,7 @@ new CookiecordClient()
 Let's test it by saving it as `index.ts` in the folder and running it with ts-node:
 
 ```sh
-$ yarn ts-node index.ts
+$ TOKEN=YOUR_BOTS_TOKEN yarn ts-node index.ts
 ```
 
 Now the bot's running but you need to [invite](https://discordjs.guide/preparations/adding-your-bot-to-servers.html) it to a server to test it, now that it's in your server, the default prefix is `cc!` so when you write `cc!ping` in chat the bot should respond.
@@ -55,6 +58,7 @@ Now the bot's running but you need to [invite](https://discordjs.guide/preparati
 ## Arguments
 
 Cookiecord has a ArgTypes system which allows for easy command writing with custom arguments:
+[`example/day.ts`](https://github.com/cookiecord/cookiecord/blob/master/example/day.ts)
 
 ```ts
 import { Message } from "discord.js";
@@ -78,11 +82,80 @@ new CookiecordClient({ commandArgumentTypes: { Date: s => new Date(s) } })
 
 ## Inhibitors
 
+You can restrict access to commands by using one of the built in inhibitors or by writing a custom inhibitor:
+[`example/inhibitors.ts`](https://github.com/cookiecord/cookiecord/blob/master/example/inhibitors.ts)
+
+```ts
+import { Message } from "discord.js";
+import {
+    command,
+    default as CookiecordClient,
+    Module,
+    CommonInhibitors
+} from "../src";
+
+class InhibitorsModule extends Module {
+    constructor(client: CookiecordClient) {
+        super(client);
+    }
+
+    @command({ inhibitors: [CommonInhibitors.botAdminsOnly] })
+    supersecret(msg: Message) {
+        msg.reply(
+            "The bot's token starts with: " + this.client.token?.slice(0, 2)
+        );
+    }
+
+    @command({
+        inhibitors: [
+            async msg =>
+                msg.author.username.toLowerCase().includes("cookie")
+                    ? undefined
+                    : "username must include cookie"
+        ]
+    })
+    custominhibitor(msg: Message) {
+        msg.reply(
+            "Your username has cookie in it! Have a cookie: https://cdn.discordapp.com/avatars/142244934139904000/0db321441968e15b0ee25224746d6bff.png"
+        );
+    }
+}
+
+new CookiecordClient({
+    commandArgumentTypes: { Date: s => new Date(s) },
+    botAdmins: process.env.BOT_ADMINS?.split(",")
+})
+    .registerModule(InhibitorsModule)
+    .login(process.env.TOKEN);
+```
+
 ## Aliases
+
+Commands can have aliases:
+
+```ts
+...
+    @command({ aliases: ["pung", "pong"] })
+    ping(msg: Message) {
+        msg.reply("Pong. :ping_pong:");
+    }
+...
+```
+
+You could now run this command with your prefix and `pung`, `pong` or `ping`.
 
 ## Single-Arg Mode
 
-## Error Handling
+In Single-Arg Mode the command can accept the full message but without the prefix:
+
+```ts
+...
+    @command({ single: true })
+    single(msg: Message, str: string) {
+        msg.reply("You said " + str);
+    }
+...
+```
 
 # cookiecord-generator
 

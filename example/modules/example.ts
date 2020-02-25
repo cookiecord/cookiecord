@@ -36,14 +36,11 @@ export default class ExampleModule extends Module {
         console.log("onMessage", msg.content);
     }
 
-    @command({ description: "pong" })
+    @command({ aliases: ["pung", "pong"] })
     ping(msg: Message) {
         msg.reply("Pong. :ping_pong:");
     }
-    @command({
-        description: "one big string for all of the args",
-        single: true
-    })
+    @command({ single: true })
     single(msg: Message, str: string) {
         msg.reply("You said " + str);
     }
