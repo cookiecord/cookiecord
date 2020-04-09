@@ -29,3 +29,5 @@ longterm:
     
 features:
     - custom listener emitters
+    - pass command trigger
+    - custom inhibitor handler
