@@ -21,7 +21,6 @@ export function listener(opts: IListenerDecoratorOptions) {
         propertyKey: string,
         descriptor: PropertyDescriptor
     ) {
-        // @ts-ignore
         const targetConstructorName = target.constructor.name;
         if (!(target instanceof Module))
             throw new TypeError(

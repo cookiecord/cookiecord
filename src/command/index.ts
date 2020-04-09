@@ -42,7 +42,6 @@ export function command(
         propertyKey: string,
         descriptor: PropertyDescriptor
     ) {
-        // @ts-ignore
         const targetConstructorName = target.constructor.name;
         if (!(target instanceof Module))
             throw new TypeError(
