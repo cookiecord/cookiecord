@@ -29,7 +29,7 @@ export default class ExampleModule extends Module {
 
     @command({ description: "abc", aliases: ["gc"] })
     guildcount(msg: Message, offset: number) {
-        msg.reply(this.client.guilds.size + offset);
+        msg.reply(this.client.guilds.cache.size + offset);
     }
 
     @listener({ event: "message" })

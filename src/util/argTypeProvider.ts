@@ -19,22 +19,22 @@ export function getArgTypes(client: CookiecordClient) {
             User: (s, msg) => {
                 const res = USER_PATTERN.exec(s);
                 if (!res) return;
-                return msg.client.users.get(res[1]);
+                return msg.client.users.cache.get(res[1]);
             },
             GuildMember: (s, msg) => {
                 const res = USER_PATTERN.exec(s);
                 if (!res || !msg.guild) return;
-                return msg.guild.members.get(res[1]);
+                return msg.guild.members.cache.get(res[1]);
             },
             TextChannel: (s, msg) => {
                 const res = CHANNEL_PATTERN.exec(s);
                 if (!res || !msg.guild) return;
-                return msg.guild.channels.get(res[1]);
+                return msg.guild.channels.cache.get(res[1]);
             },
             Role: (s, msg) => {
                 const res = ROLE_PATTERN.exec(s);
                 if (!res || !msg.guild) return;
-                return msg.guild.roles.get(res[1]);
+                return msg.guild.roles.cache.get(res[1]);
             }
         } as ArgTypes,
         client.commandArgumentTypes
