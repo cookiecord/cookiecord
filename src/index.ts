@@ -12,3 +12,4 @@ export {
 } from "./command/inhibitors";
 export { IListenerDecoratorOptions, listener, Listener } from "./listener";
 export { default as Module } from "./module";
+export { default as Context } from "./util/context";

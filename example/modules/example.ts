@@ -3,7 +3,8 @@ import {
     Module,
     listener,
     default as CookiecordClient,
-    CommonInhibitors
+    CommonInhibitors,
+    Context
 } from "../../src";
 import {
     Message,
@@ -36,9 +37,9 @@ export default class ExampleModule extends Module {
         console.log("onMessage", msg.content);
     }
 
-    @command({ aliases: ["pung", "pong"] })
-    ping(msg: Message) {
-        msg.reply("Pong. :ping_pong:");
+    @command({ aliases: ["pong"] })
+    ping({ msg, trigger }: Context) {
+        msg.reply(`${trigger == "pong" ? "ping" : "pong"} :ping_pong:`);
     }
     @command({ single: true })
     single(msg: Message, str: string) {

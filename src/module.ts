@@ -38,7 +38,8 @@ export default class Module {
                 module: this,
                 single: meta.single,
                 inhibitors: meta.inhibitors,
-                onError: meta.onError
+                onError: meta.onError,
+                usesContextAPI: meta.usesContextAPI
             };
             if (
                 newCommand.single &&

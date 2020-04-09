@@ -2,6 +2,7 @@ import { Message } from "discord.js";
 import "reflect-metadata";
 import CookiecordClient from "../client";
 import Module from "../module";
+import { Context } from "..";
 type Inhibitor = (
     msg: Message,
     client: CookiecordClient
@@ -18,6 +19,7 @@ export interface ICommandDecoratorOptions {
 interface ICommandDecoratorMeta {
     id: string;
     types: Function[];
+    usesContextAPI: boolean;
 }
 type ICommandDecorator = ICommandDecoratorMeta & ICommandDecoratorOptions;
 export interface Command {
@@ -29,6 +31,7 @@ export interface Command {
     module: Module;
     single: boolean;
     inhibitors: Inhibitor[];
+    usesContextAPI: boolean;
     onError: (msg: Message, error: Error) => void;
 }
 export function command(
@@ -53,14 +56,15 @@ export function command(
             "design:paramtypes",
             target,
             propertyKey
-        ).slice(1);
+        );
         const newMeta: ICommandDecorator = {
             aliases: opts.aliases || [],
             description: opts.description || "No description set.",
             id: propertyKey,
-            types,
+            types: types.slice(1),
             single: opts.single || false,
             inhibitors: opts.inhibitors || [],
+            usesContextAPI: types[0] == Context,
             onError:
                 opts.onError ||
                 (msg => {

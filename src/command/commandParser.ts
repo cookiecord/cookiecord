@@ -3,6 +3,7 @@ import CookiecordClient from "../client";
 import { listener } from "../listener";
 import Module from "../module";
 import { getArgTypes } from "../util/argTypeProvider";
+import { Context } from "..";
 
 export default class CommandParserModule extends Module {
     constructor(client: CookiecordClient) {
@@ -55,8 +56,13 @@ export default class CommandParserModule extends Module {
                 } else typedArgs.push(arg);
             }
         }
+        const context = new Context(msg, prefix, cmdTrigger);
         try {
-            const result = cmd.func.call(cmd.module, msg, ...typedArgs);
+            const result = cmd.func.call(
+                cmd.module,
+                cmd.usesContextAPI ? context : msg,
+                ...typedArgs
+            );
             if (result instanceof Promise) {
                 await result;
             }
