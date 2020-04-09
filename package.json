@@ -8,7 +8,7 @@
         "email": "me@ronthecookie.me",
         "url": "https://ronthecookie.me"
     },
-    "license": "GPL-3.0",
+    "license": "AGPL-3.0",
     "repository": "cookiecord/cookiecord",
     "dependencies": {
         "chokidar": "^3.3.1",
