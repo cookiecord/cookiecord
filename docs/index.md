@@ -10,6 +10,7 @@ This guide does assume you have atleast some experience with Node.js projects.
     -   [Inhibitors](#inhibitors)
     -   [Aliases](#aliases)
     -   [Single-Arg Mode](#single-arg-mode)
+    -   [Context API](#context-api)
 -   [cookiecord-generator](#cookiecord-generator)
 
 # Basics
@@ -158,6 +159,21 @@ In Single-Arg Mode the command can accept the full message but without the prefi
 ```
 
 So if you sent `cc!single hello world foo bar` then `str` would be `hello world foo bar`.
+
+## Context API
+
+**Warning: The Context API is still very new and should be used with care.**
+
+Commands can also take in a `Context` object instead of a `Message` for their first argument; the Context API provides additional information about the trigger and prefix used to execute the command.
+
+This command will send "pong" when you send "ping" and vice versa:
+
+```ts
+    @command({ aliases: ["pong"] })
+    ping({ msg, trigger }: Context) {
+        msg.reply(`${trigger == "pong" ? "ping" : "pong"} :ping_pong:`);
+    }
+```
 
 # cookiecord-generator
 
