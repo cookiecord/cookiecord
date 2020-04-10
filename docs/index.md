@@ -64,7 +64,7 @@ Cookiecord has a ArgTypes system which allows for easy command writing with cust
 
 ```ts
 import { Message } from "discord.js";
-import { command, default as CookiecordClient, Module } from "../src";
+import { command, default as CookiecordClient, Module } from "cookiecord";
 
 class DayModule extends Module {
     constructor(client: CookiecordClient) {
@@ -94,7 +94,7 @@ import {
     default as CookiecordClient,
     Module,
     CommonInhibitors
-} from "../src";
+} from "cookiecord";
 
 class InhibitorsModule extends Module {
     constructor(client: CookiecordClient) {
