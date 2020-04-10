@@ -21,6 +21,10 @@ export default class ExampleModule extends Module {
     constructor(client: CookiecordClient) {
         super(client);
     }
+    @command()
+    avatar(msg: Message, u: User) {
+        msg.reply(u.displayAvatarURL());
+    }
 
     @command({ description: "asd" })
     test(msg: Message, a: string, b: number, u: User, m: GuildMember) {
