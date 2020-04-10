@@ -12,6 +12,9 @@ class DayModule extends Module {
     }
 }
 
-new CookiecordClient({ commandArgumentTypes: { Date: s => new Date(s) } })
+new CookiecordClient({
+    commandArgumentTypes: { Date: s => new Date(s) },
+    prefix: "!"
+})
     .registerModule(DayModule)
     .login(process.env.TOKEN);

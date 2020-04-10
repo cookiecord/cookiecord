@@ -12,29 +12,34 @@ type PrefixProvider = (msg: Message) => string | Promise<string>;
 interface CookiecordOptions {
     botAdmins: string[];
     commandArgumentTypes: ArgTypes;
-    defaultCommandPrefix: string;
-    prefixProvider: PrefixProvider;
+    prefix: PrefixProvider | string;
 }
 export default class CookiecordClient extends Client {
     private commandManager: CommandManager;
     private modules: Set<Module> = new Set();
     private listenerManager: ListenerManager;
     readonly botAdmins: string[];
-    readonly defaultCommandPrefix: string;
     readonly commandArgumentTypes: ArgTypes;
-    readonly prefixProvider: PrefixProvider;
+    readonly prefix: PrefixProvider;
     constructor(
         opts: Partial<CookiecordOptions> = {},
         discordOpts: ClientOptions = {}
     ) {
         super(discordOpts);
         this.botAdmins = opts.botAdmins || [];
-        this.defaultCommandPrefix = opts.defaultCommandPrefix || "cc!";
         this.commandManager = new CommandManager();
         this.listenerManager = new ListenerManager(this);
         this.commandArgumentTypes = opts.commandArgumentTypes || {};
-        this.prefixProvider =
-            opts.prefixProvider || (() => this.defaultCommandPrefix);
+        if (!opts.prefix) {
+            this.prefix = () => "cc!";
+        } else {
+            const op = opts.prefix;
+            if (typeof op == "string") {
+                this.prefix = () => op;
+            } else {
+                this.prefix = op;
+            }
+        }
         this.registerModule(CommandParserModule);
     }
     getCommandByTrigger(cmdTrigger: string): Command | undefined {
