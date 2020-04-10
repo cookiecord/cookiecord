@@ -28,12 +28,12 @@ new CookiecordClient().registerModule(PingModule).login(process.env.TOKEN);
 
 -   Simple: Cookiecord aims to keep the API very simple and easy to use.
 -   Inhibitors: Cookiecord includes a powerful inhibitor system with builtin inhibitors to make restricting commands super easy.
--   Powerful Argument System: Cookiecord automatically validates the user's input based on the variables your function takes in.
+-   Powerful Argument System: Cookiecord automatically validates the user's input based on the types of the arguments your function takes in.
 -   Super Fast Development: Cookiecord can automatically reload all of your commands and listeners (using `CookiecordClient#reloadModulesFromFolder`).
 
 ## Installation
 
-If you would like to help test Cookiecord while it's still young you can make a new cookiecord project with the generator:
+If you would like to help test Cookiecord you can make a new cookiecord project with the generator:
 
 ```sh
 # With Yarn
@@ -55,4 +55,4 @@ We have a support chat on [Discord](https://discord.gg/ubPbX98).
 
 ## License
 
-The project is licensed under the GPL-3 license.
+The project is licensed under the LGPL-3 license.
