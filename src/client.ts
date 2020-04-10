@@ -6,7 +6,7 @@ import ListenerManager from "./listener/listenerManager";
 import chokidar from "chokidar";
 import { readdirSync } from "fs";
 import { join } from "path";
-import { Listener } from "./listener";
+import Listener from "./listener/listener";
 import { ArgTypes } from "./util/argTypeProvider";
 type PrefixProvider = (msg: Message) => string | Promise<string>;
 interface CookiecordOptions {
@@ -21,6 +21,7 @@ export default class CookiecordClient extends Client {
     readonly botAdmins: string[];
     readonly commandArgumentTypes: ArgTypes;
     readonly prefix: PrefixProvider;
+
     constructor(
         opts: Partial<CookiecordOptions> = {},
         discordOpts: ClientOptions = {}
@@ -42,11 +43,13 @@ export default class CookiecordClient extends Client {
         }
         this.registerModule(CommandParserModule);
     }
+
     getCommandByTrigger(cmdTrigger: string): Command | undefined {
         return Array.from(this.commandManager.cmds).find(c =>
             c.triggers.includes(cmdTrigger)
         );
     }
+
     getListenerById(lis: string): Listener | undefined {
         return Array.from(this.listenerManager.listeners).find(
             c => c.id == lis
@@ -68,6 +71,7 @@ export default class CookiecordClient extends Client {
         this.modules.add(mod);
         return this;
     }
+
     unregisterModule(mod: Module) {
         if (!this.modules.has(mod))
             throw new Error("Cannot unregister unregistered module");
@@ -80,12 +84,13 @@ export default class CookiecordClient extends Client {
         this.modules.delete(mod);
         return this;
     }
+
     reloadModulesFromFolder(path: string) {
         const fn = join(process.cwd(), path);
         const watcher = chokidar.watch(fn);
 
         watcher.on("change", file => {
-            // WARNING: Unsafe not very TS protected code up ahead!
+            // Here be dragons.
             // Might need more validation here...
             delete require.cache[file];
             const module = require(file) as {
@@ -109,6 +114,7 @@ export default class CookiecordClient extends Client {
             }
         });
     }
+
     loadModulesFromFolder(path: string) {
         const files = readdirSync(path);
         files.forEach(file => {

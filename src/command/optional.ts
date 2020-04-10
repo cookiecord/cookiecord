@@ -1,18 +1,16 @@
 import { Module } from "..";
 
-export function optional(
+export default function optional(
     target: Object,
     propertyKey: string | symbol,
     parameterIndex: number
 ) {
-    const targetConstructorName = target.constructor.name;
     if (!(target instanceof Module))
-        throw new TypeError(`${targetConstructorName} doesn't extend Module`);
+        throw new TypeError(`${target.constructor.name} doesn't extend Module`);
     const descriptor = Reflect.getOwnPropertyDescriptor(target, propertyKey);
     if (descriptor?.value.constructor.name !== "Function")
-        throw new TypeError(
-            "Something weird happened.. The decorator wasn't applied to a argument in a function."
-        );
+        throw new TypeError("Decorator needs to be applied to a Method.");
+
     const arr: number[] =
         Reflect.getMetadata(
             "cookiecord:optionalCommandArgs",
@@ -20,6 +18,7 @@ export function optional(
             propertyKey
         ) || [];
     arr.push(parameterIndex);
+
     Reflect.defineMetadata(
         "cookiecord:optionalCommandArgs",
         arr,

@@ -1,12 +1,10 @@
-import { Listener } from ".";
+import { Listener } from "..";
 import CookiecordClient from "../client";
 
 export default class ListenerManager {
     listeners: Set<Listener> = new Set();
-    client: CookiecordClient;
-    constructor(client: CookiecordClient) {
-        this.client = client;
-    }
+    constructor(public client: CookiecordClient) {}
+
     add(listener: Listener) {
         if (this.listeners.has(listener)) return;
 
@@ -23,6 +21,7 @@ export default class ListenerManager {
         this.listeners.add(listener);
         this.client.on(listener.event, listener.wrapperFunc);
     }
+
     remove(listener: Listener) {
         if (listener.wrapperFunc)
             this.client.removeListener(listener.event, listener.wrapperFunc);

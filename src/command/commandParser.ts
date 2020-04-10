@@ -1,6 +1,6 @@
 import { Message } from "discord.js";
 import CookiecordClient from "../client";
-import { listener } from "../listener";
+import listener from "../listener/decorator";
 import Module from "../module";
 import { getArgTypes } from "../util/argTypeProvider";
 import { Context } from "..";
@@ -16,13 +16,15 @@ export default class CommandParserModule extends Module {
         if (prefix instanceof Promise) {
             prefix = await prefix;
         }
+
         if (msg.author && msg.author.bot) return;
         if (!msg.content.startsWith(prefix)) return;
+
         const noPrefix = msg.content.replace(prefix, "");
         const stringArgs: string[] = noPrefix.split(" ").slice(1) || [];
         const cmdTrigger = noPrefix.split(" ")[0].toLowerCase();
         const cmd = this.client.getCommandByTrigger(cmdTrigger);
-        if (!cmd || !msg.author) return;
+        if (!cmd) return;
 
         for (const inhibitor of cmd.inhibitors) {
             const reason = await inhibitor(msg, this.client);
@@ -32,7 +34,7 @@ export default class CommandParserModule extends Module {
                 return;
             }
         }
-
+        // Argument type validation
         const typedArgs = [] as unknown[];
         const leastArgs =
             cmd.args.length - cmd.args.filter(x => x.optional).length;
@@ -41,11 +43,15 @@ export default class CommandParserModule extends Module {
         } else {
             if (stringArgs.length < leastArgs)
                 return msg.reply(
-                    `:warning: expected atleast ${leastArgs} arguments but got ${stringArgs.length} arguments instead`
+                    `:warning: expected atleast ${leastArgs} argument${
+                        leastArgs !== 1 ? "s" : ""
+                    } but got ${stringArgs.length} argument${
+                        stringArgs.length !== 1 ? "s" : ""
+                    } instead`
                 );
             for (const i in stringArgs) {
                 const sa = stringArgs[i];
-
+                // Beware: arg is `unknown`
                 const arg = getArgTypes(this.client)[cmd.args[i].type.name](
                     sa,
                     msg
@@ -58,6 +64,8 @@ export default class CommandParserModule extends Module {
                 } else typedArgs.push(arg);
             }
         }
+
+        // Executing the command
         const context = new Context(msg, prefix, cmdTrigger);
         try {
             const result = cmd.func.call(

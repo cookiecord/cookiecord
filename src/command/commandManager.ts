@@ -1,9 +1,9 @@
-import { Command } from ".";
+import { Command } from "..";
 
 export default class CommandManager {
     cmds: Set<Command> = new Set();
     add(cmd: Command) {
-        if (Array.from(this.cmds).includes(cmd)) return;
+        if (this.cmds.has(cmd)) return;
         const conflictingCommand = Array.from(this.cmds).find(cm =>
             cmd.triggers.some(trigger => cm.triggers.includes(trigger))
         );

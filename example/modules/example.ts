@@ -22,6 +22,11 @@ export default class ExampleModule extends Module {
     constructor(client: CookiecordClient) {
         super(client);
     }
+    @command({ inhibitors: [CommonInhibitors.botAdminsOnly] })
+    goodbot(msg: Message, bot: User) {
+        if (!bot.bot) return msg.reply("user needs to be a bot");
+        msg.channel.send(`${bot} is a very good boat.`);
+    }
 
     @command()
     add(msg: Message, x: number, @optional y?: number) {

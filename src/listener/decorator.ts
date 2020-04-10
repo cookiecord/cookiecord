@@ -1,5 +1,8 @@
 import Module from "../module";
-import Event from "../util/event";
+import { ClientEvents } from "discord.js";
+
+type Event = keyof ClientEvents;
+
 export interface IListenerDecoratorOptions {
     event: Event;
 }
@@ -8,35 +11,30 @@ export interface IListenerDecoratorMeta {
     id: string;
     func: Function;
 }
-export interface Listener {
-    event: Event;
-    id: string;
-    module: Module;
-    func: Function;
-    wrapperFunc?: (...args: any[]) => void;
-}
-export function listener(opts: IListenerDecoratorOptions) {
+
+export default function listener(opts: IListenerDecoratorOptions) {
     return function(
         target: Module,
         propertyKey: string,
         descriptor: PropertyDescriptor
     ) {
-        const targetConstructorName = target.constructor.name;
+        const targetConstructorName = target.constructor.name; // Making this a variable to avoid some weird TS bug.
         if (!(target instanceof Module))
             throw new TypeError(
                 `${targetConstructorName} doesn't extend Module`
             );
         if (descriptor.value.constructor.name !== "Function")
-            throw new TypeError(
-                "Something weird happened.. The decorator wasn't applied to a function."
-            );
+            throw new TypeError("Decorator needs to be applied to a Method.");
+
         const listenersMeta: IListenerDecoratorMeta[] =
             Reflect.getMetadata("cookiecord:listenerMetas", target) || [];
+
         listenersMeta.push({
             event: opts.event,
             id: propertyKey,
             func: Reflect.get(target, propertyKey)
         });
+
         Reflect.defineMetadata(
             "cookiecord:listenerMetas",
             listenersMeta,
@@ -44,3 +42,4 @@ export function listener(opts: IListenerDecoratorOptions) {
         );
     };
 }
+export { Event };

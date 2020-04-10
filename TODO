@@ -33,7 +33,8 @@ longterm:
     - custom listener emitters
     
 features:
-    - custom inhibitor handler
     - add .vscode	"typescript.tsdk": "node_modules/typescript/lib" for using project's TS version to cookiecord-generator
     - make the commandManager/listenerManager api public
+    - custom inhibitor handler
+    - parse "strings" like this in arg
     - subcommands
