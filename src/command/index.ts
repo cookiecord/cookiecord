@@ -1,5 +1,4 @@
 import { Message } from "discord.js";
-import "reflect-metadata";
 import CookiecordClient from "../client";
 import Module from "../module";
 import { Context } from "..";
@@ -20,6 +19,7 @@ interface ICommandDecoratorMeta {
     id: string;
     types: Function[];
     usesContextAPI: boolean;
+    optionals: number[];
 }
 type ICommandDecorator = ICommandDecoratorMeta & ICommandDecoratorOptions;
 export interface Command {
@@ -32,6 +32,7 @@ export interface Command {
     single: boolean;
     inhibitors: Inhibitor[];
     usesContextAPI: boolean;
+    optionals: number[];
     onError: (msg: Message, error: Error) => void;
 }
 export function command(
@@ -56,6 +57,22 @@ export function command(
             target,
             propertyKey
         );
+        // Optional arg stuff
+        const optionals: number[] =
+            Reflect.getMetadata(
+                "cookiecord:optionalCommandArgs",
+                target,
+                propertyKey
+            ) || [];
+        if (optionals.includes(0))
+            throw new Error("The first argument may not be optional");
+        let last: number = optionals[0] + 1;
+        for (let x of optionals) {
+            if (last - x !== 1)
+                throw new Error("Only the last arguments can be optional");
+            last = x;
+        }
+
         const newMeta: ICommandDecorator = {
             aliases: opts.aliases || [],
             description: opts.description || "No description set.",
@@ -64,6 +81,7 @@ export function command(
             single: opts.single || false,
             inhibitors: opts.inhibitors || [],
             usesContextAPI: types[0] == Context,
+            optionals,
             onError:
                 opts.onError ||
                 (msg => {

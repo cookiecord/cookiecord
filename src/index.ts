@@ -1,4 +1,5 @@
 // Just a file to re-export everything useful
+import "reflect-metadata";
 export { default } from "./client";
 export {
     Command,
@@ -13,3 +14,4 @@ export {
 export { IListenerDecoratorOptions, listener, Listener } from "./listener";
 export { default as Module } from "./module";
 export { default as Context } from "./util/context";
+export { optional } from "./command/optional";

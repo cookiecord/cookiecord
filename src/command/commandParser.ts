@@ -34,12 +34,13 @@ export default class CommandParserModule extends Module {
         }
 
         const typedArgs = [] as unknown[];
+        const leastArgs = cmd.types.length - cmd.optionals.length;
         if (cmd.single) {
             typedArgs.push(stringArgs.join(" "));
         } else {
-            if (stringArgs.length !== cmd.types.length)
+            if (stringArgs.length < leastArgs)
                 return msg.reply(
-                    `:warning: expected ${cmd.types.length} arguments but got ${stringArgs.length} arguments instead`
+                    `:warning: expected atleast ${leastArgs} arguments but got ${stringArgs.length} arguments instead`
                 );
             for (const i in stringArgs) {
                 const sa = stringArgs[i];

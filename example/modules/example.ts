@@ -4,7 +4,8 @@ import {
     listener,
     default as CookiecordClient,
     CommonInhibitors,
-    Context
+    Context,
+    optional
 } from "../../src";
 import {
     Message,
@@ -52,8 +53,15 @@ export default class ExampleModule extends Module {
     @command({
         inhibitors: [CommonInhibitors.botAdminsOnly]
     })
-    badboy(msg: Message, m: GuildMember) {
-        msg.channel.send(`${m} is a bad boy!`);
+    badboy(
+        msg: Message,
+        m: GuildMember,
+        @optional p?: number,
+        @optional c?: string
+    ) {
+        msg.channel.send(
+            `${m} is a bad boy! p=${p || 1337}, c=${c || "default value"}`
+        );
     }
     @command({})
     todo(msg: Message) {
