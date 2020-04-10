@@ -209,3 +209,4 @@ $ cookiecord-generator generate easy-bot
 -   [Discord.js guide](https://discordjs.guide/) for writing inspiration for this guide.
 -   [Discord.js](https://discord.js.org) for making Cookiecord possible
 -   [Akairo](https://discord-akairo.github.io/#/) for inspiration with Cookiecord's design.
+-   [discord.py](https://github.com/Rapptz/discord.py) for inspiration with Cookiecord's design.
