@@ -11,6 +11,7 @@ This guide does assume you have atleast some experience with Node.js projects.
     -   [Aliases](#aliases)
     -   [Single-Arg Mode](#single-arg-mode)
     -   [Context API](#context-api)
+    -   [Optional Arguments](#optional-arguments)
 -   [cookiecord-generator](#cookiecord-generator)
 
 # Basics
@@ -174,6 +175,25 @@ This command will send "pong" when you send "ping" and vice versa:
         msg.reply(`${trigger == "pong" ? "ping" : "pong"} :ping_pong:`);
     }
 ```
+
+## Optional Arguments
+
+**Warning: Optional arguments are not fully validated as TypeScript cannot provide that level of metadata right now.**
+
+Certain arguments in a command can be marked as optional to allow the command parser to still call the function even if they are missing.
+
+Like normal TS/JS optional arguments can only be at the end of the function like so: `(required, optional, optional)` and cannot be mixed in with other required arguments like so: `(required, optional, requried)`
+
+This command will add two numbers and if the second number is not provided, it will simply add the first number onto itself:
+
+```ts
+    @command()
+    add(msg: Message, x: number, @optional y?: number) {
+        msg.reply(x + (y || x));
+    }
+```
+
+The `?` in `y?: number` is **REQUIRED** to make sure TypeScript can validate the types correctly
 
 # cookiecord-generator
 

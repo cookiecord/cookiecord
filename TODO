@@ -25,6 +25,7 @@ done:
     ✔ Context api to get the trigger that triggered the command, prefix used and stuff like that @done(20-04-09 17:41)
     ✔ docs for Context API @done(20-04-09 18:19)
     ✔ optional args @done(20-04-10 15:45)
+    ✔ docs for optional args @done(20-04-10 16:00)
 longterm:
     - more detailed docs
     - unordered arguments
@@ -36,4 +37,3 @@ features:
     - add .vscode	"typescript.tsdk": "node_modules/typescript/lib" for using project's TS version to cookiecord-generator
     - make the commandManager/listenerManager api public
     - subcommands
-    - docs for optional args

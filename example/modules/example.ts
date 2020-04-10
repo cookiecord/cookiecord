@@ -22,6 +22,12 @@ export default class ExampleModule extends Module {
     constructor(client: CookiecordClient) {
         super(client);
     }
+
+    @command()
+    add(msg: Message, x: number, @optional y?: number) {
+        msg.reply(x + (y || x));
+    }
+
     @command()
     avatar(msg: Message, u: User) {
         msg.reply(u.displayAvatarURL());
@@ -53,15 +59,8 @@ export default class ExampleModule extends Module {
     @command({
         inhibitors: [CommonInhibitors.botAdminsOnly]
     })
-    badboy(
-        msg: Message,
-        m: GuildMember,
-        @optional p?: number,
-        @optional c?: string
-    ) {
-        msg.channel.send(
-            `${m} is a bad boy! p=${p || 1337}, c=${c || "default value"}`
-        );
+    badboy(msg: Message, m: GuildMember) {
+        msg.channel.send(`${m} is a bad boy!`);
     }
     @command({})
     todo(msg: Message) {
