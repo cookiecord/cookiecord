@@ -31,7 +31,7 @@ export default class Module {
                 description: meta.description,
                 func: Reflect.get(this, meta.id),
                 id: this.constructor.name + "/" + meta.id,
-                types: meta.types,
+                args: meta.args,
                 triggers: [meta.id]
                     .concat(meta.aliases)
                     .map(id => id.toLowerCase()),
@@ -39,20 +39,22 @@ export default class Module {
                 single: meta.single,
                 inhibitors: meta.inhibitors,
                 onError: meta.onError,
-                usesContextAPI: meta.usesContextAPI,
-                optionals: meta.optionals
+                usesContextAPI: meta.usesContextAPI
             };
             if (
                 newCommand.single &&
-                !(newCommand.types[0] == String && newCommand.types.length == 1)
+                !(
+                    newCommand.args[0].type == String &&
+                    newCommand.args.length == 1
+                )
             )
                 throw new Error(
                     `error while parsing command ${newCommand.id}: single arg commands can only take in one string`
                 );
-            newCommand.types.forEach(type => {
-                if (!getArgTypes(this.client)[type.name])
+            newCommand.args.forEach(arg => {
+                if (!getArgTypes(this.client)[arg.type.name])
                     throw new Error(
-                        `command tried to use an unsupported argument type ${type.name}`
+                        `command tried to use an unsupported argument type ${arg.type.name}`
                     );
             });
 

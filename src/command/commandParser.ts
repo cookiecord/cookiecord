@@ -34,7 +34,8 @@ export default class CommandParserModule extends Module {
         }
 
         const typedArgs = [] as unknown[];
-        const leastArgs = cmd.types.length - cmd.optionals.length;
+        const leastArgs =
+            cmd.args.length - cmd.args.filter(x => x.optional).length;
         if (cmd.single) {
             typedArgs.push(stringArgs.join(" "));
         } else {
@@ -45,14 +46,14 @@ export default class CommandParserModule extends Module {
             for (const i in stringArgs) {
                 const sa = stringArgs[i];
 
-                const arg = getArgTypes(this.client)[cmd.types[i].name](
+                const arg = getArgTypes(this.client)[cmd.args[i].type.name](
                     sa,
                     msg
                 );
                 if (arg === null || arg === undefined) {
                     return msg.reply(
                         `:warning: argument #${parseInt(i, 10) +
-                            1} is not of expected type ${cmd.types[i].name}`
+                            1} is not of expected type ${cmd.args[i].type.name}`
                     );
                 } else typedArgs.push(arg);
             }

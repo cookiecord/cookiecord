@@ -15,16 +15,19 @@ export interface ICommandDecoratorOptions {
     inhibitors: Inhibitor[];
     onError: (msg: Message, error: Error) => void;
 }
+interface ICommandArgument {
+    type: Function;
+    optional: boolean;
+}
 interface ICommandDecoratorMeta {
     id: string;
-    types: Function[];
+    args: ICommandArgument[];
     usesContextAPI: boolean;
-    optionals: number[];
 }
 type ICommandDecorator = ICommandDecoratorMeta & ICommandDecoratorOptions;
 export interface Command {
     func: Function;
-    types: Function[];
+    args: ICommandArgument[];
     triggers: string[];
     id: string;
     description: string;
@@ -32,7 +35,6 @@ export interface Command {
     single: boolean;
     inhibitors: Inhibitor[];
     usesContextAPI: boolean;
-    optionals: number[];
     onError: (msg: Message, error: Error) => void;
 }
 export function command(
@@ -66,22 +68,23 @@ export function command(
             ) || [];
         if (optionals.includes(0))
             throw new Error("The first argument may not be optional");
-        let last: number = optionals[0] + 1;
+        let lastOpt: number = optionals[0] + 1;
         for (let x of optionals) {
-            if (last - x !== 1)
+            if (lastOpt - x !== 1)
                 throw new Error("Only the last arguments can be optional");
-            last = x;
+            lastOpt = x;
         }
 
         const newMeta: ICommandDecorator = {
             aliases: opts.aliases || [],
             description: opts.description || "No description set.",
             id: propertyKey,
-            types: types.slice(1),
+            args: types
+                .slice(1)
+                .map((type, i) => ({ type, optional: optionals.includes(i) })),
             single: opts.single || false,
             inhibitors: opts.inhibitors || [],
             usesContextAPI: types[0] == Context,
-            optionals,
             onError:
                 opts.onError ||
                 (msg => {
