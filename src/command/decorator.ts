@@ -4,7 +4,7 @@ import Module from "../module";
 import { Context, Inhibitor } from "..";
 
 export interface ICommandDecoratorOptions {
-    description: string;
+    description?: string;
     aliases: string[];
     single: boolean;
     inhibitors: Inhibitor[];
@@ -61,7 +61,7 @@ export function command(
         }
         const newMeta: ICommandDecorator = {
             aliases: opts.aliases || [],
-            description: opts.description || "No description set.",
+            description: opts.description,
             id: propertyKey,
             args: types.slice(1).map((type, i) => ({
                 type,

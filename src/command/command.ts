@@ -7,7 +7,7 @@ export default interface Command {
     args: ICommandArgument[];
     triggers: string[];
     id: string;
-    description: string;
+    description?: string;
     module: Module;
     single: boolean;
     inhibitors: Inhibitor[];
