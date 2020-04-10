@@ -28,7 +28,7 @@ export function listener(opts: IListenerDecoratorOptions) {
             );
         if (descriptor.value.constructor.name !== "Function")
             throw new TypeError(
-                "Something weird happend.. The decorator wasn't applied to a function."
+                "Something weird happened.. The decorator wasn't applied to a function."
             );
         const listenersMeta: IListenerDecoratorMeta[] =
             Reflect.getMetadata("cookiecord:listenerMetas", target) || [];

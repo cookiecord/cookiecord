@@ -11,7 +11,7 @@ export function optional(
     const descriptor = Reflect.getOwnPropertyDescriptor(target, propertyKey);
     if (descriptor?.value.constructor.name !== "Function")
         throw new TypeError(
-            "Something weird happend.. The decorator wasn't applied to a argument in a function."
+            "Something weird happened.. The decorator wasn't applied to a argument in a function."
         );
     const arr: number[] =
         Reflect.getMetadata(

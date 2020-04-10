@@ -52,7 +52,7 @@ export function command(
             );
         if (descriptor.value.constructor.name !== "Function")
             throw new TypeError(
-                "Something weird happend.. The decorator wasn't applied to a function."
+                "Something weird happened.. The decorator wasn't applied to a function."
             );
         const types: Function[] = Reflect.getMetadata(
             "design:paramtypes",
