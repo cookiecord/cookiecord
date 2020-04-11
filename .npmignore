@@ -1,2 +1,5 @@
 example/.env
 gen/node_modules
+example
+docs
+TODO
