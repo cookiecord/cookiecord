@@ -26,6 +26,7 @@ done:
     ✔ docs for Context API @done(20-04-09 18:19)
     ✔ optional args @done(20-04-10 15:45)
     ✔ docs for optional args @done(20-04-10 16:00)
+    ✔ add .vscode	"typescript.tsdk": "node_modules/typescript/lib" for using project's TS version to cookiecord-generator @done(20-04-11 15:42)
 longterm:
     - more detailed docs
     - unordered arguments
@@ -33,7 +34,6 @@ longterm:
     - custom listener emitters
     
 features:
-    - add .vscode	"typescript.tsdk": "node_modules/typescript/lib" for using project's TS version to cookiecord-generator
     - make the commandManager/listenerManager api public
     - custom inhibitor handler
     - parse "strings" like this in arg
