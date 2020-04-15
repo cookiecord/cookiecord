@@ -5,9 +5,9 @@ export type ArgTypes = {
     [key: string]: (s: string, msg: Message) => unknown;
 };
 
-const USER_PATTERN = /<@!?(\d+)>/;
-const CHANNEL_PATTERN = /<#(\d+)>/;
-const ROLE_PATTERN = /<@&(\d+)>/;
+const USER_PATTERN = /(?:<@!?)?(\d+)>?/;
+const CHANNEL_PATTERN = /(?:<#)?(\d+)>?/;
+const ROLE_PATTERN = /(?:<@&)?(\d+)>?/;
 
 export function getArgTypes(client: CookiecordClient) {
     return Object.assign(
