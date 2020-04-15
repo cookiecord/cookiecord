@@ -1,4 +1,4 @@
-import { Event } from "./decorator";
+import { Event } from "../util/clientEvents";
 import { Module } from "..";
 
 export default interface Listener {

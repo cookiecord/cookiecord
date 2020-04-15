@@ -66,7 +66,7 @@ export default class CommandParserModule extends Module {
         }
 
         // Executing the command
-        const context = new Context(msg, prefix, cmdTrigger);
+        const context = new Context(msg, prefix, cmdTrigger, cmd);
         try {
             const result = cmd.func.call(
                 cmd.module,
@@ -83,5 +83,6 @@ export default class CommandParserModule extends Module {
             );
             cmd.onError(msg, err);
         }
+        this.client.emit("commandExecution", context);
     }
 }

@@ -29,6 +29,8 @@ done:
     ✔ add .vscode	"typescript.tsdk": "node_modules/typescript/lib" for using project's TS version to cookiecord-generator @done(20-04-11 15:42)
     ✔ move to D.js stable @done(20-04-15 16:28)
     ✔ allow ids in all the argtypes @done(20-04-15 16:46)
+    ✘ listener on objects other then client @cancelled(20-04-15 18:45)
+    ✔ make CommandParserModule emit events (commandUse, etc) @done(20-04-15 18:45)
 longterm:
     - more detailed docs
     - unordered arguments
@@ -42,4 +44,3 @@ features:
     - subcommands
     - automated tests
     - handle conflicting module class names better
-    - make CommandParserModule emit events (commandUse, etc)

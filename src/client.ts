@@ -8,13 +8,14 @@ import { readdirSync } from "fs";
 import { join } from "path";
 import Listener from "./listener/listener";
 import { ArgTypes } from "./util/argTypeProvider";
+import Events from "./util/clientEvents";
 type PrefixProvider = (msg: Message) => string | Promise<string>;
 interface CookiecordOptions {
     botAdmins: string[];
     commandArgumentTypes: ArgTypes;
     prefix: PrefixProvider | string;
 }
-export default class CookiecordClient extends Client {
+class CookiecordClient extends Client {
     private commandManager: CommandManager;
     private modules: Set<Module> = new Set();
     private listenerManager: ListenerManager;
@@ -134,3 +135,11 @@ export default class CookiecordClient extends Client {
         });
     }
 }
+interface CookiecordClient {
+    on<K extends keyof Events>(event: K, listener: (...args: Events[K]) => void): this;
+
+    once<K extends keyof Events>(event: K, listener: (...args: Events[K]) => void): this;
+
+    emit<K extends keyof Events>(event: K, ...args: Events[K]): boolean;
+}
+export default CookiecordClient;

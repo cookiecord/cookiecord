@@ -52,6 +52,11 @@ export default class ExampleModule extends Module {
     onMessage(msg: Message) {
         console.log("onMessage", msg.content);
     }
+    
+    @listener({event: "commandExecution"})
+    onExec(ctx: Context) {
+        console.log("onCommandExecution, the command id is:", ctx.cmd.id)
+    }
 
     @command({ aliases: ["pong"] })
     ping({ msg, trigger }: Context) {

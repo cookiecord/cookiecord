@@ -16,3 +16,4 @@ export { default as Listener } from "./listener/listener";
 export { default as Module } from "./module";
 export { default as Context } from "./util/context";
 export { default as optional } from "./command/optional";
+export { default as Events } from "./util/clientEvents";

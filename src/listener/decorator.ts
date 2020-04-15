@@ -1,7 +1,5 @@
 import Module from "../module";
-import { ClientEvents } from "discord.js";
-
-type Event = keyof ClientEvents;
+import { Event } from "../util/clientEvents";
 
 export interface IListenerDecoratorOptions {
     event: Event;
@@ -42,4 +40,3 @@ export default function listener(opts: IListenerDecoratorOptions) {
         );
     };
 }
-export { Event };
