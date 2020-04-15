@@ -41,3 +41,5 @@ features:
     - parse "strings" like this in arg
     - subcommands
     - automated tests
+    - handle conflicting module class names better
+    - make CommandParserModule emit events (commandUse, etc)
