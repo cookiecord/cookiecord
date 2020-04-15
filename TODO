@@ -32,6 +32,7 @@ done:
     ✘ listener on objects other then client @cancelled(20-04-15 18:45)
     ✔ make CommandParserModule emit events (commandUse, etc) @done(20-04-15 18:45)
     ✔ custom listener emitters @done(20-04-15 19:21)
+    ✔ handle conflicting module class names better @done(20-04-15 20:11)
 longterm:
     - more detailed docs
     - unordered arguments
@@ -43,4 +44,4 @@ features:
     - parse "strings" like this in arg
     - subcommands
     - automated tests
-    - handle conflicting module class names better
+    - consider injecting CookiecordClient in, so a super() call isnt required in the module class defs

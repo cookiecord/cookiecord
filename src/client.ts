@@ -58,10 +58,11 @@ class CookiecordClient extends Client {
     }
 
     registerModule(module: typeof Module) {
-        if (module.name == "Module")
-            throw new Error(
-                "Please pass in your module and not the parent Module class."
+        if (module == Module)
+            throw new TypeError(
+                "registerModule only takes in classes that extend Module"
             );
+        if (Array.from(this.modules).some(m => m.constructor.name == module.name)) throw new Error(`cannot register multiple modules with same name (${module.name})`)
         const mod = new module(this);
         mod.processListeners
             .bind(mod)()
