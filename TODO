@@ -27,6 +27,7 @@ done:
     ✔ optional args @done(20-04-10 15:45)
     ✔ docs for optional args @done(20-04-10 16:00)
     ✔ add .vscode	"typescript.tsdk": "node_modules/typescript/lib" for using project's TS version to cookiecord-generator @done(20-04-11 15:42)
+    ✔ move to D.js stable @done(20-04-15 16:28)
 longterm:
     - more detailed docs
     - unordered arguments
@@ -38,3 +39,5 @@ features:
     - custom inhibitor handler
     - parse "strings" like this in arg
     - subcommands
+    - automated tests
+    - allow ids in all the argtypes

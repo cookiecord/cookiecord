@@ -12,7 +12,7 @@
     "repository": "cookiecord/cookiecord",
     "dependencies": {
         "chokidar": "^3.3.1",
-        "discord.js": "discordjs/discord.js",
+        "discord.js": "discordjs/discord.js#stable",
         "dotenv-safe": "^8.2.0",
         "humanize-duration": "^3.21.0",
         "reflect-metadata": "^0.1.13"
