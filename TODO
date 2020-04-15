@@ -31,11 +31,11 @@ done:
     ✔ allow ids in all the argtypes @done(20-04-15 16:46)
     ✘ listener on objects other then client @cancelled(20-04-15 18:45)
     ✔ make CommandParserModule emit events (commandUse, etc) @done(20-04-15 18:45)
+    ✔ custom listener emitters @done(20-04-15 19:21)
 longterm:
     - more detailed docs
     - unordered arguments
     - sharding
-    - custom listener emitters
     
 features:
     - make the commandManager/listenerManager api public
