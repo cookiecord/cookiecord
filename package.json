@@ -29,6 +29,6 @@
         "@types/ws": "^6.0.3",
         "prettier": "^1.19.1",
         "ts-node": "^8.4.1",
-        "typescript": "^3.6.3"
+        "typescript": "^3.8.3"
     }
 }
