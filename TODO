@@ -46,4 +46,4 @@ features:
     - subcommands
     - automated tests
     - consider injecting CookiecordClient in, so a super() call isnt required in the module class defs
-    - update cookiecord-generator to v0.0.11
+    - update cookiecord-generator to v0.0.latest
