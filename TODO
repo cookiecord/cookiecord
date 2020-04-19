@@ -33,6 +33,7 @@ done:
     ✔ make CommandParserModule emit events (commandUse, etc) @done(20-04-15 18:45)
     ✔ custom listener emitters @done(20-04-15 19:21)
     ✔ handle conflicting module class names better @done(20-04-15 20:11)
+    ✔ add CookiecordClient#getPrefix @done(20-04-19 23:34)
 longterm:
     - more detailed docs
     - unordered arguments

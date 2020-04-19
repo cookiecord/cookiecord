@@ -44,7 +44,13 @@ class CookiecordClient extends Client {
         }
         this.registerModule(CommandParserModule);
     }
-
+    async getPrefix(msg: Message) {
+        let prefix = this.prefix(msg);
+        if (prefix instanceof Promise) {
+            prefix = await prefix;
+        }
+        return prefix;
+    }
     getCommandByTrigger(cmdTrigger: string): Command | undefined {
         return Array.from(this.commandManager.cmds).find(c =>
             c.triggers.includes(cmdTrigger)
@@ -62,7 +68,14 @@ class CookiecordClient extends Client {
             throw new TypeError(
                 "registerModule only takes in classes that extend Module"
             );
-        if (Array.from(this.modules).some(m => m.constructor.name == module.name)) throw new Error(`cannot register multiple modules with same name (${module.name})`)
+        if (
+            Array.from(this.modules).some(
+                m => m.constructor.name == module.name
+            )
+        )
+            throw new Error(
+                `cannot register multiple modules with same name (${module.name})`
+            );
         const mod = new module(this);
         mod.processListeners
             .bind(mod)()
@@ -137,9 +150,15 @@ class CookiecordClient extends Client {
     }
 }
 interface CookiecordClient {
-    on<K extends keyof Events>(event: K, listener: (...args: Events[K]) => void): this;
+    on<K extends keyof Events>(
+        event: K,
+        listener: (...args: Events[K]) => void
+    ): this;
 
-    once<K extends keyof Events>(event: K, listener: (...args: Events[K]) => void): this;
+    once<K extends keyof Events>(
+        event: K,
+        listener: (...args: Events[K]) => void
+    ): this;
 
     emit<K extends keyof Events>(event: K, ...args: Events[K]): boolean;
 }
