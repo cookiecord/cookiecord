@@ -35,6 +35,8 @@ done:
     ✔ handle conflicting module class names better @done(20-04-15 20:11)
     ✔ add CookiecordClient#getPrefix @done(20-04-19 23:34)
     ✔ make the commandManager/listenerManager api public @done(20-04-20 00:04)
+    ✔ buitlin help @done(20-04-20 00:41)
+    ✔ getModuleAssociates @done(20-04-20 00:41)
 longterm:
     - more detailed docs
     - unordered arguments

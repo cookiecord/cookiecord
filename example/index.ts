@@ -1,6 +1,5 @@
-import CookiecordClient from "../src";
+import CookiecordClient, { HelpModule } from "../src";
 import dotenv from "dotenv-safe";
-import ExampleModule from "./modules/example";
 dotenv.config();
 
 const client = new CookiecordClient({
@@ -8,6 +7,7 @@ const client = new CookiecordClient({
 });
 // new ExampleModule(client);
 // client.registerModule(ExampleModule);
+client.registerModule(HelpModule);
 client.loadModulesFromFolder("modules");
 client.reloadModulesFromFolder("modules");
 client.login(process.env.TOKEN);
