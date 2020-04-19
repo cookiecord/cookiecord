@@ -18,7 +18,7 @@ interface CookiecordOptions {
 class CookiecordClient extends Client {
     public commandManager: CommandManager;
     public listenerManager: ListenerManager;
-    private modules: Set<Module> = new Set();
+    public modules: Set<Module> = new Set();
     readonly botAdmins: string[];
     readonly commandArgumentTypes: ArgTypes;
     readonly prefix: PrefixProvider;
