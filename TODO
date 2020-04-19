@@ -34,16 +34,16 @@ done:
     ✔ custom listener emitters @done(20-04-15 19:21)
     ✔ handle conflicting module class names better @done(20-04-15 20:11)
     ✔ add CookiecordClient#getPrefix @done(20-04-19 23:34)
+    ✔ make the commandManager/listenerManager api public @done(20-04-20 00:04)
 longterm:
     - more detailed docs
     - unordered arguments
     - sharding
     
 features:
-    - make the commandManager/listenerManager api public
     - custom inhibitor handler
     - parse "strings" like this in arg
     - subcommands
     - automated tests
     - consider injecting CookiecordClient in, so a super() call isnt required in the module class defs
-    - update cookiecord-generator to v0.0.latest
+    - update cookiecord-generator to v0.latest

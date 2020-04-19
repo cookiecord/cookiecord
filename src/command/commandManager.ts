@@ -2,6 +2,7 @@ import { Command } from "..";
 
 export default class CommandManager {
     cmds: Set<Command> = new Set();
+
     add(cmd: Command) {
         if (this.cmds.has(cmd)) return;
         const conflictingCommand = Array.from(this.cmds).find(cm =>
@@ -14,7 +15,12 @@ export default class CommandManager {
         }
         this.cmds.add(cmd);
     }
+
     remove(cmd: Command) {
         this.cmds.delete(cmd);
+    }
+
+    getByTrigger(trigger: string) {
+        return Array.from(this.cmds).find(c => c.triggers.includes(trigger));
     }
 }

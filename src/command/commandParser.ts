@@ -8,7 +8,6 @@ import { Context } from "..";
 export default class CommandParserModule extends Module {
     constructor(client: CookiecordClient) {
         super(client);
-        this.client = client;
     }
     @listener({ event: "message" })
     async onMessage(msg: Message) {
@@ -20,7 +19,7 @@ export default class CommandParserModule extends Module {
         const noPrefix = msg.content.replace(prefix, "");
         const stringArgs: string[] = noPrefix.split(" ").slice(1) || [];
         const cmdTrigger = noPrefix.split(" ")[0].toLowerCase();
-        const cmd = this.client.getCommandByTrigger(cmdTrigger);
+        const cmd = this.client.commandManager.getByTrigger(cmdTrigger);
         if (!cmd) return;
 
         for (const inhibitor of cmd.inhibitors) {

@@ -27,4 +27,8 @@ export default class ListenerManager {
             this.client.removeListener(listener.event, listener.wrapperFunc);
         this.listeners.delete(listener);
     }
+
+    getById(id: string): Listener | undefined {
+        return Array.from(this.listeners).find(c => c.id == id);
+    }
 }

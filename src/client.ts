@@ -16,9 +16,9 @@ interface CookiecordOptions {
     prefix: PrefixProvider | string;
 }
 class CookiecordClient extends Client {
-    private commandManager: CommandManager;
+    public commandManager: CommandManager;
+    public listenerManager: ListenerManager;
     private modules: Set<Module> = new Set();
-    private listenerManager: ListenerManager;
     readonly botAdmins: string[];
     readonly commandArgumentTypes: ArgTypes;
     readonly prefix: PrefixProvider;
@@ -50,17 +50,6 @@ class CookiecordClient extends Client {
             prefix = await prefix;
         }
         return prefix;
-    }
-    getCommandByTrigger(cmdTrigger: string): Command | undefined {
-        return Array.from(this.commandManager.cmds).find(c =>
-            c.triggers.includes(cmdTrigger)
-        );
-    }
-
-    getListenerById(lis: string): Listener | undefined {
-        return Array.from(this.listenerManager.listeners).find(
-            c => c.id == lis
-        );
     }
 
     registerModule(module: typeof Module) {

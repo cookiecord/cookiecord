@@ -14,8 +14,8 @@ export function getArgTypes(client: CookiecordClient) {
         {
             Number: s => (isNaN(parseFloat(s)) ? null : parseFloat(s)),
             String: s => s,
-            Command: s => client.getCommandByTrigger(s),
-            Listener: s => client.getListenerById(s),
+            Command: s => client.commandManager.getByTrigger(s),
+            Listener: s => client.listenerManager.getById(s),
             User: (s, msg) => {
                 const res = USER_PATTERN.exec(s);
                 if (!res) return;
