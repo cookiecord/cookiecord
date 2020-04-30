@@ -37,15 +37,17 @@ done:
     ✔ make the commandManager/listenerManager api public @done(20-04-20 00:04)
     ✔ buitlin help @done(20-04-20 00:41)
     ✔ getModuleAssociates @done(20-04-20 00:41)
+    ✔ update cookiecord-generator to v0.latest @done(20-04-20 00:58)
 longterm:
-    - more detailed docs
+    - proper docs, not just a guide (gitbook?)
     - unordered arguments
     - sharding
+	- subcommands
     
 features:
     - custom inhibitor handler
     - parse "strings" like this in arg
-    - subcommands
     - automated tests
     - consider injecting CookiecordClient in, so a super() call isnt required in the module class defs
-    - update cookiecord-generator to v0.latest
+    - docs for builtin HelpModule
+    - add arguments to take in for builtin help command
