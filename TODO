@@ -37,7 +37,8 @@ done:
     ✔ make the commandManager/listenerManager api public @done(20-04-20 00:04)
     ✔ buitlin help @done(20-04-20 00:41)
     ✔ getModuleAssociates @done(20-04-20 00:41)
-    ✔ update cookiecord-generator to v0.latest @done(20-04-20 00:58)
+	✔ update cookiecord-generator to v0.latest @done(20-04-20 00:58)
+	✔ update cc to es2018 @done(20-05-08 12:25)
 longterm:
     - proper docs, not just a guide (gitbook?)
     - unordered arguments
@@ -51,3 +52,4 @@ features:
     - consider injecting CookiecordClient in, so a super() call isnt required in the module class defs
     - docs for builtin HelpModule
     - add arguments to take in for builtin help command
+	- add builtin inhibitor for required perms to run cmd in guild

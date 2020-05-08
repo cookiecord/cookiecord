@@ -8,8 +8,10 @@ export default function optional(
     if (!(target instanceof Module))
         throw new TypeError(`${target.constructor.name} doesn't extend Module`);
     const descriptor = Reflect.getOwnPropertyDescriptor(target, propertyKey);
-    if (descriptor?.value.constructor.name !== "Function")
-        throw new TypeError("Decorator needs to be applied to a Method.");
+    if (!(descriptor?.value.constructor instanceof Function))
+        throw new TypeError(
+            `Decorator needs to be applied to a Method. (${target.constructor.name}#${descriptor?.value.name} was ${descriptor?.value.constructor.name})`
+        );
 
     const arr: number[] =
         Reflect.getMetadata(

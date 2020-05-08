@@ -21,8 +21,10 @@ export default function listener(opts: IListenerDecoratorOptions) {
             throw new TypeError(
                 `${targetConstructorName} doesn't extend Module`
             );
-        if (descriptor.value.constructor.name !== "Function")
-            throw new TypeError("Decorator needs to be applied to a Method.");
+        if (!(descriptor.value.constructor instanceof Function))
+            throw new TypeError(
+                `Decorator needs to be applied to a Method. (${targetConstructorName}#${descriptor.value.name} was ${descriptor.value.constructor.name})`
+            );
 
         const listenersMeta: IListenerDecoratorMeta[] =
             Reflect.getMetadata("cookiecord:listenerMetas", target) || [];
