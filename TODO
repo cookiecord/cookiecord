@@ -1,6 +1,6 @@
 Use https://marketplace.visualstudio.com/items?itemName=fabiospampinato.vscode-todo-plus to view this correctly.
 
-done:
+Archive:
     inhibitors system with builtin funcs for common things (global ownerOnly etc) kinda like middleware:
         ✔ bot admin @done(20-02-01 14:59)
         ✔ channel type restrictions (guild only, dm only etc) @done(20-02-01 15:17)
@@ -39,17 +39,20 @@ done:
     ✔ getModuleAssociates @done(20-04-20 00:41)
 	✔ update cookiecord-generator to v0.latest @done(20-04-20 00:58)
 	✔ update cc to es2018 @done(20-05-08 12:25)
-longterm:
-    - proper docs, not just a guide (gitbook?)
-    - unordered arguments
-    - sharding
+	✘ not bckwds compat: injecting CookiecordClient in, so a super() call isnt required in the module class defs @cancelled(20-05-08 13:12)
+chore:
+	docs:
+		- docs for builtin HelpModule
+		- more docs then just a guide
+	code:
+		- parse "strings" like this in arg
+		- custom inhibitor handler (onInhibit)
+		- add arguments to take in for builtin help command
+		- add builtin inhibitor for required perms to run cmd in guild
+	
+feat:
+	- automated tests
+	- builtin sentry support (opt-in)
+	- sharding
+	- unordered arguments (opts --like-this  or this  -v)
 	- subcommands
-    
-features:
-    - custom inhibitor handler
-    - parse "strings" like this in arg
-    - automated tests
-    - consider injecting CookiecordClient in, so a super() call isnt required in the module class defs
-    - docs for builtin HelpModule
-    - add arguments to take in for builtin help command
-	- add builtin inhibitor for required perms to run cmd in guild
