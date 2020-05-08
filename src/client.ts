@@ -52,20 +52,23 @@ class CookiecordClient extends Client {
         return prefix;
     }
 
-    registerModule(module: typeof Module) {
-        if (module == Module)
+    registerModule(module: typeof Module | Module) {
+        if (module == Module || module instanceof Module)
             throw new TypeError(
                 "registerModule only takes in classes that extend Module"
             );
         if (
             Array.from(this.modules).some(
-                m => m.constructor.name == module.name
+                m =>
+                    m.constructor.name == module.name ||
+                    m.constructor.name == module.constructor.name
             )
         )
             throw new Error(
-                `cannot register multiple modules with same name (${module.name})`
+                `cannot register multiple modules with same name (${module.name ||
+                    module.constructor.name})`
             );
-        const mod = new module(this);
+        const mod = module instanceof Module ? module : new module(this);
         mod.processListeners
             .bind(mod)()
             .forEach(l => this.listenerManager.add(l));
