@@ -33,7 +33,7 @@ const userCooldown = (ms: number): Inhibitor => {
     return async msg => {
         if (map.has(msg.author.id)) {
             if ((map.get(msg.author.id) || 0) < Date.now()) {
-                map.delete(msg.author.id);
+                map.set(msg.author.id, Date.now() + ms);
                 return undefined;
             } else {
                 return `you must wait ${humanizeDuration(
