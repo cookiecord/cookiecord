@@ -5,7 +5,8 @@ import {
     default as CookiecordClient,
     CommonInhibitors,
     Context,
-    optional
+    optional,
+    multiPrompt
 } from "../../src";
 import {
     Message,
@@ -52,10 +53,10 @@ export default class ExampleModule extends Module {
     onMessage(msg: Message) {
         console.log("onMessage", msg.content);
     }
-    
-    @listener({event: "commandExecution"})
+
+    @listener({ event: "commandExecution" })
     onExec(ctx: Context) {
-        console.log("onCommandExecution, the command id is:", ctx.cmd.id)
+        console.log("onCommandExecution, the command id is:", ctx.cmd.id);
     }
 
     @command({ aliases: ["pong"] })
@@ -101,6 +102,21 @@ export default class ExampleModule extends Module {
     rolecolor(msg: Message, r: Role) {
         msg.reply("role color: " + r.hexColor);
     }
+    @command()
+    async multiprompt(msg: Message) {
+        const res = await multiPrompt(msg, {
+            fat: "Are you fat?",
+            tall: "Are you tall?",
+            thin: "Are you thin?"
+        });
+        msg.channel.send(
+            `using the variables with the types:
+fat=${res.fat}
+tall=${res.tall}
+thin=${res.thin}`
+        );
+    }
+
     // // CookiecordClient isn't a ArgType
     // badcmd(msg: Message, nonexistant: CookiecordClient) {
     //     msg.reply("hi!");
@@ -124,7 +140,11 @@ export default class ExampleModule extends Module {
                 );
             await msg.channel.send(
                 "```js\n" +
-                    result.split(this.client.token).join("[TOKEN]") +
+                    result
+                        .split(this.client.token)
+                        .join("[TOKEN]")
+                        .split("```")
+                        .join("\\`\\`\\`") +
                     "\n```"
             );
         } catch (error) {

@@ -21,4 +21,5 @@ export {
     getModuleCommands,
     getModuleListeners
 } from "./util/getModuleAssociates";
+export { multiPrompt } from "./util/prompter";
 export { default as HelpModule } from "./command/helpModule";
