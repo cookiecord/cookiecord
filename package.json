@@ -3,13 +3,9 @@
     "version": "0.1.12",
     "main": "dist/src/index.js",
     "types": "dist/src/index.d.ts",
-    "author": {
-        "name": "Ron B",
-        "email": "me@ronthecookie.me",
-        "url": "https://ronthecookie.me"
-    },
+    "author": "Ron B <me@ronthecookie.me> (https://ronthecookie.me)",
     "license": "LGPL-3.0",
-    "repository": "cookiecord/cookiecord",
+    "repository": "https://github.com/cookiecord/cookiecord",
     "dependencies": {
         "chokidar": "^3.3.1",
         "discord.js": "discordjs/discord.js#stable",
