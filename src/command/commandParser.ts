@@ -13,11 +13,10 @@ export default class CommandParserModule extends Module {
     async onMessage(msg: Message) {
         if (msg.author && msg.author.bot) return;
         const prefix = await this.client.getPrefix(msg);
-        const matchingPrefixes = Array.isArray(prefix)
-            ? prefix.filter(x => msg.content.startsWith(x))
+        if (Array.isArray(prefix) && prefix.length == 0) return;
+        const matchingPrefix = Array.isArray(prefix)
+            ? prefix.filter(x => msg.content.startsWith(x))[0]
             : prefix;
-        if (matchingPrefixes.length == 0) return;
-		const matchingPrefix = matchingPrefixes[0];
 
         const noPrefix = msg.content.replace(matchingPrefix, "");
         const stringArgs: string[] = noPrefix.split(" ").slice(1) || [];
