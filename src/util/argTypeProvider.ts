@@ -38,12 +38,16 @@ export function getArgTypes(client: CookiecordClient) {
                 let member: GuildMember | undefined;
                 if (res && res[1]) member = msg.guild.members.cache.get(res[1]);
                 if (!member)
-                    member = msg.guild.members.cache.find(m => m.user.tag == s);
-                if (!member)
-                    member = msg.guild.members.cache.find(m => m.nickname == s);
+                    member = msg.guild.members.cache.find(
+                        m => m.user.tag.toLowerCase() == s.toLowerCase()
+                    );
                 if (!member)
                     member = msg.guild.members.cache.find(
-                        m => m.user.username == s
+                        m => m.nickname?.toLowerCase() == s.toLowerCase()
+                    );
+                if (!member)
+                    member = msg.guild.members.cache.find(
+                        m => m.user.username.toLowerCase() == s.toLowerCase()
                     );
                 return member;
             },
