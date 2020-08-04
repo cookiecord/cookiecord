@@ -23,7 +23,7 @@ export default class ExampleModule extends Module {
     constructor(client: CookiecordClient) {
         super(client);
     }
-    @command({ inhibitors: [CommonInhibitors.botAdminsOnly] })
+    @command()
     goodbot(msg: Message, bot: User) {
         if (!bot.bot) return msg.reply("user needs to be a bot");
         msg.channel.send(`${bot} is a very good boat.`);
@@ -67,9 +67,7 @@ export default class ExampleModule extends Module {
     single(msg: Message, str: string) {
         msg.reply("You said " + str);
     }
-    @command({
-        inhibitors: [CommonInhibitors.botAdminsOnly]
-    })
+    @command()
     badboy(msg: Message, m: GuildMember) {
         msg.channel.send(`${m} is a bad boy!`);
     }

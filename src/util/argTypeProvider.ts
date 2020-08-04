@@ -1,5 +1,5 @@
 import CookiecordClient from "../client";
-import { Message } from "discord.js";
+import { Message, User, GuildMember } from "discord.js";
 
 export type ArgTypes = {
     [key: string]: (s: string, msg: Message) => unknown;
@@ -18,13 +18,34 @@ export function getArgTypes(client: CookiecordClient) {
             Listener: s => client.listenerManager.getById(s),
             User: (s, msg) => {
                 const res = USER_PATTERN.exec(s);
-                if (!res) return;
-                return msg.client.users.cache.get(res[1]);
+                let user: User | undefined;
+
+                if (res && res[1]) user = msg.client.users.cache.get(res[1]);
+                if (!user)
+                    user = msg.client.users.cache.find(
+                        m => m.tag.toLowerCase() == s.toLowerCase()
+                    );
+                if (!user)
+                    user = msg.client.users.cache.find(
+                        u => u.username.toLowerCase() == s.toLowerCase()
+                    );
+                console.log(user);
+                return user;
             },
             GuildMember: (s, msg) => {
+                if (!msg.guild) return;
                 const res = USER_PATTERN.exec(s);
-                if (!res || !msg.guild) return;
-                return msg.guild.members.cache.get(res[1]);
+                let member: GuildMember | undefined;
+                if (res && res[1]) member = msg.guild.members.cache.get(res[1]);
+                if (!member)
+                    member = msg.guild.members.cache.find(m => m.user.tag == s);
+                if (!member)
+                    member = msg.guild.members.cache.find(m => m.nickname == s);
+                if (!member)
+                    member = msg.guild.members.cache.find(
+                        m => m.user.username == s
+                    );
+                return member;
             },
             TextChannel: (s, msg) => {
                 const res = CHANNEL_PATTERN.exec(s);
