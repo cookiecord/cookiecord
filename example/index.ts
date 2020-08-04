@@ -3,7 +3,8 @@ import dotenv from "dotenv-safe";
 dotenv.config();
 
 const client = new CookiecordClient({
-    botAdmins: process.env.BOT_ADMINS?.split(",")
+    botAdmins: process.env.BOT_ADMINS?.split(","),
+    prefix: ["c!", "cc!", "!"]
 });
 // new ExampleModule(client);
 // client.registerModule(ExampleModule);

@@ -28,7 +28,10 @@ export default class ExampleModule extends Module {
         if (!bot.bot) return msg.reply("user needs to be a bot");
         msg.channel.send(`${bot} is a very good boat.`);
     }
-
+    @command()
+    contextdump(ctx: Context) {
+        ctx.msg.channel.send(inspect(ctx, false, 0, false));
+    }
     @command()
     add(msg: Message, x: number, @optional y?: number) {
         msg.reply(x + (y || x));

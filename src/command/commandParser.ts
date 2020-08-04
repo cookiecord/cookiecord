@@ -11,12 +11,15 @@ export default class CommandParserModule extends Module {
     }
     @listener({ event: "message" })
     async onMessage(msg: Message) {
-        const prefix = await this.client.getPrefix(msg);
-
         if (msg.author && msg.author.bot) return;
-        if (!msg.content.startsWith(prefix)) return;
+        const prefix = await this.client.getPrefix(msg);
+        const matchingPrefixes = Array.isArray(prefix)
+            ? prefix.filter(x => msg.content.startsWith(x))
+            : prefix;
+        if (matchingPrefixes.length == 0) return;
+		const matchingPrefix = matchingPrefixes[0];
 
-        const noPrefix = msg.content.replace(prefix, "");
+        const noPrefix = msg.content.replace(matchingPrefix, "");
         const stringArgs: string[] = noPrefix.split(" ").slice(1) || [];
         const cmdTrigger = noPrefix.split(" ")[0].toLowerCase();
         const cmd = this.client.commandManager.getByTrigger(cmdTrigger);
@@ -62,7 +65,7 @@ export default class CommandParserModule extends Module {
         }
 
         // Executing the command
-        const context = new Context(msg, prefix, cmdTrigger, cmd);
+        const context = new Context(msg, matchingPrefix, cmdTrigger, cmd);
         try {
             const result = cmd.func.call(
                 cmd.module,

@@ -1,19 +1,19 @@
+import chokidar from "chokidar";
 import { Client, ClientOptions, Message } from "discord.js";
-import { Command, Module } from ".";
+import { readdirSync } from "fs";
+import { join } from "path";
+import { Module } from ".";
 import CommandManager from "./command/commandManager";
 import CommandParserModule from "./command/commandParser";
 import ListenerManager from "./listener/listenerManager";
-import chokidar from "chokidar";
-import { readdirSync } from "fs";
-import { join } from "path";
-import Listener from "./listener/listener";
 import { ArgTypes } from "./util/argTypeProvider";
 import Events from "./util/clientEvents";
-type PrefixProvider = (msg: Message) => string | Promise<string>;
+type Prefix = string | string[];
+type PrefixProvider = (msg: Message) => Prefix | Promise<Prefix>;
 interface CookiecordOptions {
     botAdmins: string[];
     commandArgumentTypes: ArgTypes;
-    prefix: PrefixProvider | string;
+    prefix: PrefixProvider | Prefix;
 }
 class CookiecordClient extends Client {
     public commandManager: CommandManager;
@@ -36,7 +36,7 @@ class CookiecordClient extends Client {
             this.prefix = () => "cc!";
         } else {
             const op = opts.prefix;
-            if (typeof op == "string") {
+            if (Array.isArray(op) || typeof op == "string") {
                 this.prefix = () => op;
             } else {
                 this.prefix = op;
