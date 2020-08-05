@@ -4,7 +4,7 @@ dotenv.config();
 
 const client = new CookiecordClient({
     botAdmins: process.env.BOT_ADMINS?.split(","),
-    prefix: ["c!", "cc!", "!"]
+    prefix: "!"
 });
 // new ExampleModule(client);
 // client.registerModule(ExampleModule);
