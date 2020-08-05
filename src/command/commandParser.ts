@@ -16,9 +16,11 @@ export default class CommandParserModule extends Module {
         if (Array.isArray(prefix) && prefix.length == 0) return;
         const matchingPrefix = Array.isArray(prefix)
             ? prefix.filter(x => msg.content.startsWith(x))[0]
-            : prefix;
-
-        const noPrefix = msg.content.replace(matchingPrefix, "");
+			: prefix;
+		
+        if (!matchingPrefix) return;
+		
+		const noPrefix = msg.content.replace(matchingPrefix, "");
         const stringArgs: string[] = noPrefix.split(" ").slice(1) || [];
         const cmdTrigger = noPrefix.split(" ")[0].toLowerCase();
         const cmd = this.client.commandManager.getByTrigger(cmdTrigger);
