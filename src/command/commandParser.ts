@@ -51,7 +51,8 @@ export default class CommandParserModule extends Module {
                         stringArgs.length !== 1 ? "s" : ""
                     } instead`
                 );
-            for (const i in stringArgs) {
+			for (const i in stringArgs) {
+				if (!cmd.args[i]) continue; // avoid null
                 const sa = stringArgs[i];
                 // Beware: arg is `unknown`
                 const arg = getArgTypes(this.client)[cmd.args[i].type.name](
