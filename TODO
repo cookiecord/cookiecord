@@ -40,19 +40,21 @@ Archive:
 	✔ update cookiecord-generator to v0.latest @done(20-04-20 00:58)
 	✔ update cc to es2018 @done(20-05-08 12:25)
 	✘ not bckwds compat: injecting CookiecordClient in, so a super() call isnt required in the module class defs @cancelled(20-05-08 13:12)
+	✘ builtin sentry support (opt-in) @cancelled(20-09-11 23:37)
+	✘ custom inhibitor handler (onInhibit) @cancelled(20-09-11 23:42)
 chore:
 	docs:
 		- docs for builtin HelpModule
 		- more docs then just a guide
 	code:
 		- parse "strings" like this in arg
-		- custom inhibitor handler (onInhibit)
 		- add arguments to take in for builtin help command
 		- add builtin inhibitor for required perms to run cmd in guild
 	
-feat:
-	- automated tests
-	- builtin sentry support (opt-in)
+dreams:
 	- sharding
+	- automated tests
+
+feat:
 	- unordered arguments (opts --like-this  or this  -v)
 	- subcommands

@@ -14,6 +14,8 @@ This guide does assume you have atleast some experience with Node.js projects.
     -   [Optional Arguments](#optional-arguments)
 -   [cookiecord-generator](#cookiecord-generator)
 
+-   [Detailed API docs](/api)
+
 # Basics
 
 ## Setting up the environment
