@@ -6,8 +6,8 @@
 	"author": "Ron B <me@ronthecookie.me>",
 	"license": "MIT",
 	"scripts": {
-		"start": "ts-node src/example",
-		"dev": "ts-node-dev --clear src/example",
+		"start": "ts-node -C ttypescript src/example",
+		"dev": "ts-node-dev -C ttypescript --clear src/example",
 		"build": "tsc"
 	},
 	"dependencies": {
@@ -21,6 +21,7 @@
 		"dotenv-safe": "^8.2.0",
 		"ts-node": "^8.10.2",
 		"ts-node-dev": "^1.0.0-pre.52",
+		"ttypescript": "^1.5.12",
 		"typescript": "^3.9.6"
 	}
 }
