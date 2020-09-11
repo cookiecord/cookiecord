@@ -35,7 +35,8 @@ export default class HelpModule extends Module {
                         ? `: *${command.description}*`
                         : "";
                     return `**${prefix}${name}**${description}`;
-                })
+                }),
+                true
             );
         }, initialEmbed);
 
