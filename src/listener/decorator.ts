@@ -11,7 +11,7 @@ export interface IListenerDecoratorMeta {
 }
 
 export default function listener(opts: IListenerDecoratorOptions) {
-    return function(
+    return function (
         target: Module,
         propertyKey: string,
         descriptor: PropertyDescriptor

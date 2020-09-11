@@ -15,14 +15,14 @@ const botAdminsOnly: Inhibitor = async (
     client: CookiecordClient
 ) => (client.botAdmins.includes(msg.author.id) ? undefined : "not a bot admin");
 
-const guildsOnly: Inhibitor = async msg =>
+const guildsOnly: Inhibitor = async (msg) =>
     msg.member ? undefined : "not in a guild";
 
-const dmsOnly: Inhibitor = async msg =>
+const dmsOnly: Inhibitor = async (msg) =>
     msg.channel.type == "dm" ? undefined : "not in dms";
 
 const hasGuildPermission = (perm: PermissionResolvable) =>
-    mergeInhibitors(guildsOnly, async msg =>
+    mergeInhibitors(guildsOnly, async (msg) =>
         msg.member!.hasPermission(perm)
             ? undefined
             : "missing discord permission " + perm
@@ -30,7 +30,7 @@ const hasGuildPermission = (perm: PermissionResolvable) =>
 
 const userCooldown = (ms: number): Inhibitor => {
     const map: Map<string, number> = new Map();
-    return async msg => {
+    return async (msg) => {
         if (map.has(msg.author.id)) {
             if ((map.get(msg.author.id) || 0) < Date.now()) {
                 map.set(msg.author.id, Date.now() + ms);

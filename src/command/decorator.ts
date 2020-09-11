@@ -27,7 +27,7 @@ type ICommandDecorator = ICommandDecoratorMeta & ICommandDecoratorOptions;
 export function command(
     opts: Partial<ICommandDecoratorOptions> | undefined = {}
 ) {
-    return function(
+    return function (
         target: Module,
         propertyKey: string,
         descriptor: PropertyDescriptor
@@ -74,7 +74,7 @@ export function command(
             usesContextAPI: types[0] == Context,
             onError:
                 opts.onError ||
-                (msg => {
+                ((msg) => {
                     msg.reply(":warning: error while executing command!");
                 })
         };

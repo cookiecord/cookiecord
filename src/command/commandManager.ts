@@ -5,8 +5,8 @@ export default class CommandManager {
 
     add(cmd: Command) {
         if (this.cmds.has(cmd)) return;
-        const conflictingCommand = Array.from(this.cmds).find(cm =>
-            cmd.triggers.some(trigger => cm.triggers.includes(trigger))
+        const conflictingCommand = Array.from(this.cmds).find((cm) =>
+            cmd.triggers.some((trigger) => cm.triggers.includes(trigger))
         );
         if (conflictingCommand) {
             throw new Error(
@@ -21,6 +21,6 @@ export default class CommandManager {
     }
 
     getByTrigger(trigger: string) {
-        return Array.from(this.cmds).find(c => c.triggers.includes(trigger));
+        return Array.from(this.cmds).find((c) => c.triggers.includes(trigger));
     }
 }

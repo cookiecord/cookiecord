@@ -13,7 +13,7 @@ export default class HelpModule extends Module {
     async help(msg: Message) {
         const prefix = await this.client.getPrefix(msg);
         const modules = Array.from(this.client.modules).filter(
-            mod => getModuleCommands(mod).length !== 0
+            (mod) => getModuleCommands(mod).length !== 0
         );
 
         const _commands = Array.from(this.client.commandManager.cmds);
@@ -25,11 +25,11 @@ export default class HelpModule extends Module {
 
         const embed = modules.reduce((embed, module) => {
             const commands = _commands.filter(
-                command => command.module === module
+                (command) => command.module === module
             );
             return embed.addField(
                 module.constructor.name,
-                commands.map(command => {
+                commands.map((command) => {
                     const name = command.id.split("/")[1];
                     const description = command.description
                         ? `: *${command.description}*`

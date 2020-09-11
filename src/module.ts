@@ -15,7 +15,7 @@ export default class Module {
             Reflect.getMetadata("cookiecord:listenerMetas", this) || [];
 
         return listenersMeta.map(
-            meta =>
+            (meta) =>
                 ({
                     event: meta.event,
                     id: this.constructor.name + "/" + meta.id,
@@ -28,13 +28,13 @@ export default class Module {
         const targetMetas: ICommandDecorator[] =
             Reflect.getMetadata("cookiecord:commandMetas", this) || [];
         const cmds = targetMetas.map(
-            meta =>
+            (meta) =>
                 ({
                     description: meta.description,
                     func: Reflect.get(this, meta.id),
                     id: this.constructor.name + "/" + meta.id,
                     args: meta.args,
-                    triggers: [meta.id, ...meta.aliases].map(id =>
+                    triggers: [meta.id, ...meta.aliases].map((id) =>
                         id.toLowerCase()
                     ),
                     module: this,
@@ -44,8 +44,8 @@ export default class Module {
                     usesContextAPI: meta.usesContextAPI
                 } as Command)
         );
-        cmds.forEach(cmd =>
-            cmd.args.forEach(arg => {
+        cmds.forEach((cmd) =>
+            cmd.args.forEach((arg) => {
                 if (!getArgTypes(this.client)[arg.type.name])
                     throw new Error(
                         `command tried to use an unsupported argument type ${arg.type.name}`

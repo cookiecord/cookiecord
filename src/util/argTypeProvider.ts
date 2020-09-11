@@ -12,10 +12,10 @@ const ROLE_PATTERN = /(?:<@&)?(\d+)>?/;
 export function getArgTypes(client: CookiecordClient) {
     return Object.assign(
         {
-            Number: s => (isNaN(parseFloat(s)) ? null : parseFloat(s)),
-            String: s => s,
-            Command: s => client.commandManager.getByTrigger(s),
-            Listener: s => client.listenerManager.getById(s),
+            Number: (s) => (isNaN(parseFloat(s)) ? null : parseFloat(s)),
+            String: (s) => s,
+            Command: (s) => client.commandManager.getByTrigger(s),
+            Listener: (s) => client.listenerManager.getById(s),
             User: (s, msg) => {
                 const res = USER_PATTERN.exec(s);
                 let user: User | undefined;
@@ -23,11 +23,11 @@ export function getArgTypes(client: CookiecordClient) {
                 if (res && res[1]) user = msg.client.users.cache.get(res[1]);
                 if (!user)
                     user = msg.client.users.cache.find(
-                        m => m.tag.toLowerCase() == s.toLowerCase()
+                        (m) => m.tag.toLowerCase() == s.toLowerCase()
                     );
                 if (!user)
                     user = msg.client.users.cache.find(
-                        u => u.username.toLowerCase() == s.toLowerCase()
+                        (u) => u.username.toLowerCase() == s.toLowerCase()
                     );
                 console.log(user);
                 return user;
@@ -39,15 +39,15 @@ export function getArgTypes(client: CookiecordClient) {
                 if (res && res[1]) member = msg.guild.members.cache.get(res[1]);
                 if (!member)
                     member = msg.guild.members.cache.find(
-                        m => m.user.tag.toLowerCase() == s.toLowerCase()
+                        (m) => m.user.tag.toLowerCase() == s.toLowerCase()
                     );
                 if (!member)
                     member = msg.guild.members.cache.find(
-                        m => m.nickname?.toLowerCase() == s.toLowerCase()
+                        (m) => m.nickname?.toLowerCase() == s.toLowerCase()
                     );
                 if (!member)
                     member = msg.guild.members.cache.find(
-                        m => m.user.username.toLowerCase() == s.toLowerCase()
+                        (m) => m.user.username.toLowerCase() == s.toLowerCase()
                     );
                 return member;
             },

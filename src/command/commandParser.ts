@@ -15,7 +15,7 @@ export default class CommandParserModule extends Module {
         const prefix = await this.client.getPrefix(msg);
         if (Array.isArray(prefix) && prefix.length == 0) return;
         const matchingPrefix = Array.isArray(prefix)
-            ? prefix.filter(x => msg.content.startsWith(x))[0]
+            ? prefix.filter((x) => msg.content.startsWith(x))[0]
             : msg.content.startsWith(prefix)
             ? prefix
             : undefined;
@@ -39,7 +39,7 @@ export default class CommandParserModule extends Module {
         // Argument type validation
         const typedArgs = [] as unknown[];
         const leastArgs =
-            cmd.args.length - cmd.args.filter(x => x.optional).length;
+            cmd.args.length - cmd.args.filter((x) => x.optional).length;
         if (cmd.single) {
             typedArgs.push(stringArgs.join(" "));
         } else {
@@ -51,8 +51,8 @@ export default class CommandParserModule extends Module {
                         stringArgs.length !== 1 ? "s" : ""
                     } instead`
                 );
-			for (const i in stringArgs) {
-				if (!cmd.args[i]) continue; // avoid null
+            for (const i in stringArgs) {
+                if (!cmd.args[i]) continue; // avoid null
                 const sa = stringArgs[i];
                 // Beware: arg is `unknown`
                 const arg = getArgTypes(this.client)[cmd.args[i].type.name](
@@ -61,8 +61,9 @@ export default class CommandParserModule extends Module {
                 );
                 if (arg === null || arg === undefined) {
                     return msg.reply(
-                        `:warning: argument #${parseInt(i, 10) +
-                            1} is not of expected type ${cmd.args[i].type.name}`
+                        `:warning: argument #${
+                            parseInt(i, 10) + 1
+                        } is not of expected type ${cmd.args[i].type.name}`
                     );
                 } else typedArgs.push(arg);
             }

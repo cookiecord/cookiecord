@@ -88,7 +88,7 @@ export default class ExampleModule extends Module {
         msg.channel.send(`${m}:hammer:`);
     }
     @command({
-        onError: msg => {
+        onError: (msg) => {
             msg.reply("custom error reply!");
         }
     })
