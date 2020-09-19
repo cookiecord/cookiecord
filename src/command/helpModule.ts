@@ -40,6 +40,10 @@ export default class HelpModule extends Module {
             );
         }, initialEmbed);
 
-        await msg.channel.send(embed);
+        if (!msg.guild.me.permissionsIn(msg.channel).has("EMBED_LINKS")) {
+            await msg.channel.send(":warning: Can't send embeds to this channel!")
+        } else {
+            await msg.channel.send(embed);
+        }
     }
 }
