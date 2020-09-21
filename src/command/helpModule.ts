@@ -60,10 +60,9 @@ export default class HelpModule extends Module {
             );
         }, new Array());
 
-        if (!msg.guild) {
-            await msg.channel.send(embed);
-        } else if (
-            !msg.guild.me!.permissionsIn(msg.channel).has("EMBED_LINKS")
+        if (
+            msg.guild &&
+            !msg.guild.me?.permissionsIn(msg.channel).has("EMBED_LINKS")
         ) {
             await msg.channel.send(`${CODEBLOCK}
 ${nonEmbed.join("\n")}
