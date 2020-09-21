@@ -41,7 +41,7 @@ export default class HelpModule extends Module {
             );
         }, initialEmbed);
 
-        const nonEmbed = modules.reduce((message, module) => {
+        const fallbackContent = modules.reduce((message, module) => {
             const commands = _commands.filter(
                 command => command.module === module
             );
@@ -65,7 +65,7 @@ export default class HelpModule extends Module {
             !msg.guild.me?.permissionsIn(msg.channel).has("EMBED_LINKS")
         ) {
             await msg.channel.send(`${CODEBLOCK}
-${nonEmbed.join("\n")}
+${fallbackContent.join("\n")}
 ${CODEBLOCK}`);
         } else {
             await msg.channel.send(embed);
