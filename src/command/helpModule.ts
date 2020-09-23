@@ -57,7 +57,7 @@ export default class HelpModule extends Module {
                     })
                     .join("\n") + "\n"
             );
-        }, new Array());
+        }, [] as string[]);
 
         if (
             msg.guild &&
