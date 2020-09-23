@@ -41,13 +41,12 @@ export default class HelpModule extends Module {
             );
         }, initialEmbed);
 
-        const fallbackContent = modules.reduce((message, module) => {
+        const fallbackContent = modules.reduce((content, module) => {
             const commands = _commands.filter(
                 command => command.module === module
             );
-            return message.concat(
-                module.constructor.name,
-                "\n",
+            return content.concat(
+                "#" + module.constructor.name,
                 commands
                     .map(command => {
                         const name = command.id.split("/")[1];
@@ -64,7 +63,7 @@ export default class HelpModule extends Module {
             msg.guild &&
             !msg.guild.me?.permissionsIn(msg.channel).has("EMBED_LINKS")
         ) {
-            await msg.channel.send(`${CODEBLOCK}
+            await msg.channel.send(`${CODEBLOCK}md
 ${fallbackContent.join("\n")}
 ${CODEBLOCK}`);
         } else {

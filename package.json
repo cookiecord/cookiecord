@@ -11,8 +11,7 @@
         "discord.js": "discordjs/discord.js#stable",
         "dotenv-safe": "^8.2.0",
         "humanize-duration": "^3.21.0",
-        "reflect-metadata": "^0.1.13",
-        "rm": "^0.1.8"
+        "reflect-metadata": "^0.1.13"
     },
     "scripts": {
         "prepublish": "rm -rf dist && tsc && yarn docgen",
