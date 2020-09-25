@@ -17,7 +17,7 @@ export default class HelpModule extends Module {
             mod => getModuleCommands(mod).length !== 0
         );
 
-        const _commands = Array.from(this.client.commandManager.cmds);
+        const commands = Array.from(this.client.commandManager.cmds);
 
         const initialEmbed = new MessageEmbed()
             .setTitle("Help")
@@ -25,12 +25,12 @@ export default class HelpModule extends Module {
             .setColor("BLUE");
 
         const embed = modules.reduce((embed, module) => {
-            const commands = _commands.filter(
+            const filteredCommands = commands.filter(
                 command => command.module === module
             );
             return embed.addField(
                 module.constructor.name,
-                commands.map(command => {
+                filteredCommands.map(command => {
                     const name = command.id.split("/")[1];
                     const description = command.description
                         ? `: *${command.description}*`
@@ -42,12 +42,12 @@ export default class HelpModule extends Module {
         }, initialEmbed);
 
         const fallbackContent = modules.reduce((content, module) => {
-            const commands = _commands.filter(
+            const filteredCommands = commands.filter(
                 command => command.module === module
             );
             return content.concat(
                 "#" + module.constructor.name,
-                commands
+                filteredCommands
                     .map(command => {
                         const name = command.id.split("/")[1];
                         const description = command.description
@@ -63,9 +63,9 @@ export default class HelpModule extends Module {
             msg.guild &&
             !msg.guild.me?.permissionsIn(msg.channel).has("EMBED_LINKS")
         ) {
-            await msg.channel.send(`${CODEBLOCK}md
-${fallbackContent.join("\n")}
-${CODEBLOCK}`);
+            await msg.channel.send(
+                `${CODEBLOCK}md\n${fallbackContent.join("\n")}\n${CODEBLOCK}`
+            );
         } else {
             await msg.channel.send(embed);
         }
