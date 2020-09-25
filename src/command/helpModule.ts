@@ -46,7 +46,7 @@ export default class HelpModule extends Module {
                 command => command.module === module
             );
             return content.concat(
-                "#" + module.constructor.name,
+                "# " + module.constructor.name,
                 filteredCommands
                     .map(command => {
                         const name = command.id.split("/")[1];
