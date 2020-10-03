@@ -1,3 +1,4 @@
 theme: jekyll-theme-minimal
 title: Cookiecord Guide
 description: Cookiecord is an experimental discord bot framework built in TypeScript using decorators.
+exclude: [api]
