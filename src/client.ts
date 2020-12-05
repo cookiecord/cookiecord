@@ -69,34 +69,23 @@ class CookiecordClient extends Client {
                     module.constructor.name})`
             );
         const mod = module instanceof Module ? module : new module(this);
-        mod.processListeners
-            .bind(mod)()
-            .forEach(l => this.listenerManager.add(l));
-        mod.processCommands
-            .bind(mod)()
-            .forEach(c => this.commandManager.add(c));
-        this.modules.add(mod);
+        this.registerModuleInstance(mod);
         return this;
     }
 
-    registerModuleInstance(instance: typeof Module) {
+    registerModuleInstance(instance: Module) {
         if (!(instance instanceof Module))
             throw new TypeError(
                 "registerModuleFromInstance only takes in instances of Module"
             );
-
         if (
             Array.from(this.modules).some(
-                m =>
-                    m.constructor.name == instance.name ||
-                    m.constructor.name == instance.constructor.name
+                m => m.constructor.name == instance.constructor.name
             )
         )
             throw new Error(
-                `cannot register multiple modules with same name (${instance.name ||
-                    instance.constructor.name})`
+                `cannot register multiple modules with same name (${instance.constructor.name})`
             );
-
         instance.processListeners
             .bind(instance)()
             .forEach(l => this.listenerManager.add(l));
@@ -104,6 +93,15 @@ class CookiecordClient extends Client {
             .bind(instance)()
             .forEach(c => this.commandManager.add(c));
         this.modules.add(instance);
+        return this;
+    }
+
+    registerModuleFromFactory(factory: (client: CookiecordClient) => Module) {
+        if (typeof factory !== "function")
+            throw new TypeError(
+                "registerModuleFactory only takes in a factory that returns a Module instance"
+            );
+        this.registerModuleInstance(factory(this));
         return this;
     }
 
