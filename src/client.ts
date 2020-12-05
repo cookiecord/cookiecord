@@ -97,10 +97,6 @@ class CookiecordClient extends Client {
     }
 
     registerModuleFromFactory(factory: (client: CookiecordClient) => Module) {
-        if (typeof factory !== "function")
-            throw new TypeError(
-                "registerModuleFromFactory only takes in a factory that returns a Module instance"
-            );
         this.registerModuleInstance(factory(this));
         return this;
     }
