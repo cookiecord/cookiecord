@@ -59,7 +59,7 @@ class CookiecordClient extends Client {
             );
         if (
             Array.from(this.modules).some(
-                m =>
+                (m) =>
                     m.constructor.name == module.name ||
                     m.constructor.name == module.constructor.name
             )
@@ -80,7 +80,7 @@ class CookiecordClient extends Client {
             );
         if (
             Array.from(this.modules).some(
-                m => m.constructor.name == instance.constructor.name
+                (m) => m.constructor.name == instance.constructor.name
             )
         )
             throw new Error(
@@ -88,10 +88,10 @@ class CookiecordClient extends Client {
             );
         instance.processListeners
             .bind(instance)()
-            .forEach(l => this.listenerManager.add(l));
+            .forEach((l) => this.listenerManager.add(l));
         instance.processCommands
             .bind(instance)()
-            .forEach(c => this.commandManager.add(c));
+            .forEach((c) => this.commandManager.add(c));
         this.modules.add(instance);
         return this;
     }
@@ -109,11 +109,11 @@ class CookiecordClient extends Client {
         if (!this.modules.has(mod))
             throw new Error("Cannot unregister unregistered module");
         Array.from(this.listenerManager.listeners)
-            .filter(l => l.module == mod)
-            .forEach(l => this.listenerManager.remove(l));
+            .filter((l) => l.module == mod)
+            .forEach((l) => this.listenerManager.remove(l));
         Array.from(this.commandManager.cmds)
-            .filter(c => c.module == mod)
-            .forEach(c => this.commandManager.remove(c));
+            .filter((c) => c.module == mod)
+            .forEach((c) => this.commandManager.remove(c));
         this.modules.delete(mod);
         return this;
     }
@@ -122,7 +122,7 @@ class CookiecordClient extends Client {
         const fn = join(process.cwd(), path);
         const watcher = chokidar.watch(fn);
 
-        watcher.on("change", file => {
+        watcher.on("change", (file) => {
             // Here be dragons.
             // Might need more validation here...
             delete require.cache[file];
@@ -132,7 +132,7 @@ class CookiecordClient extends Client {
             if (module.default) {
                 if (Object.getPrototypeOf(module.default) == Module) {
                     const old = Array.from(this.modules).find(
-                        mod => module.default.name == mod.constructor.name
+                        (mod) => module.default.name == mod.constructor.name
                     );
                     if (old) this.unregisterModule(old);
                     this.registerModule(module.default);
@@ -150,7 +150,7 @@ class CookiecordClient extends Client {
 
     loadModulesFromFolder(path: string) {
         const files = readdirSync(path);
-        files.forEach(file => {
+        files.forEach((file) => {
             const fn = join(process.cwd(), path, file);
             const module = require(fn);
             if (module.default) {
