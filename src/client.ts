@@ -76,7 +76,7 @@ class CookiecordClient extends Client {
     registerModuleInstance(instance: Module) {
         if (!(instance instanceof Module))
             throw new TypeError(
-                "registerModuleFromInstance only takes in instances of Module"
+                "registerModuleInstance only takes in instances of Module"
             );
         if (
             Array.from(this.modules).some(
@@ -99,7 +99,7 @@ class CookiecordClient extends Client {
     registerModuleFromFactory(factory: (client: CookiecordClient) => Module) {
         if (typeof factory !== "function")
             throw new TypeError(
-                "registerModuleFactory only takes in a factory that returns a Module instance"
+                "registerModuleFromFactory only takes in a factory that returns a Module instance"
             );
         this.registerModuleInstance(factory(this));
         return this;
