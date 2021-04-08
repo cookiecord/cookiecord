@@ -25,7 +25,7 @@ export default class ExampleModule extends Module {
     }
     @command()
     goodbot(msg: Message, bot: User) {
-        if (!bot.bot) return msg.reply("user needs to be a bot");
+        if (!bot.bot) return msg.channel.send("user needs to be a bot");
         msg.channel.send(`${bot} is a very good boat.`);
     }
     @command()
@@ -34,22 +34,22 @@ export default class ExampleModule extends Module {
     }
     @command()
     add(msg: Message, x: number, @optional y?: number) {
-        msg.reply(x + (y || x));
+        msg.channel.send(x + (y || x));
     }
 
     @command()
     avatar(msg: Message, u: User) {
-        msg.reply(u.displayAvatarURL());
+        msg.channel.send(u.displayAvatarURL());
     }
 
     @command({ description: "asd" })
     test(msg: Message, a: string, b: number, u: User, m: GuildMember) {
-        msg.reply(a + b + u.tag + m.nickname);
+        msg.channel.send(a + b + u.tag + m.nickname);
     }
 
     @command({ description: "abc", aliases: ["gc"] })
     guildcount(msg: Message, offset: number) {
-        msg.reply(this.client.guilds.cache.size + offset);
+        msg.channel.send(this.client.guilds.cache.size + offset);
     }
 
     @listener({ event: "message" })
@@ -64,11 +64,11 @@ export default class ExampleModule extends Module {
 
     @command({ aliases: ["pong"] })
     ping({ msg, trigger }: Context) {
-        msg.reply(`${trigger == "pong" ? "ping" : "pong"} :ping_pong:`);
+        msg.channel.send(`${trigger == "pong" ? "ping" : "pong"} :ping_pong:`);
     }
     @command({ single: true })
     single(msg: Message, str: string) {
-        msg.reply("You said " + str);
+        msg.channel.send("You said " + str);
     }
     @command()
     badboy(msg: Message, m: GuildMember) {
@@ -76,7 +76,7 @@ export default class ExampleModule extends Module {
     }
     @command({})
     todo(msg: Message) {
-        msg.reply("```" + readFileSync("../TODO").toString() + "```");
+        msg.channel.send("```" + readFileSync("../TODO").toString() + "```");
     }
     @command({
         inhibitors: [
@@ -88,8 +88,8 @@ export default class ExampleModule extends Module {
         msg.channel.send(`${m}:hammer:`);
     }
     @command({
-        onError: (msg) => {
-            msg.reply("custom error reply!");
+        onError: msg => {
+            msg.channel.send("custom error reply!");
         }
     })
     triggerError(msg: Message) {
@@ -97,11 +97,11 @@ export default class ExampleModule extends Module {
     }
     @command()
     chandesc(msg: Message, c: TextChannel) {
-        msg.reply(c.topic);
+        msg.channel.send(c.topic ?? "");
     }
     @command()
     rolecolor(msg: Message, r: Role) {
-        msg.reply("role color: " + r.hexColor);
+        msg.channel.send("role color: " + r.hexColor);
     }
     @command()
     async multiprompt(msg: Message) {
@@ -120,7 +120,7 @@ thin=${res.thin}`
 
     // // CookiecordClient isn't a ArgType
     // badcmd(msg: Message, nonexistant: CookiecordClient) {
-    //     msg.reply("hi!");
+    //     msg.channel.send("hi!");
     // }
 
     // This command is very stupid and should not exist anywhere near production!!!!!!!!!!
@@ -149,7 +149,7 @@ thin=${res.thin}`
                     "\n```"
             );
         } catch (error) {
-            msg.reply(
+            msg.channel.send(
                 "error! " +
                     (error || "")
                         .toString()
