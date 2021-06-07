@@ -45,7 +45,7 @@ export default class CommandParserModule extends Module {
         } else {
             if (stringArgs.length < leastArgs)
                 return msg.reply(
-                    `:warning: expected atleast ${leastArgs} argument${
+                    `:warning: expected at least ${leastArgs} argument${
                         leastArgs !== 1 ? "s" : ""
                     } but got ${stringArgs.length} argument${
                         stringArgs.length !== 1 ? "s" : ""
