@@ -52,6 +52,11 @@ export default class ExampleModule extends Module {
         msg.channel.send(this.client.guilds.cache.size + offset);
     }
 
+    @listener({ event: "ready", once: true })
+    onceReady() {
+        console.log("onceReady");
+    }
+
     @listener({ event: "message" })
     onMessage(msg: Message) {
         console.log("onMessage", msg.content);

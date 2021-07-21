@@ -3,12 +3,14 @@ import { Event } from "../util/clientEvents";
 
 export interface IListenerDecoratorOptions {
     event: Event;
+    once?: boolean;
 }
-export interface IListenerDecoratorMeta {
-    event: Event;
+interface IListenerDecoratorMeta {
     id: string;
     func: Function;
 }
+
+export type IListenerDecorator = IListenerDecoratorOptions & IListenerDecoratorMeta;
 
 export default function listener(opts: IListenerDecoratorOptions) {
     return function (
@@ -26,11 +28,12 @@ export default function listener(opts: IListenerDecoratorOptions) {
                 `Decorator needs to be applied to a Method. (${targetConstructorName}#${descriptor.value.name} was ${descriptor.value.constructor.name})`
             );
 
-        const listenersMeta: IListenerDecoratorMeta[] =
+        const listenersMeta: IListenerDecorator[] =
             Reflect.getMetadata("cookiecord:listenerMetas", target) || [];
 
         listenersMeta.push({
             event: opts.event,
+            once: opts.once || false,
             id: propertyKey,
             func: Reflect.get(target, propertyKey)
         });

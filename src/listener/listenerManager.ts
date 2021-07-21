@@ -19,7 +19,9 @@ export default class ListenerManager {
         listener.wrapperFunc = (...args: any[]) =>
             listener.func.apply(listener.module, args);
         this.listeners.add(listener);
-        this.client.on(listener.event, listener.wrapperFunc);
+        listener.once
+            ? this.client.once(listener.event, listener.wrapperFunc)
+            : this.client.on(listener.event, listener.wrapperFunc);
     }
 
     remove(listener: Listener) {

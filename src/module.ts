@@ -1,7 +1,7 @@
 import "reflect-metadata";
 import CookiecordClient from "./client";
 import { ICommandDecorator } from "./command/decorator";
-import { IListenerDecoratorMeta } from "./listener/decorator";
+import { IListenerDecorator } from "./listener/decorator";
 import { getArgTypes } from "./util/argTypeProvider";
 import { Command, Listener } from ".";
 
@@ -11,13 +11,14 @@ export default class Module {
         this.client = client;
     }
     processListeners() {
-        const listenersMeta: IListenerDecoratorMeta[] =
+        const listenersMeta: IListenerDecorator[] =
             Reflect.getMetadata("cookiecord:listenerMetas", this) || [];
 
         return listenersMeta.map(
             (meta) =>
                 ({
                     event: meta.event,
+                    once: meta.once,
                     id: this.constructor.name + "/" + meta.id,
                     module: this,
                     func: meta.func
