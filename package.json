@@ -3,7 +3,7 @@
     "version": "0.5.18",
     "main": "dist/src/index.js",
     "types": "dist/src/index.d.ts",
-    "author": "Ron B <me@ronthecookie.me> (https://ronthecookie.me)",
+    "author": "ckie <npm-12fb912@ckie.dev>",
     "license": "LGPL-3.0",
     "repository": "https://github.com/cookiecord/cookiecord",
     "dependencies": {
