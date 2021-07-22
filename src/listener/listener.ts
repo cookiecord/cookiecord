@@ -3,6 +3,7 @@ import { Module } from "..";
 
 export default interface Listener {
     event: Event;
+    once: boolean;
     id: string;
     module: Module;
     func: Function;
