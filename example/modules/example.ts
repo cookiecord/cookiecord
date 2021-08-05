@@ -75,6 +75,10 @@ export default class ExampleModule extends Module {
     single(msg: Message, str: string) {
         msg.channel.send("You said " + str);
     }
+    @command({ exactArgs: true })
+    exact(msg: Message, word: string) {
+        msg.channel.send("Exact word: " + word);
+    }
     @command()
     badboy(msg: Message, m: GuildMember) {
         msg.channel.send(`${m} is a bad boy!`);

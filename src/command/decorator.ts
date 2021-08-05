@@ -7,6 +7,7 @@ export interface ICommandDecoratorOptions {
     description?: string;
     aliases: string[];
     single: boolean;
+    exactArgs: boolean;
     inhibitors: Inhibitor[];
     onError: (msg: Message, error: Error) => void;
 }
@@ -70,6 +71,7 @@ export function command(
                 optional: optionals.includes(i + 1)
             })),
             single: opts.single || false,
+            exactArgs: opts.exactArgs || false,
             inhibitors: opts.inhibitors || [],
             usesContextAPI: types[0] == Context,
             onError:

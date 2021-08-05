@@ -43,7 +43,7 @@ export default class CommandParserModule extends Module {
         if (cmd.single) {
             typedArgs.push(stringArgs.join(" "));
         } else {
-            if (stringArgs.length < leastArgs)
+            if (stringArgs.length < leastArgs) {
                 return msg.reply(
                     `:warning: expected at least ${leastArgs} argument${
                         leastArgs !== 1 ? "s" : ""
@@ -51,6 +51,15 @@ export default class CommandParserModule extends Module {
                         stringArgs.length !== 1 ? "s" : ""
                     } instead`
                 );
+            } else if (cmd.exactArgs && stringArgs.length > cmd.args.length) {
+                return msg.reply(
+                    `:warning: expected at most ${cmd.args.length} argument${
+                        cmd.args.length !== 1 ? "s" : ""
+                    } but got ${stringArgs.length} argument${
+                        stringArgs.length !== 1 ? "s" : ""
+                    } instead`
+                );
+            }
             for (const i in stringArgs) {
                 if (!cmd.args[i]) continue; // avoid null
                 const sa = stringArgs[i];

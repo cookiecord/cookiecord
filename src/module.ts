@@ -40,6 +40,7 @@ export default class Module {
                     ),
                     module: this,
                     single: meta.single,
+                    exactArgs: meta.exactArgs,
                     inhibitors: meta.inhibitors,
                     onError: meta.onError,
                     usesContextAPI: meta.usesContextAPI

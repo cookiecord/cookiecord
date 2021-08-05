@@ -10,6 +10,7 @@ export default interface Command {
     description?: string;
     module: Module;
     single: boolean;
+    exactArgs: boolean;
     inhibitors: Inhibitor[];
     usesContextAPI: boolean;
     onError: (msg: Message, error: Error) => void;
