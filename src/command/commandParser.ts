@@ -38,11 +38,11 @@ export default class CommandParserModule extends Module {
         }
         // Argument type validation
         const typedArgs = [] as unknown[];
-        const leastArgs =
-            cmd.args.length - cmd.args.filter((x) => x.optional).length;
         if (cmd.single) {
             typedArgs.push(stringArgs.join(" "));
         } else {
+            const leastArgs =
+                cmd.args.length - cmd.args.filter(x => x.optional).length;
             if (stringArgs.length < leastArgs) {
                 return msg.reply(
                     `:warning: expected at least ${leastArgs} argument${
