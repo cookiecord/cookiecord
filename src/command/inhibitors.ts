@@ -19,11 +19,11 @@ const guildsOnly: Inhibitor = async (msg) =>
     msg.member ? undefined : "not in a guild";
 
 const dmsOnly: Inhibitor = async (msg) =>
-    msg.channel.type == "dm" ? undefined : "not in dms";
+    msg.channel.type == "DM" ? undefined : "not in dms";
 
 const hasGuildPermission = (perm: PermissionResolvable) =>
     mergeInhibitors(guildsOnly, async (msg) =>
-        msg.member!.hasPermission(perm)
+        msg.member!.permissions.has(perm)
             ? undefined
             : "missing discord permission " + perm
     );

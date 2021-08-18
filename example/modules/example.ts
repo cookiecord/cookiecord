@@ -34,7 +34,7 @@ export default class ExampleModule extends Module {
     }
     @command()
     add(msg: Message, x: number, @optional y?: number) {
-        msg.channel.send(x + (y || x));
+        msg.channel.send(`${x + (y || x)}`);
     }
 
     @command()
@@ -49,7 +49,7 @@ export default class ExampleModule extends Module {
 
     @command({ description: "abc", aliases: ["gc"] })
     guildcount(msg: Message, offset: number) {
-        msg.channel.send(this.client.guilds.cache.size + offset);
+        msg.channel.send(`${this.client.guilds.cache.size + offset}`);
     }
 
     @listener({ event: "ready", once: true })

@@ -9,8 +9,8 @@ export async function multiPrompt<O extends { [key: string]: string }>(
         await msg.channel.send(obj[key]);
         const nmsg = (
             await msg.channel.awaitMessages(
-                (nmsg) => nmsg.author.id == msg.author.id,
                 {
+                    filter: (nmsg: Message) => nmsg.author.id == msg.author.id,
                     max: 1,
                     time: 1000 * 60 * 2,
                     errors: ["time"]

@@ -1,5 +1,5 @@
 import chokidar from "chokidar";
-import { Client, ClientOptions, Message } from "discord.js";
+import { Client, ClientOptions, Intents, Message } from "discord.js";
 import { readdirSync } from "fs";
 import { join } from "path";
 import { Module } from ".";
@@ -25,7 +25,11 @@ class CookiecordClient extends Client {
 
     constructor(
         opts: Partial<CookiecordOptions> = {},
-        discordOpts: ClientOptions = {}
+        discordOpts: ClientOptions = {
+            // This is an incomplete list but it should work well enough for most
+            // bots.
+            intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_MESSAGE_REACTIONS]
+        }
     ) {
         super(discordOpts);
         this.botAdmins = opts.botAdmins || [];
@@ -66,7 +70,7 @@ class CookiecordClient extends Client {
         )
             throw new Error(
                 `cannot register multiple modules with same name (${module.name ||
-                    module.constructor.name})`
+                module.constructor.name})`
             );
         const mod = module instanceof Module ? module : new module(this);
         this.registerModuleInstance(mod);

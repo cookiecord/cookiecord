@@ -1,4 +1,4 @@
-import { Message, MessageEmbed } from "discord.js";
+import { GuildChannelResolvable, Message, MessageEmbed, Permissions, TextBasedChannel } from "discord.js";
 import CookiecordClient from "../client";
 import Module from "../module";
 import { command } from "./decorator";
@@ -36,7 +36,7 @@ export default class HelpModule extends Module {
                         ? `: *${command.description}*`
                         : "";
                     return `**${prefix}${name}**${description}`;
-                }),
+                }).join("\n"),
                 true
             );
         }, initialEmbed);
@@ -61,13 +61,14 @@ export default class HelpModule extends Module {
 
         if (
             msg.guild &&
-            !msg.guild.me?.permissionsIn(msg.channel).has("EMBED_LINKS")
+            msg.channel.isText() &&
+            !msg.guild.me?.permissionsIn(msg.channel as GuildChannelResolvable).has(Permissions.FLAGS.EMBED_LINKS)
         ) {
             await msg.channel.send(
                 `${CODEBLOCK}md\n${fallbackContent.join("\n")}\n${CODEBLOCK}`
             );
         } else {
-            await msg.channel.send(embed);
+            await msg.channel.send({ embeds: [embed] });
         }
     }
 }
