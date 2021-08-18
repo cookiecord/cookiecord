@@ -9,7 +9,7 @@ export default class CommandParserModule extends Module {
     constructor(client: CookiecordClient) {
         super(client);
     }
-    @listener({ event: "message" })
+    @listener({ event: "messageCreate" })
     async onMessage(msg: Message) {
         if (msg.author && msg.author.bot) return;
         const prefix = await this.client.getPrefix(msg);
