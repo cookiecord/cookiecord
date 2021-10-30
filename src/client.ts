@@ -125,25 +125,40 @@ class CookiecordClient extends Client {
         watcher.on("change", (file) => {
             // Here be dragons.
             // Might need more validation here...
+
+            // We may restore fileCache later if the new `require` fails
+            const fileCache = require.cache[file];
             delete require.cache[file];
-            const module = require(file) as {
-                default: typeof Module;
-            };
-            if (module.default) {
-                if (Object.getPrototypeOf(module.default) == Module) {
-                    const old = Array.from(this.modules).find(
-                        (mod) => module.default.name == mod.constructor.name
-                    );
-                    if (old) this.unregisterModule(old);
-                    this.registerModule(module.default);
-                    console.log(`Auto reloaded module in file ${file}`);
+
+            try {
+                const module = require(file) as {
+                    default: typeof Module;
+                };
+                if (module.default) {
+                    if (Object.getPrototypeOf(module.default) == Module) {
+                        const old = Array.from(this.modules).find(
+                            (mod) => module.default.name == mod.constructor.name
+                        );
+                        if (old) this.unregisterModule(old);
+                        this.registerModule(module.default);
+                        console.log(`Auto reloaded module in file ${file}`);
+                    } else {
+                        throw new TypeError(
+                            `Module ${file}'s default export is not of a Module.`
+                        );
+                    }
                 } else {
-                    throw new TypeError(
-                        `Module ${file}'s default export is not of a Module.`
-                    );
+                    throw new Error(`Module ${file} doesn't have a default export`);
                 }
-            } else {
-                throw new Error(`Module ${file} doesn't have a default export`);
+            } catch (error) {
+                const constructor: new() => unknown = error!.constructor;
+                // SyntaxError is built-in, TSError is ts-node's tsc compile error
+                if (constructor && (constructor.name == "TSError" || constructor.name == "SyntaxError")) {
+                    require.cache[file] = fileCache;
+                    console.error(error);
+                } else {
+                    throw error;
+                }
             }
         });
     }
