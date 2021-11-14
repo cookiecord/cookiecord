@@ -8,14 +8,12 @@ export async function multiPrompt<O extends { [key: string]: string }>(
     for (const key in obj) {
         await msg.channel.send(obj[key]);
         const nmsg = (
-            await msg.channel.awaitMessages(
-                {
-                    filter: (nmsg: Message) => nmsg.author.id == msg.author.id,
-                    max: 1,
-                    time: 1000 * 60 * 2,
-                    errors: ["time"]
-                }
-            )
+            await msg.channel.awaitMessages({
+                filter: (nmsg: Message) => nmsg.author.id == msg.author.id,
+                max: 1,
+                time: 1000 * 60 * 2,
+                errors: ["time"]
+            })
         ).first();
         if (!nmsg) throw new Error("User did not respond in time");
         responses[key] = nmsg.content;

@@ -9,7 +9,7 @@ export default class ListenerManager {
         if (this.listeners.has(listener)) return;
 
         const conflictingListener = Array.from(this.listeners).find(
-            (l) => l.id == listener.id
+            l => l.id == listener.id
         );
         if (conflictingListener) {
             throw new Error(
@@ -31,6 +31,6 @@ export default class ListenerManager {
     }
 
     getById(id: string): Listener | undefined {
-        return Array.from(this.listeners).find((c) => c.id == id);
+        return Array.from(this.listeners).find(c => c.id == id);
     }
 }

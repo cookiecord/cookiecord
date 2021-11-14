@@ -10,10 +10,11 @@ interface IListenerDecoratorMeta {
     func: Function;
 }
 
-export type IListenerDecorator = IListenerDecoratorOptions & IListenerDecoratorMeta;
+export type IListenerDecorator = IListenerDecoratorOptions &
+    IListenerDecoratorMeta;
 
 export default function listener(opts: IListenerDecoratorOptions) {
-    return function (
+    return function(
         target: Module,
         propertyKey: string,
         descriptor: PropertyDescriptor

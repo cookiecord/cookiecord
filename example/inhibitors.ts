@@ -20,7 +20,7 @@ class InhibitorsModule extends Module {
 
     @command({
         inhibitors: [
-            async (msg) =>
+            async msg =>
                 msg.author.username.toLowerCase().includes("cookie")
                     ? undefined
                     : "username must include cookie"
@@ -34,7 +34,7 @@ class InhibitorsModule extends Module {
 }
 
 new CookiecordClient({
-    commandArgumentTypes: { Date: (s) => new Date(s) },
+    commandArgumentTypes: { Date: s => new Date(s) },
     botAdmins: process.env.BOT_ADMINS?.split(",")
 })
     .registerModule(InhibitorsModule)
