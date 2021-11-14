@@ -160,9 +160,9 @@ thin=${res.thin}`
         } catch (error) {
             msg.channel.send(
                 "error! " +
-                    (error || "")
+                    (error as Error || "")
                         .toString()
-                        .split(this.client.token)
+                        .split(this.client.token || "")
                         .join("[TOKEN]")
             );
         }

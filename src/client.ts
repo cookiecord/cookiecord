@@ -151,7 +151,7 @@ class CookiecordClient extends Client {
                     throw new Error(`Module ${file} doesn't have a default export`);
                 }
             } catch (error) {
-                const constructor: new() => unknown = error!.constructor;
+                const constructor = (error as Function).constructor;
                 // SyntaxError is built-in, TSError is ts-node's tsc compile error
                 if (constructor && (constructor.name == "TSError" || constructor.name == "SyntaxError")) {
                     require.cache[file] = fileCache;

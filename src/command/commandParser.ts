@@ -94,7 +94,7 @@ export default class CommandParserModule extends Module {
                 `error while executing command ${cmd.id}! executed by ${msg.author.tag}/${msg.author.id} in guild ${msg.guild?.name}/${msg.guild?.id}\n`,
                 err
             );
-            cmd.onError(msg, err);
+            cmd.onError(msg, err as Error);
         }
         this.client.emit("commandExecution", context);
     }
