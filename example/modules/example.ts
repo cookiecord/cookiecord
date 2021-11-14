@@ -161,7 +161,7 @@ thin=${res.thin}`
             if (error instanceof Error) {
                 msg.channel.send(
                     "error! " +
-                        (error || "")
+                        error
                             .toString()
                             .split(this.client.token || "")
                             .join("[TOKEN]")
