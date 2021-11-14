@@ -42,7 +42,7 @@ export default class CommandParserModule extends Module {
             typedArgs.push(stringArgs.join(" "));
         } else {
             const leastArgs =
-                cmd.args.length - cmd.args.filter(x => x.optional).length;
+                cmd.args.length - cmd.args.filter((x) => x.optional).length;
             if (stringArgs.length < leastArgs) {
                 return msg.reply(
                     `:warning: expected at least ${leastArgs} argument${
@@ -90,11 +90,13 @@ export default class CommandParserModule extends Module {
                 await result;
             }
         } catch (err) {
-            console.error(
-                `error while executing command ${cmd.id}! executed by ${msg.author.tag}/${msg.author.id} in guild ${msg.guild?.name}/${msg.guild?.id}\n`,
-                err
-            );
-            cmd.onError(msg, err as Error);
+            if (err instanceof Error) {
+                console.error(
+                    `error while executing command ${cmd.id}! executed by ${msg.author.tag}/${msg.author.id} in guild ${msg.guild?.name}/${msg.guild?.id}\n`,
+                    err
+                );
+                cmd.onError(msg, err);
+            }
         }
         this.client.emit("commandExecution", context);
     }

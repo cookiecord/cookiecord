@@ -28,7 +28,11 @@ class CookiecordClient extends Client {
         discordOpts: ClientOptions = {
             // This is an incomplete list but it should work well enough for most
             // bots.
-            intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_MESSAGE_REACTIONS]
+            intents: [
+                Intents.FLAGS.GUILDS,
+                Intents.FLAGS.GUILD_MESSAGES,
+                Intents.FLAGS.GUILD_MESSAGE_REACTIONS
+            ]
         }
     ) {
         super(discordOpts);
@@ -69,8 +73,9 @@ class CookiecordClient extends Client {
             )
         )
             throw new Error(
-                `cannot register multiple modules with same name (${module.name ||
-                module.constructor.name})`
+                `cannot register multiple modules with same name (${
+                    module.name || module.constructor.name
+                })`
             );
         const mod = module instanceof Module ? module : new module(this);
         this.registerModuleInstance(mod);
@@ -148,16 +153,24 @@ class CookiecordClient extends Client {
                         );
                     }
                 } else {
-                    throw new Error(`Module ${file} doesn't have a default export`);
+                    throw new Error(
+                        `Module ${file} doesn't have a default export`
+                    );
                 }
             } catch (error) {
-                const constructor = (error as Function).constructor;
-                // SyntaxError is built-in, TSError is ts-node's tsc compile error
-                if (constructor && (constructor.name == "TSError" || constructor.name == "SyntaxError")) {
-                    require.cache[file] = fileCache;
-                    console.error(error);
-                } else {
-                    throw error;
+                if (error instanceof Error) {
+                    const constructor = error.constructor;
+                    // SyntaxError is built-in, TSError is ts-node's tsc compile error
+                    if (
+                        constructor &&
+                        (constructor.name == "TSError" ||
+                            constructor.name == "SyntaxError")
+                    ) {
+                        require.cache[file] = fileCache;
+                        console.error(error);
+                    } else {
+                        throw error;
+                    }
                 }
             }
         });

@@ -97,7 +97,7 @@ export default class ExampleModule extends Module {
         msg.channel.send(`${m}:hammer:`);
     }
     @command({
-        onError: msg => {
+        onError: (msg) => {
             msg.channel.send("custom error reply!");
         }
     })
@@ -158,13 +158,15 @@ thin=${res.thin}`
                     "\n```"
             );
         } catch (error) {
-            msg.channel.send(
-                "error! " +
-                    (error as Error || "")
-                        .toString()
-                        .split(this.client.token || "")
-                        .join("[TOKEN]")
-            );
+            if (error instanceof Error) {
+                msg.channel.send(
+                    "error! " +
+                        (error || "")
+                            .toString()
+                            .split(this.client.token || "")
+                            .join("[TOKEN]")
+                );
+            }
         }
     }
 }
