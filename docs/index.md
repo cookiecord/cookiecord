@@ -197,6 +197,32 @@ This command will add two numbers and if the second number is not provided, it w
 
 The `?` in `y?: number` is **REQUIRED** to make sure TypeScript can validate the types correctly
 
+## Commands in DMs
+
+Discord.js for some reason has decided to add extra hoops for this, so you need to do something like this:
+```ts
+    const client = new CookiecordClient(
+        {
+            botAdmins: /*...*/,
+            prefix: "!",
+        },
+        {
+            intents: [
+                Intents.FLAGS.DIRECT_MESSAGES,
+                Intents.FLAGS.DIRECT_MESSAGE_REACTIONS,
+                // You might also want these:
+                // Intents.FLAGS.GUILDS,
+                // Intents.FLAGS.GUILD_MESSAGES,
+                // Intents.FLAGS.GUILD_MESSAGE_REACTIONS,
+                // Intents.FLAGS.GUILD_MEMBERS
+            ],
+            partials: [
+                "CHANNEL"
+            ]
+        }
+    );
+```
+
 # cookiecord-generator
 
 `cookiecord-generator` is a CLI that can generate new cookiecord bots automagically:
