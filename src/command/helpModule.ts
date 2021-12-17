@@ -67,9 +67,18 @@ export default class HelpModule extends Module {
             );
         }, [] as string[]);
 
+        if (msg.partial) {
+            msg = await msg.fetch();
+        }
+
+        let channel = msg.channel;
+        if (msg.channel.partial) {
+            channel = await msg.channel.fetch();
+        }
+
         if (
             msg.guild &&
-            msg.channel.isText() &&
+            channel.isText() &&
             !msg.guild.me
                 ?.permissionsIn(msg.channel as GuildChannelResolvable)
                 .has(Permissions.FLAGS.EMBED_LINKS)
