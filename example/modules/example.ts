@@ -6,7 +6,9 @@ import {
     CommonInhibitors,
     Context,
     optional,
-    multiPrompt
+    multiPrompt,
+    mergeInhibitorsNonXor,
+    mergeInhibitors
 } from "../../src";
 import {
     Message,
@@ -57,7 +59,7 @@ export default class ExampleModule extends Module {
         console.log("onceReady");
     }
 
-    @listener({ event: "message" })
+    @listener({ event: "messageCreate" })
     onMessage(msg: Message) {
         console.log("onMessage", msg.content);
     }
@@ -127,6 +129,26 @@ thin=${res.thin}`
         );
     }
 
+
+    // This should enforce the cooldown
+    @command({ inhibitors: [CommonInhibitors.userCooldown(100000)] })
+    cooldown(msg: Message) {
+        msg.reply("okay");
+    }
+
+    // This should also enforce it unless you're a bot admin
+    @command({ inhibitors: [mergeInhibitorsNonXor(CommonInhibitors.userCooldown(100000), CommonInhibitors.botAdminsOnly)] })
+    inclusiveor(msg: Message) {
+        msg.reply("okay");
+    }
+
+
+    // This should also enforce both the cooldown and you being a bot admin
+    @command({ inhibitors: [mergeInhibitors(CommonInhibitors.userCooldown(100000), CommonInhibitors.botAdminsOnly)] })
+    cooland(msg: Message) {
+        msg.reply("okay");
+    }
+
     // // CookiecordClient isn't a ArgType
     // badcmd(msg: Message, nonexistant: CookiecordClient) {
     //     msg.channel.send("hi!");
@@ -150,20 +172,20 @@ thin=${res.thin}`
                 );
             await msg.channel.send(
                 "```js\n" +
-                    result
-                        .split(this.client.token)
-                        .join("[TOKEN]")
-                        .split("```")
-                        .join("\\`\\`\\`") +
-                    "\n```"
+                result
+                    .split(this.client.token)
+                    .join("[TOKEN]")
+                    .split("```")
+                    .join("\\`\\`\\`") +
+                "\n```"
             );
         } catch (error) {
             msg.channel.send(
                 "error! " +
-                    (error || "")
-                        .toString()
-                        .split(this.client.token)
-                        .join("[TOKEN]")
+                (error || "")
+                    .toString()
+                    .split(this.client.token)
+                    .join("[TOKEN]")
             );
         }
     }
