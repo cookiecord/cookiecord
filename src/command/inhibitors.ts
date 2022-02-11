@@ -40,19 +40,19 @@ export function mergeInhibitorsNonXor(a: Inhibitor, b: Inhibitor): Inhibitor {
 const botAdminsOnly: Inhibitor = async (
     msg: Message,
     client: CookiecordClient
-) => (client.botAdmins.includes(msg.author.id) ? undefined : "not a bot admin");
+) => (client.botAdmins.includes(msg.author.id) ? undefined : "you must be a bot admin");
 
 const guildsOnly: Inhibitor = async msg =>
-    msg.member ? undefined : "not in a guild";
+    msg.member ? undefined : "you must be in a guild";
 
 const dmsOnly: Inhibitor = async msg =>
-    msg.channel.type == "DM" ? undefined : "not in dms";
+    msg.channel.type == "DM" ? undefined : "you must be in DMs";
 
 const hasGuildPermission = (perm: PermissionResolvable) =>
     mergeInhibitors(guildsOnly, async msg =>
         msg.member!.permissions.has(perm)
             ? undefined
-            : "missing discord permission " + perm
+            : "you must have discord permission " + perm
     );
 
 const userCooldown = (ms: number): Inhibitor => {
