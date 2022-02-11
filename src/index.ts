@@ -6,6 +6,7 @@ export { default as Command } from "./command/command";
 export {
     default as CommonInhibitors,
     mergeInhibitors,
+    mergeInhibitorsNonXor,
     Inhibitor
 } from "./command/inhibitors";
 export {

@@ -25,6 +25,18 @@ export function mergeInhibitors(a: Inhibitor, b: Inhibitor): Inhibitor {
     };
 }
 
+export function mergeInhibitorsNonXor(a: Inhibitor, b: Inhibitor): Inhibitor {
+    return async (msg, client) => {
+        const aReason = await a(msg, client);
+        if (aReason == undefined) return aReason;
+        else {
+            const bReason = await b(msg, client);
+            if (bReason == undefined) return bReason;
+            else return generateOpFailMessage("at least one requirement", aReason, bReason);
+        }
+    };
+}
+
 const botAdminsOnly: Inhibitor = async (
     msg: Message,
     client: CookiecordClient
