@@ -2,11 +2,26 @@ import { Message, PermissionResolvable } from "discord.js";
 import humanizeDuration from "humanize-duration";
 import CookiecordClient from "..";
 
+function generateOpFailMessage(requirement: string, aReason: string | undefined, bReason: string | undefined): string {
+    if (aReason != undefined && bReason != undefined) {
+        return `(you must fulfill ${requirement})
+- ${aReason}
+- ${bReason}`;
+    } else {
+        return `${aReason || bReason}`;
+    }
+}
+
 export function mergeInhibitors(a: Inhibitor, b: Inhibitor): Inhibitor {
     return async (msg, client) => {
         const aReason = await a(msg, client);
-        if (aReason) return aReason;
-        else return await b(msg, client);
+        const bReason = await b(msg, client);
+        if (aReason == undefined && bReason == undefined) return undefined;
+        else if (aReason && bReason == undefined) return aReason;
+        else if (aReason == undefined && bReason) return bReason;
+        else {
+            return generateOpFailMessage("both requirements", aReason, bReason);
+        }
     };
 }
 
