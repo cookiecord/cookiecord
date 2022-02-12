@@ -8,7 +8,7 @@
     "repository": "https://github.com/cookiecord/cookiecord",
     "dependencies": {
         "chokidar": "^3.3.1",
-        "discord.js": "discordjs/discord.js#d0bc4d7ff037035d4f315a0286b06f0a1ade29c1",
+        "discord.js": "discordjs/discord.js#988a51b7641f8b33cc9387664605ddc02134859d",
         "dotenv-safe": "^8.2.0",
         "humanize-duration": "^3.21.0",
         "reflect-metadata": "^0.1.13"
@@ -22,7 +22,7 @@
     "devDependencies": {
         "@types/dotenv-safe": "^8.1.0",
         "@types/humanize-duration": "^3.18.0",
-        "@types/node": "^13.5.0",
+        "@types/node": "^17.0.17",
         "@types/ws": "^6.0.3",
         "prettier": "^1.19.1",
         "ts-node": "^8.4.1",
