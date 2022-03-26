@@ -87,7 +87,7 @@ export default class ExampleModule extends Module {
     }
     @command({})
     todo(msg: Message) {
-        msg.channel.send("```" + readFileSync("../TODO").toString().substr(0, 1900) + "```");
+        msg.channel.send("```" + readFileSync("../TODO").toString().slice(0, 1900) + "```");
     }
     @command({
         inhibitors: [
