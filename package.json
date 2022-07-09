@@ -1,6 +1,6 @@
 {
     "name": "cookiecord",
-    "version": "0.8.21",
+    "version": "0.8.22",
     "main": "dist/src/index.js",
     "types": "dist/src/index.d.ts",
     "author": "ckie <npm-12fb912@ckie.dev>",
@@ -8,7 +8,7 @@
     "repository": "https://github.com/cookiecord/cookiecord",
     "dependencies": {
         "chokidar": "^3.3.1",
-        "discord.js": "discordjs/discord.js#988a51b7641f8b33cc9387664605ddc02134859d",
+        "discord.js": "13.8.1",
         "dotenv-safe": "^8.2.0",
         "humanize-duration": "^3.21.0",
         "reflect-metadata": "^0.1.13"
