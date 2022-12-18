@@ -29,7 +29,6 @@ export function getArgTypes(client: CookiecordClient) {
                     user = msg.client.users.cache.find(
                         u => u.username.toLowerCase() == s.toLowerCase()
                     );
-                console.log(user);
                 return user;
             },
             GuildMember: (s, msg) => {
