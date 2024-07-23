@@ -157,7 +157,7 @@ class CookiecordClient extends Client {
                     );
                 }
             } catch (error) {
-                const constructor: new () => unknown = error!.constructor;
+                const constructor = error!.constructor;
                 // SyntaxError is built-in, TSError is ts-node's tsc compile error
                 if (
                     constructor &&

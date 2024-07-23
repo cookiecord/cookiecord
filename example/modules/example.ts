@@ -184,7 +184,7 @@ thin=${res.thin}`
                 "error! " +
                 (error || "")
                     .toString()
-                    .split(this.client.token)
+                    .split(this.client.token ??"")
                     .join("[TOKEN]")
             );
         }
